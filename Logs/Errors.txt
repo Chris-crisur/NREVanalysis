@@ -1,0 +1,2 @@
+getNameCodes: java.io.FileNotFoundException: Input/BBTV_R_full_aligned_rooted.fas_CODES.txt (No such file or directory)
+getNameCodes: java.io.FileNotFoundException: Input/Dengue_T1_aligned_clean_rooted_1.fas_CODES.txt (No such file or directory)

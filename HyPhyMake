@@ -1,0 +1,8 @@
+#!/bin/bash
+cd HYPHY/hyphy-master 
+rm CMakeCache.txt
+cmake ./
+make MP2
+sudo make install
+cd ../../
+cp HYPHY/hyphy-master/HYPHYMP HYPHY/
