@@ -44,11 +44,14 @@ import java.awt.event.ActionListener;
  */
 public class TreeIO implements ActionListener{
 	
+	private boolean gui;
+	private boolean hpc;
 	private JFrame frame = new JFrame("LOG");
 	private JPanel panel = new JPanel(new BorderLayout());
 	private JTextArea logArea;
 	private JComboBox<String> next;
 	private DefaultComboBoxModel<String> model;
+	private List<String> alignmentsList;
 	private String nextAlignment="";
 	private JLabel current;
 	private JScrollPane scrollingArea;
@@ -58,88 +61,94 @@ public class TreeIO implements ActionListener{
 	private File LogFile;
 	private String path;
 	
-	public TreeIO(boolean b) {
-		if(b){
-        	path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        	path=path.substring(0,path.lastIndexOf(File.separator)+1);
-        	}
-	    else
-	    	path="";
-		
-		LogFile = new File(path+"Logs"+File.separator+"Log.txt");
-		logArea = new JTextArea();
-        logArea.setEditable(false);
-        scrollingArea = new JScrollPane(logArea);
+	public TreeIO(boolean gui,boolean hpc,boolean b) {
+	this.gui = gui;
+	this.hpc = hpc;
+        if(b||hpc){
+            path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            path=path.substring(0,path.lastIndexOf(File.separator)+1);
+            }
+        else
+            path="";
+            
+        LogFile = new File(path+"Logs"+File.separator+"Log.txt");
+        alignmentsList = new ArrayList<String>();
         
-        current = new JLabel("");
-        JLabel currentLabel = new JLabel("Current: ");
-        currentLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
-        JLabel nextLabel = new JLabel("Next: ");
-        nextLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
-        JButton skip = new JButton("Skip Current");
-        skip.setActionCommand("skip");
-        skip.addActionListener(this);
-        JButton reset = new JButton("Reset Skipped");
-        reset.setActionCommand("reset");
-        reset.addActionListener(this);
-        
-        model = new DefaultComboBoxModel<>();
-        next = new JComboBox<>(model);
-        
-        progressBar = new JProgressBar(0, 100);
-        progressBar.setValue(0);
-        progressBar.setStringPainted(true);
-        
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 2;
-        c.weightx = 0.0;
-        c.gridx = 0;
-        c.gridy = 0;
-        panel.add(scrollingArea, c);
-        
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 1;
-        c.weightx=0.5;
-        c.gridx = 0;
-        c.gridy = 1;
-        panel.add(currentLabel, c);
-        c.gridx = 1;
-        panel.add(current, c);
-        
-        c.gridy=2;
-        c.gridx = 0;
-        panel.add(nextLabel, c);
-        c.gridx = 1;
-        panel.add(next, c);
-        
-        c.gridy=3;
-        c.gridx = 0;
-        panel.add(skip, c);
-        c.gridx = 1;
-        panel.add(reset, c);
-        
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 2;
-        c.gridx = 0;
-        c.gridy = 4;
-        panel.add(progressBar,c);
-        
-        frame.setContentPane(panel); 
-        
-        scrollingArea.setPreferredSize(new Dimension(800, 500));
-        panel.validate();
-        
-        DefaultCaret caret = (DefaultCaret)logArea.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        if(gui){
+            logArea = new JTextArea();
+            logArea.setEditable(false);
+            scrollingArea = new JScrollPane(logArea);
+            
+            current = new JLabel("");
+            JLabel currentLabel = new JLabel("Current: ");
+            currentLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
+            JLabel nextLabel = new JLabel("Next: ");
+            nextLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
+            JButton skip = new JButton("Skip Current");
+            skip.setActionCommand("skip");
+            skip.addActionListener(this);
+            JButton reset = new JButton("Reset Skipped");
+            reset.setActionCommand("reset");
+            reset.addActionListener(this);
+            
+            model = new DefaultComboBoxModel<>();
+            next = new JComboBox<>(model);
+            
+            progressBar = new JProgressBar(0, 100);
+            progressBar.setValue(0);
+            progressBar.setStringPainted(true);
+            
+            panel.setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 2;
+            c.weightx = 0.0;
+            c.gridx = 0;
+            c.gridy = 0;
+            panel.add(scrollingArea, c);
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 1;
+            c.weightx=0.5;
+            c.gridx = 0;
+            c.gridy = 1;
+            panel.add(currentLabel, c);
+            c.gridx = 1;
+            panel.add(current, c);
+            
+            c.gridy=2;
+            c.gridx = 0;
+            panel.add(nextLabel, c);
+            c.gridx = 1;
+            panel.add(next, c);
+            
+            c.gridy=3;
+            c.gridx = 0;
+            panel.add(skip, c);
+            c.gridx = 1;
+            panel.add(reset, c);
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.gridwidth = 2;
+            c.gridx = 0;
+            c.gridy = 4;
+            panel.add(progressBar,c);
+            
+            frame.setContentPane(panel); 
+            
+            scrollingArea.setPreferredSize(new Dimension(800, 500));
+            panel.validate();
+            
+            DefaultCaret caret = (DefaultCaret)logArea.getCaret();
+            caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
-        //... Set window characteristics.
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.pack();
-        frame.setVisible(true);
+            //... Set window characteristics.
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null);
+            frame.pack();
+            frame.setVisible(true);
+       }
     }
 	
 	/**
@@ -198,10 +207,10 @@ public class TreeIO implements ActionListener{
             String line = "";
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(shell.getInputStream()));
-        	
+        	long difference = 0;
         	while(true){
     			try{
-    				long difference = System.currentTimeMillis()-startTime;
+    				difference = System.currentTimeMillis()-startTime;
     				if(difference>timeLimit){
     					shell.destroy();
     					return "timed";
@@ -271,10 +280,20 @@ public class TreeIO implements ActionListener{
      */
     public String FastTree(String alignfilein, String treefileout){
             //alignfilein="Input"+File.separator+"alignment.phy";
-            File ftf = new File(path+"FastTree"+File.separator+"FastTree");
-            String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
+            File ftf;
+            String [] cmds;
+            if(hpc){
+                ftf = new File("/opt/exp_soft/FastTree");
+                cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
+                    path+File.separator+"Input"+File.separator+treefileout,
+                    path+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
+            }
+            else{
+                ftf = new File(path+"FastTree"+File.separator+"FastTree");
+                cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     ".."+File.separator+"Input"+File.separator+treefileout,
                     ".."+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
+            }
             return Shell(ftf,cmds);
     }
     
@@ -367,13 +386,23 @@ public class TreeIO implements ActionListener{
     	String line = "", hashStr="",original="";
     	int loc=0;
     	try {
-    		File alignCodeFile = new File(path+"Input"+File.separator+alignmentName+"_CODES.txt");
-    		
+            File alignCodeFile = new File(path+"Input"+File.separator+alignmentName+"_CODES.txt");
+            if(!alignCodeFile.exists()){
+                alignCodeFile = new File(path+"Input"+File.separator+alignmentName);
+            }
+            if(!alignCodeFile.exists()){
+                Log("Possible error with alignment " + alignmentName);
+            }
             BufferedReader reader=new BufferedReader(new FileReader(alignCodeFile));
             while((line=reader.readLine())!=null){
             	loc=line.indexOf(">"); //separated using ">"
+            	if(loc==-1)
+                    continue;   //not a correct line
+                    
             	hashStr=line.substring(0,loc);
             	original=line.substring(loc+1);
+            	if(loc==0)
+                    hashStr = original;
             	replace.put(hashStr, original);
             }
             reader.close();
@@ -510,7 +539,9 @@ public class TreeIO implements ActionListener{
 			    
 																			    
 			    File treefile = new File(path+"HYPHY" + File.separator + "tree");//put tree in file under HYPHY;
-			    String [] cmds ={"HYPHYMP","SchmodelTest.bf"};
+			    String [] cmds ={"./HYPHYMP","SchmodelTest.bf"};
+			    if(hpc)
+			    cmds[0] = "/opt/exp_soft/HYPHYMPI";
 			    String location="";
 			    String replace="";
 			    
@@ -600,11 +631,11 @@ public class TreeIO implements ActionListener{
 					    	Log("Would take longer than a week to complete. \t Estimated time remaining: " + day + " days ("+tim+")");
 				    		return arr;
 					    }
-					    progressBar.setString((i+1)*100/SIZE + "% \t Estimated time remaining: " + day + " days ("+tim+")");
+					    setProg((i+1)*100/SIZE + "% \t Estimated time remaining: " + day + " days ("+tim+")");
 			        }
 			        setProg((i+1)*100/SIZE);
 		        }//end for loop
-			    progressBar.setString(null);
+			    //progressBar.setString(null);
 			    setProg(0); //reset progressBar
 			    
 			    
@@ -878,15 +909,19 @@ public class TreeIO implements ActionListener{
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM HH:mm:ss");
         Date date = new Date();
         String logStr=dateFormat.format(date) + ":\t" + str + "\n";
-    	logArea.append(logStr);
     	logFile(logStr);
     	if(LogFile!=null){
     		logFile(LogFile,logStr);
     	}
-    	try{
-    		scrollingArea.getVerticalScrollBar().setValue(scrollingArea.getHeight());
-    	}catch(NullPointerException npe){
-    		logError("log scroll error: " + npe.toString());
+    	if(gui){
+            logArea.append(logStr);
+            try{
+                    scrollingArea.getVerticalScrollBar().setValue(scrollingArea.getHeight());
+            }catch(NullPointerException npe){
+                    logError("log scroll error: " + npe.toString());
+            }
+    	}else{
+            System.out.println(logStr);
     	}
     }
     
@@ -936,12 +971,19 @@ public class TreeIO implements ActionListener{
     	LogFile=f;
     }
     
+    public File getLogFile(){
+        return LogFile;
+    }
+    
     /**
      * All errors should be submitted here and logged under Logs/Errors.txt
      * @param str	String to be error-logged
      */
     public void logError(String str){
-    	logArea.append("\tERROR: " + str + "\n");
+        if(gui)
+            logArea.append("\tERROR: " + str + "\n");
+        else
+            System.out.println(str);
     	File file = new File(path+"Logs" + File.separator+"Errors.txt");
         file.getParentFile().mkdirs();
     	Write(file,str +"\n",true);
@@ -956,7 +998,18 @@ public class TreeIO implements ActionListener{
      * @param p		value to be set
      */
     public void setProg(int p){
-    	progressBar.setValue(p);
+        if(gui){
+            if(p==0)
+                progressBar.setString(null);
+            progressBar.setValue(p);
+    	}
+    }
+    
+    public void setProg(String s){
+        if(gui)
+            progressBar.setString(s);
+        else
+            Log(s);
     }
     
     /**
@@ -965,18 +1018,23 @@ public class TreeIO implements ActionListener{
      */
     public void Display(String str){
     	Log(str);
-    	logFile(str);
-        JOptionPane.showMessageDialog(null,str);
+    	if(gui)
+            JOptionPane.showMessageDialog(null,str);
     }
     
     /**
-     * The combo box which contains all the alignments still to be done (with selected as the next to be done) can be populated by an array of Strings here.
+     * The combo box or list which contains all the alignments still to be done (with selected as the next to be done) can be populated by an array of Strings here.
      * @param array
      */
-    public void populateComboBox(List<String> array){
-    	next.removeAllItems();
-    	for(String s:array)
-    		model.addElement(s);
+    public void populateAlignmentList(List<String> array){
+        if(gui){
+            next.removeAllItems();
+            for(String s:array)
+                model.addElement(s);
+        }else{
+            alignmentsList = new ArrayList<String>();
+            alignmentsList.addAll(array);
+        }
     }
     
     /**
@@ -984,14 +1042,20 @@ public class TreeIO implements ActionListener{
      * Could also implement a listener of combobox, but unnecessary for now.
      */
     public void setNextAlignment(){
-    	nextAlignment=(String)next.getSelectedItem();
+        if(gui){
+            nextAlignment=(String)next.getSelectedItem();
+        }else{
+            nextAlignment=alignmentsList.get(0);
+            alignmentsList.remove(0);
+    	}
     }
     /**
      * Retrieves the next alignment and sets it as the current alignment being processed
      * @return		next alignment
      */
     public String getNextAlignment(){
-    	current.setText(nextAlignment);
+        if(gui)
+            current.setText(nextAlignment);
     	return nextAlignment;
     }
     
