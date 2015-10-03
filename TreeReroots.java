@@ -23,15 +23,10 @@ public class TreeReroots {
 
     /*
      * class instantiator
-     */
-    public TreeReroots(){
-    	 io = new TreeIO(build);
-            run();
-    }//end TreeReroots
-    
-    public TreeReroots(boolean b){
+     */    
+    public TreeReroots(boolean gui, boolean hpc,boolean b){
     	build=b;
-    	io = new TreeIO(build);
+    	io = new TreeIO(gui, hpc, build);
         run();
 }//end TreeReroots
 
@@ -537,26 +532,31 @@ public class TreeReroots {
       io.Log(AICStr);
       io.Log(valueArray);
       String name = alignmentName.substring(0,alignmentName.indexOf('.'));
-      File outFile = new File(path+"Output"+File.separator+name+File.separator+"Details.txt");
-      io.logFile(outFile,likeStr+"\n"+AICStr);
-      for(String svalue: valueArray)//output which method was used and duplicate values
-    	  io.logFile(outFile,svalue);
       
+      File oldLog = io.getLogFile();
+      io.setLogFile(new File(path+"Output"+File.separator+name+File.separator+"Summary.txt"));
+      io.Log(likeStr+"\n"+AICStr);
+      for(String svalue: valueArray){//output which method was used and duplicate values
+    	  io.Log(svalue);
+      }
+      
+      
+      //use difference to like for branch lengths
       double [] finalLike = new double[OUT.length];
       if(methA=='G'){
     	  for (int i=0;i<finalLike.length;i++){
     		 // finalLike[i]=GTR[i][0];
-    		  finalLike[i]=NREV[i][0];//want likelihood of NREV anyway
+    		  finalLike[i]=like-NREV[i][0];//want likelihood of NREV anyway
     	  }
       }
       else if(methA=='S'){
     	  for (int i=0;i<finalLike.length;i++){
-    		  finalLike[i]=stGTR[i][0];
+    		  finalLike[i]=like-stGTR[i][0];
     	  }
       }
       else{
     	  for (int i=0;i<finalLike.length;i++){
-        		  finalLike[i]=NREV[i][0];
+        		  finalLike[i]=like-NREV[i][0];
         	  }
       }
       
@@ -564,18 +564,27 @@ public class TreeReroots {
       BinaryTree<String> node;
       io.Log("Start assigning likelihood values to tree");
       int prog=1;
-      for(int i: indexArray){
-    	  tree = generateTree(trees.get(i));
-    	  node = tree;
-	      /*
-	       * because node is pointer, no return value required
-	       * originalTree used because rerooted tree may be mirrored instead and not seen as the same
-	       * 
-	       */
-	      assignLike(originalTree, node, trees, finalLike); 
-	      finalTrees.add(tree.toString());
-	      io.setProg((prog++*100)/indexArray.size());
+      for(int index: indexArray){
+            io.Log("script output for: " + index + "\n" + OUT[index]);
+            if(NREV[index][1]-GTR[index][1]>5)
+                io.Log("strong support for rooting");
+            else if(NREV[index][1]-GTR[index][1]>2)
+                io.Log("moderate support for rooting");
+            else
+                io.Log("not enough evidence to strongly support rooting");
+                
+            tree = generateTree(trees.get(index));
+            node = tree;
+            /*
+            * because node is pointer, no return value required
+            * originalTree used because rerooted tree may be mirrored instead and not seen as the same
+            * 
+            */
+            assignLike(originalTree, node, trees, finalLike); 
+            finalTrees.add(tree.toString());
+            io.setProg((prog++*100)/indexArray.size());
       }
+      io.setLogFile(oldLog);
       									
       return finalTrees;
     }
@@ -606,7 +615,7 @@ public class TreeReroots {
 			  assignLike(tree,node.right(),trees,values);	//assign values to right branch
     	}
     }
-
+    
     public static void UPDATE(String next){
     	
     }
@@ -660,6 +669,7 @@ try{
 	        List<Map<String,String>> replacements = new ArrayList<>();
 	        File treeFile;
 	        String nameTemp;
+	        String returnShellVal="";
 	        for(String alignment: alignments){
 	        	if(alignment.endsWith("phy")){
 	        	 tree = alignment.substring(0,alignment.length()-3)+"nwk";
@@ -678,11 +688,11 @@ try{
 	        	nameTemp = alignment.substring(0,alignment.indexOf('.'));
 	            io.setLogFile(new File(path+"Output"+File.separator+nameTemp+File.separator+"Details.txt"));
 	        	if(!treeFile.exists()||io.isEmpty(treeFile)){
-		        	replacements.add(io.convertNames(alignment,"\n"));	//relatively quick (<1s) to convert to linux format
+                            replacements.add(io.convertNames(alignment,"\n"));	//relatively quick (<1s) to convert to linux format
 		            timebefore = System.currentTimeMillis();
 		            io.Log("FastTree for " + alignment);
-		        	io.FastTree(alignment,tree); //FastTree implementation
-		        	io.Log("done in "+ String.valueOf((System.currentTimeMillis()-timebefore)/1000) + " seconds" );
+                            returnShellVal = io.FastTree(alignment,tree); //FastTree implementation
+                            io.Log("done in "+ String.valueOf((System.currentTimeMillis()-timebefore)/1000) + " seconds" );
 	        	}
 	        	else{
 	        		Map<String,String> temp = io.getNameCodes(alignment); //need to have different method otherwise will convert already converted sequence names
@@ -690,7 +700,7 @@ try{
 	        	}
 	        	if(io.isEmpty(treeFile)){
 	    			io.Log("FastTree FAILED for " + alignment);
-	    			io.Log("ERROR: \n" + io.FastTree(alignment,tree));
+	    			io.Log("ERROR: \n" + returnShellVal);
 	    			io.Log("For more info, try FastTree -nt -gtr -nosupport -out " + tree + " " + alignment);
 	    		}
 	        }
@@ -705,11 +715,11 @@ try{
 	        String currentAlignment="";
             
             if(io.getNextAlignment().equals("")){
-        		io.populateComboBox(files);
+        		io.populateAlignmentList(files);
         		io.setNextAlignment();
             	currentAlignment=io.getNextAlignment();
             	files.remove(currentAlignment);
-            	io.populateComboBox(files);
+            	io.populateAlignmentList(files);
             }
             else{
             	io.setNextAlignment();
@@ -727,7 +737,7 @@ try{
             	else{
             		skipnames.clear();
             	}
-            	io.populateComboBox(files);
+            	io.populateAlignmentList(files);
             }//end else
             
             
@@ -780,6 +790,7 @@ try{
 	            io.Log("Rerooting done in " + r_time_total + " seconds");
 	            reroots.addAll(rerootset);
 	            io.outputTrees(reroots,currentAlignment+"_REROOTS"); //all reroots one file
+	            io.outputRerootedTress(reroots,name);
             }
             
             io.Log("rerootings: " + reroots.size()+" expected: " + (names.length*2-3));
@@ -828,7 +839,7 @@ try{
             	continue;
             }
             
-            List<String> finalTree= optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
+            List<String> finalTree = optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
             
             List<String> keyList = new ArrayList<>();
             keyList.addAll(replacements.get(r).keySet());

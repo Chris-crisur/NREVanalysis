@@ -1,0 +1,943 @@
+
+Variable 'END_OF_FILE' was not initialized prior to being used
+Row and/or column partition is empty. All the data will be used by default.
+Model GTRModel assigned to BCGBHIFEHI
+Model GTRModel assigned to BDECDJCIGF
+Model GTRModel assigned to BDECDJCIGG
+Model GTRModel assigned to BDECDJCIGH
+Model GTRModel assigned to Node5
+Model GTRModel assigned to Node3
+Model GTRModel assigned to Node1
+Model GTRModel assigned to CAJFHACHCF
+Model GTRModel assigned to BCGBHIFEHD
+Model GTRModel assigned to BCGBHIFEFB
+Model GTRModel assigned to BCGBHIFEFA
+Model GTRModel assigned to BDHAJIIDBF
+Model GTRModel assigned to Node15
+Model GTRModel assigned to BDECDJCIGJ
+Model GTRModel assigned to BDHAJIIDBI
+Model GTRModel assigned to BDECDJCIHA
+Model GTRModel assigned to BCGBHIFEEI
+Model GTRModel assigned to Node23
+Model GTRModel assigned to Node21
+Model GTRModel assigned to Node19
+Model GTRModel assigned to BDECDJCIGI
+Model GTRModel assigned to CAEHDDBBAC
+Model GTRModel assigned to BEHIEAEHAA
+Model GTRModel assigned to CAEHDDBAHJ
+Model GTRModel assigned to Node33
+Model GTRModel assigned to Node31
+Model GTRModel assigned to JAHEAGJFA
+Model GTRModel assigned to HGIDBIGHI
+Model GTRModel assigned to CAEHDDBAIA
+Model GTRModel assigned to Node39
+Model GTRModel assigned to Node37
+Model GTRModel assigned to HGIDBIGIA
+Model GTRModel assigned to Node36
+Model GTRModel assigned to Node30
+Model GTRModel assigned to HGFFHHJAG
+Model GTRModel assigned to BFEDHFBBCJ
+Model GTRModel assigned to BFEDHFBBAH
+Model GTRModel assigned to Node48
+Model GTRModel assigned to Node46
+Model GTRModel assigned to BDECDJCIAA
+Model GTRModel assigned to JAHEAGJFC
+Model GTRModel assigned to Node53
+Model GTRModel assigned to JAHEAGJFB
+Model GTRModel assigned to CAJFHACHCG
+Model GTRModel assigned to Node56
+Model GTRModel assigned to Node52
+Model GTRModel assigned to BFEDHFBBDA
+Model GTRModel assigned to BDECDJCIDD
+Model GTRModel assigned to BDECDJCIDF
+Model GTRModel assigned to BDECDJCIDE
+Model GTRModel assigned to Node66
+Model GTRModel assigned to Node64
+Model GTRModel assigned to Node62
+Model GTRModel assigned to BDECDJCIDA
+Model GTRModel assigned to BDECDJCIAI
+Model GTRModel assigned to Node72
+Model GTRModel assigned to BDECDJCIAH
+Model GTRModel assigned to BDECDJCIAG
+Model GTRModel assigned to JAHEAGJFD
+Model GTRModel assigned to Node78
+Model GTRModel assigned to Node76
+Model GTRModel assigned to BDECDJCIDC
+Model GTRModel assigned to BDECDJCIDB
+Model GTRModel assigned to Node82
+Model GTRModel assigned to BDECDJCIAB
+Model GTRModel assigned to Node81
+Model GTRModel assigned to Node75
+Model GTRModel assigned to Node71
+Model GTRModel assigned to BDECDJCIAF
+Model GTRModel assigned to BDECDJCIAE
+Model GTRModel assigned to Node86
+Model GTRModel assigned to Node70
+Model GTRModel assigned to BDECDJCIAD
+Model GTRModel assigned to BDECDJCIGE
+Model GTRModel assigned to BDECDJCIDI
+Model GTRModel assigned to BDECDJCIGB
+Model GTRModel assigned to BDECDJCIDJ
+Model GTRModel assigned to Node97
+Model GTRModel assigned to Node95
+Model GTRModel assigned to BDECDJCIGD
+Model GTRModel assigned to BDECDJCIGC
+Model GTRModel assigned to Node100
+Model GTRModel assigned to Node94
+Model GTRModel assigned to Node92
+Model GTRModel assigned to BDECDJCIDH
+Model GTRModel assigned to BDECDJCIDG
+Model GTRModel assigned to Node103
+Model GTRModel assigned to Node91
+Model GTRModel assigned to Node89
+Model GTRModel assigned to Node69
+Model GTRModel assigned to Node61
+Model GTRModel assigned to BDECDJCIAC
+Model GTRModel assigned to Node60
+Model GTRModel assigned to HDGICJDBC
+Model GTRModel assigned to FEFICEBGB
+Model GTRModel assigned to BIBAHAGCFJ
+Model GTRModel assigned to BDAJBEHAEA
+Model GTRModel assigned to BIBAHAGCGB
+Model GTRModel assigned to BIBAHAGCFG
+Model GTRModel assigned to Node117
+Model GTRModel assigned to BIBAHAGCIE
+Model GTRModel assigned to HGJDGGABF
+Model GTRModel assigned to BAFIAGAJJJ
+Model GTRModel assigned to Node122
+Model GTRModel assigned to Node120
+Model GTRModel assigned to Node116
+Model GTRModel assigned to Node114
+Model GTRModel assigned to Node112
+Model GTRModel assigned to Node110
+Model GTRModel assigned to Node108
+Model GTRModel assigned to JAHEAGJFF
+Model GTRModel assigned to JAHEAGJFE
+Model GTRModel assigned to Node125
+Model GTRModel assigned to Node107
+Model GTRModel assigned to Node59
+Model GTRModel assigned to Node51
+Model GTRModel assigned to Node45
+Model GTRModel assigned to FBGCBFGFG
+Model GTRModel assigned to FBGCBFGFH
+Model GTRModel assigned to Node129
+Model GTRModel assigned to FBGCBFFJG
+Model GTRModel assigned to FBGCBFGFC
+Model GTRModel assigned to Node135
+Model GTRModel assigned to FBGCBFGCA
+Model GTRModel assigned to FBGCBFFJB
+Model GTRModel assigned to FBGCBFFIJ
+Model GTRModel assigned to FBGCBFFJF
+Model GTRModel assigned to FBGCBFGCC
+Model GTRModel assigned to Node148
+Model GTRModel assigned to FBGCBFGCE
+Model GTRModel assigned to FBGCBFFJA
+Model GTRModel assigned to Node151
+Model GTRModel assigned to Node147
+Model GTRModel assigned to Node145
+Model GTRModel assigned to FBGCBFGBI
+Model GTRModel assigned to FBGCBFFJC
+Model GTRModel assigned to FBGCBFGFB
+Model GTRModel assigned to Node157
+Model GTRModel assigned to Node155
+Model GTRModel assigned to FBGCBFGCF
+Model GTRModel assigned to Node154
+Model GTRModel assigned to Node144
+Model GTRModel assigned to Node142
+Model GTRModel assigned to Node140
+Model GTRModel assigned to FBGCBFFJD
+Model GTRModel assigned to FBGCBFGCB
+Model GTRModel assigned to Node161
+Model GTRModel assigned to Node139
+Model GTRModel assigned to FBGCBFGFF
+Model GTRModel assigned to Node138
+Model GTRModel assigned to Node134
+Model GTRModel assigned to FBGCBFGEJ
+Model GTRModel assigned to Node133
+Model GTRModel assigned to FBGCBFGFA
+Model GTRModel assigned to FBGCBFGCH
+Model GTRModel assigned to FBGCBFFJE
+Model GTRModel assigned to Node172
+Model GTRModel assigned to Node170
+Model GTRModel assigned to FBGCBFGFI
+Model GTRModel assigned to Node169
+Model GTRModel assigned to FBGCBFGCD
+Model GTRModel assigned to FBGCBFGFE
+Model GTRModel assigned to FBGCBFGFD
+Model GTRModel assigned to Node178
+Model GTRModel assigned to Node176
+Model GTRModel assigned to Node168
+Model GTRModel assigned to FBGCBFGBJ
+Model GTRModel assigned to Node167
+Model GTRModel assigned to FBGCBFGCG
+Model GTRModel assigned to Node166
+Model GTRModel assigned to Node132
+Model GTRModel assigned to Node128
+Model GTRModel assigned to Node44
+Model GTRModel assigned to BCGBHIFEHE
+Model GTRModel assigned to BCGBHIFEHJ
+Model GTRModel assigned to Node185
+Model GTRModel assigned to BCGBHIFEIA
+Model GTRModel assigned to BDECDJCIJG
+Model GTRModel assigned to BDECDJCIJF
+Model GTRModel assigned to Node194
+Model GTRModel assigned to BDECDJCIJH
+Model GTRModel assigned to Node193
+Model GTRModel assigned to BDECDJCIJE
+Model GTRModel assigned to Node192
+Model GTRModel assigned to BDECDJCIJI
+Model GTRModel assigned to BDECDJCIJC
+Model GTRModel assigned to Node199
+Model GTRModel assigned to Node191
+Model GTRModel assigned to BJIHCBBJAF
+Model GTRModel assigned to CAEHDDBBAD
+Model GTRModel assigned to BDECDJCIJD
+Model GTRModel assigned to Node204
+Model GTRModel assigned to Node202
+Model GTRModel assigned to Node190
+Model GTRModel assigned to Node188
+Model GTRModel assigned to Node184
+Model GTRModel assigned to BDECDJCJAA
+Model GTRModel assigned to BDECDJCJAB
+Model GTRModel assigned to BDECDJCJCE
+Model GTRModel assigned to BDECDJCJCD
+Model GTRModel assigned to Node212
+Model GTRModel assigned to BDECDJCJCG
+Model GTRModel assigned to BDECDJCJCF
+Model GTRModel assigned to Node215
+Model GTRModel assigned to Node211
+Model GTRModel assigned to Node209
+Model GTRModel assigned to Node207
+Model GTRModel assigned to Node183
+Model GTRModel assigned to Node43
+Model GTRModel assigned to Node29
+Model GTRModel assigned to BDHAJIIDBG
+Model GTRModel assigned to BCGBHIFEHH
+Model GTRModel assigned to BCGBHIFEHG
+Model GTRModel assigned to Node221
+Model GTRModel assigned to BDECDJCIJJ
+Model GTRModel assigned to BCGBHIFEEJ
+Model GTRModel assigned to BCGBHIFEHF
+Model GTRModel assigned to BDHAJIIDBH
+Model GTRModel assigned to Node228
+Model GTRModel assigned to Node226
+Model GTRModel assigned to Node224
+Model GTRModel assigned to Node220
+Model GTRModel assigned to Node218
+Model GTRModel assigned to Node28
+Model GTRModel assigned to Node26
+Model GTRModel assigned to Node18
+Model GTRModel assigned to Node14
+Model GTRModel assigned to Node12
+Model GTRModel assigned to Node10
+Model GTRModel assigned to Node8
+Rooted tree. Removing one branch - the left root child has been promoted to be the new root
+The tips of the tree:GTRTree were matched with the species names from the data as follows {21,16,17,18,22,19,20,64,67,87,61,58,59,57,75,60,72,55,76,77,73,2,0,1,88,89,114,115,101,102,103,104,112,113,108,107,109,110,111,100,105,106,91,96,94,98,99,95,97,93,92,90,10,11,5,6,3,4,7,8,9,12,13,15,48,14,33,40,39,45,42,43,41,44,46,34,36,47,37,38,35,23,27,30,32,31,29,26,28,25,24,52,53,68,81,79,82,83,80,70,71,84,85,69,50,49,56,65,66,51,63,74,54,62,78,86}
+
+Pseudo-optimal path's cost 61552 vs 202440 for 1..k=> a 3.28893 x improvement
+Partition  reversible model flag computed as 0
+Variable 'lf_gtr' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHI.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGF.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGG.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGH.t' was not initialized prior to being used
+Variable 'GTRTree.CAJFHACHCF.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHD.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEFB.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEFA.t' was not initialized prior to being used
+Variable 'GTRTree.BDHAJIIDBF.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGJ.t' was not initialized prior to being used
+Variable 'GTRTree.BDHAJIIDBI.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIHA.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEEI.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGI.t' was not initialized prior to being used
+Variable 'GTRTree.CAEHDDBBAC.t' was not initialized prior to being used
+Variable 'GTRTree.BEHIEAEHAA.t' was not initialized prior to being used
+Variable 'GTRTree.CAEHDDBAHJ.t' was not initialized prior to being used
+Variable 'GTRTree.JAHEAGJFA.t' was not initialized prior to being used
+Variable 'GTRTree.HGIDBIGHI.t' was not initialized prior to being used
+Variable 'GTRTree.CAEHDDBAIA.t' was not initialized prior to being used
+Variable 'GTRTree.HGIDBIGIA.t' was not initialized prior to being used
+Variable 'GTRTree.HGFFHHJAG.t' was not initialized prior to being used
+Variable 'GTRTree.BFEDHFBBCJ.t' was not initialized prior to being used
+Variable 'GTRTree.BFEDHFBBAH.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAA.t' was not initialized prior to being used
+Variable 'GTRTree.JAHEAGJFC.t' was not initialized prior to being used
+Variable 'GTRTree.JAHEAGJFB.t' was not initialized prior to being used
+Variable 'GTRTree.CAJFHACHCG.t' was not initialized prior to being used
+Variable 'GTRTree.BFEDHFBBDA.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDF.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDE.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDA.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAI.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAH.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAG.t' was not initialized prior to being used
+Variable 'GTRTree.JAHEAGJFD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDC.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDB.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAB.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAF.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAE.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGE.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDI.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGB.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDJ.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIGC.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDH.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIDG.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIAC.t' was not initialized prior to being used
+Variable 'GTRTree.HDGICJDBC.t' was not initialized prior to being used
+Variable 'GTRTree.FEFICEBGB.t' was not initialized prior to being used
+Variable 'GTRTree.BIBAHAGCFJ.t' was not initialized prior to being used
+Variable 'GTRTree.BDAJBEHAEA.t' was not initialized prior to being used
+Variable 'GTRTree.BIBAHAGCGB.t' was not initialized prior to being used
+Variable 'GTRTree.BIBAHAGCFG.t' was not initialized prior to being used
+Variable 'GTRTree.BIBAHAGCIE.t' was not initialized prior to being used
+Variable 'GTRTree.HGJDGGABF.t' was not initialized prior to being used
+Variable 'GTRTree.BAFIAGAJJJ.t' was not initialized prior to being used
+Variable 'GTRTree.JAHEAGJFF.t' was not initialized prior to being used
+Variable 'GTRTree.JAHEAGJFE.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFG.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFH.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJG.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFC.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCA.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJB.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFIJ.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJF.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCC.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCE.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJA.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGBI.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJC.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFB.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCF.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJD.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCB.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFF.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGEJ.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFA.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCH.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFFJE.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFI.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCD.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFE.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGFD.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGBJ.t' was not initialized prior to being used
+Variable 'GTRTree.FBGCBFGCG.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHE.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHJ.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEIA.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJG.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJF.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJH.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJE.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJI.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJC.t' was not initialized prior to being used
+Variable 'GTRTree.BJIHCBBJAF.t' was not initialized prior to being used
+Variable 'GTRTree.CAEHDDBBAD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCJAA.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCJAB.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCJCE.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCJCD.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCJCG.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCJCF.t' was not initialized prior to being used
+Variable 'GTRTree.BDHAJIIDBG.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHH.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHG.t' was not initialized prior to being used
+Variable 'GTRTree.BDECDJCIJJ.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEEJ.t' was not initialized prior to being used
+Variable 'GTRTree.BCGBHIFEHF.t' was not initialized prior to being used
+Variable 'GTRTree.BDHAJIIDBH.t' was not initialized prior to being used
+Variable 'GTRTree.Node5.t' was not initialized prior to being used
+Variable 'GTRTree.Node3.t' was not initialized prior to being used
+Variable 'GTRTree.Node15.t' was not initialized prior to being used
+Variable 'GTRTree.Node23.t' was not initialized prior to being used
+Variable 'GTRTree.Node21.t' was not initialized prior to being used
+Variable 'GTRTree.Node19.t' was not initialized prior to being used
+Variable 'GTRTree.Node33.t' was not initialized prior to being used
+Variable 'GTRTree.Node31.t' was not initialized prior to being used
+Variable 'GTRTree.Node39.t' was not initialized prior to being used
+Variable 'GTRTree.Node37.t' was not initialized prior to being used
+Variable 'GTRTree.Node36.t' was not initialized prior to being used
+Variable 'GTRTree.Node30.t' was not initialized prior to being used
+Variable 'GTRTree.Node48.t' was not initialized prior to being used
+Variable 'GTRTree.Node46.t' was not initialized prior to being used
+Variable 'GTRTree.Node53.t' was not initialized prior to being used
+Variable 'GTRTree.Node56.t' was not initialized prior to being used
+Variable 'GTRTree.Node52.t' was not initialized prior to being used
+Variable 'GTRTree.Node66.t' was not initialized prior to being used
+Variable 'GTRTree.Node64.t' was not initialized prior to being used
+Variable 'GTRTree.Node62.t' was not initialized prior to being used
+Variable 'GTRTree.Node72.t' was not initialized prior to being used
+Variable 'GTRTree.Node78.t' was not initialized prior to being used
+Variable 'GTRTree.Node76.t' was not initialized prior to being used
+Variable 'GTRTree.Node82.t' was not initialized prior to being used
+Variable 'GTRTree.Node81.t' was not initialized prior to being used
+Variable 'GTRTree.Node75.t' was not initialized prior to being used
+Variable 'GTRTree.Node71.t' was not initialized prior to being used
+Variable 'GTRTree.Node86.t' was not initialized prior to being used
+Variable 'GTRTree.Node70.t' was not initialized prior to being used
+Variable 'GTRTree.Node97.t' was not initialized prior to being used
+Variable 'GTRTree.Node95.t' was not initialized prior to being used
+Variable 'GTRTree.Node100.t' was not initialized prior to being used
+Variable 'GTRTree.Node94.t' was not initialized prior to being used
+Variable 'GTRTree.Node92.t' was not initialized prior to being used
+Variable 'GTRTree.Node103.t' was not initialized prior to being used
+Variable 'GTRTree.Node91.t' was not initialized prior to being used
+Variable 'GTRTree.Node89.t' was not initialized prior to being used
+Variable 'GTRTree.Node69.t' was not initialized prior to being used
+Variable 'GTRTree.Node61.t' was not initialized prior to being used
+Variable 'GTRTree.Node60.t' was not initialized prior to being used
+Variable 'GTRTree.Node117.t' was not initialized prior to being used
+Variable 'GTRTree.Node122.t' was not initialized prior to being used
+Variable 'GTRTree.Node120.t' was not initialized prior to being used
+Variable 'GTRTree.Node116.t' was not initialized prior to being used
+Variable 'GTRTree.Node114.t' was not initialized prior to being used
+Variable 'GTRTree.Node112.t' was not initialized prior to being used
+Variable 'GTRTree.Node110.t' was not initialized prior to being used
+Variable 'GTRTree.Node108.t' was not initialized prior to being used
+Variable 'GTRTree.Node125.t' was not initialized prior to being used
+Variable 'GTRTree.Node107.t' was not initialized prior to being used
+Variable 'GTRTree.Node59.t' was not initialized prior to being used
+Variable 'GTRTree.Node51.t' was not initialized prior to being used
+Variable 'GTRTree.Node45.t' was not initialized prior to being used
+Variable 'GTRTree.Node129.t' was not initialized prior to being used
+Variable 'GTRTree.Node135.t' was not initialized prior to being used
+Variable 'GTRTree.Node148.t' was not initialized prior to being used
+Variable 'GTRTree.Node151.t' was not initialized prior to being used
+Variable 'GTRTree.Node147.t' was not initialized prior to being used
+Variable 'GTRTree.Node145.t' was not initialized prior to being used
+Variable 'GTRTree.Node157.t' was not initialized prior to being used
+Variable 'GTRTree.Node155.t' was not initialized prior to being used
+Variable 'GTRTree.Node154.t' was not initialized prior to being used
+Variable 'GTRTree.Node144.t' was not initialized prior to being used
+Variable 'GTRTree.Node142.t' was not initialized prior to being used
+Variable 'GTRTree.Node140.t' was not initialized prior to being used
+Variable 'GTRTree.Node161.t' was not initialized prior to being used
+Variable 'GTRTree.Node139.t' was not initialized prior to being used
+Variable 'GTRTree.Node138.t' was not initialized prior to being used
+Variable 'GTRTree.Node134.t' was not initialized prior to being used
+Variable 'GTRTree.Node133.t' was not initialized prior to being used
+Variable 'GTRTree.Node172.t' was not initialized prior to being used
+Variable 'GTRTree.Node170.t' was not initialized prior to being used
+Variable 'GTRTree.Node169.t' was not initialized prior to being used
+Variable 'GTRTree.Node178.t' was not initialized prior to being used
+Variable 'GTRTree.Node176.t' was not initialized prior to being used
+Variable 'GTRTree.Node168.t' was not initialized prior to being used
+Variable 'GTRTree.Node167.t' was not initialized prior to being used
+Variable 'GTRTree.Node166.t' was not initialized prior to being used
+Variable 'GTRTree.Node132.t' was not initialized prior to being used
+Variable 'GTRTree.Node128.t' was not initialized prior to being used
+Variable 'GTRTree.Node44.t' was not initialized prior to being used
+Variable 'GTRTree.Node185.t' was not initialized prior to being used
+Variable 'GTRTree.Node194.t' was not initialized prior to being used
+Variable 'GTRTree.Node193.t' was not initialized prior to being used
+Variable 'GTRTree.Node192.t' was not initialized prior to being used
+Variable 'GTRTree.Node199.t' was not initialized prior to being used
+Variable 'GTRTree.Node191.t' was not initialized prior to being used
+Variable 'GTRTree.Node204.t' was not initialized prior to being used
+Variable 'GTRTree.Node202.t' was not initialized prior to being used
+Variable 'GTRTree.Node190.t' was not initialized prior to being used
+Variable 'GTRTree.Node188.t' was not initialized prior to being used
+Variable 'GTRTree.Node184.t' was not initialized prior to being used
+Variable 'GTRTree.Node212.t' was not initialized prior to being used
+Variable 'GTRTree.Node215.t' was not initialized prior to being used
+Variable 'GTRTree.Node211.t' was not initialized prior to being used
+Variable 'GTRTree.Node209.t' was not initialized prior to being used
+Variable 'GTRTree.Node207.t' was not initialized prior to being used
+Variable 'GTRTree.Node183.t' was not initialized prior to being used
+Variable 'GTRTree.Node43.t' was not initialized prior to being used
+Variable 'GTRTree.Node29.t' was not initialized prior to being used
+Variable 'GTRTree.Node221.t' was not initialized prior to being used
+Variable 'GTRTree.Node228.t' was not initialized prior to being used
+Variable 'GTRTree.Node226.t' was not initialized prior to being used
+Variable 'GTRTree.Node224.t' was not initialized prior to being used
+Variable 'GTRTree.Node220.t' was not initialized prior to being used
+Variable 'GTRTree.Node218.t' was not initialized prior to being used
+Variable 'GTRTree.Node28.t' was not initialized prior to being used
+Variable 'GTRTree.Node26.t' was not initialized prior to being used
+Variable 'GTRTree.Node18.t' was not initialized prior to being used
+Variable 'GTRTree.Node14.t' was not initialized prior to being used
+Variable 'GTRTree.Node12.t' was not initialized prior to being used
+Variable 'GTRTree.Node10.t' was not initialized prior to being used
+Variable 'GTRTree.Node8.t' was not initialized prior to being used
+Site 41 evaluated to a 0 probability in ComputeTreeBlockByBranch
+Site 41 evaluated to a 0 probability in ComputeTreeBlockByBranch
+Site 56 evaluated to a 0 probability in ComputeTreeBlockByBranch
+Auto-benchmarked an optimal number (2) of threads.
+Set GUI update interval to every 31-th LF evaluation.
+Initial guess for GTRTree.BCGBHIFEHI.t is 0.004458142590256133
+Initial guess for GTRTree.Node3.t is 0.003992145955355656
+Initial guess for GTRTree.BDECDJCIGF.t is 0.001358327148643832
+Initial guess for GTRTree.Node5.t is 0.0002903252991984614
+Initial guess for GTRTree.BDECDJCIGG.t is 0.001802104385320137
+Initial guess for GTRTree.BDECDJCIGH.t is 0.001022816768557589
+Initial guess for GTRTree.Node8.t is 3.222613666171378e-05
+Initial guess for GTRTree.CAJFHACHCF.t is 0.002238304123333906
+Initial guess for GTRTree.Node10.t is 0.0003590900682726733
+Initial guess for GTRTree.BCGBHIFEHD.t is 0.004457950616447188
+Initial guess for GTRTree.Node12.t is -4.26501229663633e-05
+Initial guess for GTRTree.BCGBHIFEFB.t is 0.003677793537390517
+Initial guess for GTRTree.Node14.t is 0.002085292757872984
+Initial guess for GTRTree.Node15.t is 0.0009444185668119274
+Initial guess for GTRTree.BCGBHIFEFA.t is 0.003561196926132502
+Initial guess for GTRTree.BDHAJIIDBF.t is 0.002104778683593903
+Initial guess for GTRTree.Node18.t is 0.0001388943270211851
+Initial guess for GTRTree.Node19.t is 0.0002623470811509687
+Initial guess for GTRTree.BDECDJCIGJ.t is 0.002013038401719207
+Initial guess for GTRTree.Node21.t is 2.152855105696324e-05
+Initial guess for GTRTree.BDHAJIIDBI.t is 0.004003960834500054
+Initial guess for GTRTree.Node23.t is 0.003454695846376208
+Initial guess for GTRTree.BDECDJCIHA.t is 0.0005733365983032006
+Initial guess for GTRTree.BCGBHIFEEI.t is 0.0006017649946144049
+Initial guess for GTRTree.Node26.t is -0.0001500931615003155
+Initial guess for GTRTree.BDECDJCIGI.t is 0.004364674950627739
+Initial guess for GTRTree.Node28.t is 0.0001499609490040049
+Initial guess for GTRTree.Node29.t is 0.0001587379703418243
+Initial guess for GTRTree.Node30.t is 0.0003002374188331932
+Initial guess for GTRTree.Node31.t is 0.0005616635126622464
+Initial guess for GTRTree.CAEHDDBBAC.t is 0.001843096412336507
+Initial guess for GTRTree.Node33.t is 4.374445193345368e-05
+Initial guess for GTRTree.BEHIEAEHAA.t is 0.003986712536636117
+Initial guess for GTRTree.CAEHDDBAHJ.t is 0.002632244531724704
+Initial guess for GTRTree.Node36.t is -1.217400598124502e-05
+Initial guess for GTRTree.Node37.t is 0.0003657421067155337
+Initial guess for GTRTree.JAHEAGJFA.t is 0.005282016332189313
+Initial guess for GTRTree.Node39.t is 0.0005201201646964535
+Initial guess for GTRTree.HGIDBIGHI.t is 0.001036024500054634
+Initial guess for GTRTree.CAEHDDBAIA.t is 0.001788896653810493
+Initial guess for GTRTree.HGIDBIGIA.t is 0.002256974071122793
+Initial guess for GTRTree.Node43.t is 7.60824654982789e-05
+Initial guess for GTRTree.Node44.t is 0.0004550377910321061
+Initial guess for GTRTree.Node45.t is 0.02370207438439435
+Initial guess for GTRTree.Node46.t is 0.0448968153628134
+Initial guess for GTRTree.HGFFHHJAG.t is 0.0826236154356946
+Initial guess for GTRTree.Node48.t is 0.01598813391272075
+Initial guess for GTRTree.BFEDHFBBCJ.t is 0.0052288622072109
+Initial guess for GTRTree.BFEDHFBBAH.t is 0.005688232295900001
+Initial guess for GTRTree.Node51.t is 0.00835356550812562
+Initial guess for GTRTree.Node52.t is -7.641317796953123e-05
+Initial guess for GTRTree.Node53.t is 0.004259126726344917
+Initial guess for GTRTree.BDECDJCIAA.t is 0.009234478360942034
+Initial guess for GTRTree.JAHEAGJFC.t is 0.009963736232548493
+Initial guess for GTRTree.Node56.t is 0.007638544426521876
+Initial guess for GTRTree.JAHEAGJFB.t is 0.01986591327467836
+Initial guess for GTRTree.CAJFHACHCG.t is 0.01452325686585899
+Initial guess for GTRTree.Node59.t is 0.001685390210860217
+Initial guess for GTRTree.Node60.t is 0.002020335076608823
+Initial guess for GTRTree.Node61.t is 0.0006700798348320544
+Initial guess for GTRTree.Node62.t is 0.001887252426231153
+Initial guess for GTRTree.BFEDHFBBDA.t is 0.008634666207844047
+Initial guess for GTRTree.Node64.t is 0.002326982777414598
+Initial guess for GTRTree.BDECDJCIDD.t is 0.00556216317700532
+Initial guess for GTRTree.Node66.t is 0.004884043378195586
+Initial guess for GTRTree.BDECDJCIDF.t is 0.0004334773414860304
+Initial guess for GTRTree.BDECDJCIDE.t is 3.623025308084219e-05
+Initial guess for GTRTree.Node69.t is 0.0006371146753693745
+Initial guess for GTRTree.Node70.t is 9.391211141492945e-05
+Initial guess for GTRTree.Node71.t is 0.001632729067763302
+Initial guess for GTRTree.Node72.t is 0.004258350385994365
+Initial guess for GTRTree.BDECDJCIDA.t is 0.002990393505265272
+Initial guess for GTRTree.BDECDJCIAI.t is 0.004817071796633723
+Initial guess for GTRTree.Node75.t is -0.0006765565541010641
+Initial guess for GTRTree.Node76.t is 0.002993367722981869
+Initial guess for GTRTree.BDECDJCIAH.t is 0.005241468792898248
+Initial guess for GTRTree.Node78.t is -2.577830293793811e-05
+Initial guess for GTRTree.BDECDJCIAG.t is 0.006240726065342791
+Initial guess for GTRTree.JAHEAGJFD.t is 0.00733255138912805
+Initial guess for GTRTree.Node81.t is 0.0004523647712051732
+Initial guess for GTRTree.Node82.t is 0.007343702775034428
+Initial guess for GTRTree.BDECDJCIDC.t is 0.002066379607843911
+Initial guess for GTRTree.BDECDJCIDB.t is 0.002887809809640913
+Initial guess for GTRTree.BDECDJCIAB.t is 0.00750914560125511
+Initial guess for GTRTree.Node86.t is 0.002888156759111747
+Initial guess for GTRTree.BDECDJCIAF.t is 0.007151846515301087
+Initial guess for GTRTree.BDECDJCIAE.t is 0.005938852967344053
+Initial guess for GTRTree.Node89.t is 0.002371994317608086
+Initial guess for GTRTree.BDECDJCIAD.t is 0.01026748007126439
+Initial guess for GTRTree.Node91.t is 0.009509765571377874
+Initial guess for GTRTree.Node92.t is 0.002759950901009486
+Initial guess for GTRTree.BDECDJCIGE.t is 0.003350265696764632
+Initial guess for GTRTree.Node94.t is 1.249746955066134e-05
+Initial guess for GTRTree.Node95.t is 0.0004580796327389002
+Initial guess for GTRTree.BDECDJCIDI.t is 0.002635524380449894
+Initial guess for GTRTree.Node97.t is 0.002223350678219015
+Initial guess for GTRTree.BDECDJCIGB.t is 0.00376998376110172
+Initial guess for GTRTree.BDECDJCIDJ.t is 0.003560797632463938
+Initial guess for GTRTree.Node100.t is 0.0001546928586827449
+Initial guess for GTRTree.BDECDJCIGD.t is 0.003302292175675688
+Initial guess for GTRTree.BDECDJCIGC.t is 0.004028489217898465
+Initial guess for GTRTree.Node103.t is -0.000968502729686624
+Initial guess for GTRTree.BDECDJCIDH.t is 0.007766373550855724
+Initial guess for GTRTree.BDECDJCIDG.t is 0.006038503616952798
+Initial guess for GTRTree.BDECDJCIAC.t is 0.01253665726542572
+Initial guess for GTRTree.Node107.t is 0.04519220283320637
+Initial guess for GTRTree.Node108.t is 0.01722487234054584
+Initial guess for GTRTree.HDGICJDBC.t is 0.006434741845989093
+Initial guess for GTRTree.Node110.t is 0.004513772646755096
+Initial guess for GTRTree.FEFICEBGB.t is 0.01028375341536435
+Initial guess for GTRTree.Node112.t is 0.004006421231051978
+Initial guess for GTRTree.BIBAHAGCFJ.t is 0.006655747696294232
+Initial guess for GTRTree.Node114.t is -0.0001747661655811926
+Initial guess for GTRTree.BDAJBEHAEA.t is 0.006106860752193982
+Initial guess for GTRTree.Node116.t is -0.001266757773263264
+Initial guess for GTRTree.Node117.t is 0.002562487559642036
+Initial guess for GTRTree.BIBAHAGCGB.t is 0.002897224830865554
+Initial guess for GTRTree.BIBAHAGCFG.t is 0.002531375536819376
+Initial guess for GTRTree.Node120.t is 0.003565093195083715
+Initial guess for GTRTree.BIBAHAGCIE.t is 0.00660456371898671
+Initial guess for GTRTree.Node122.t is 0.0009815850768503419
+Initial guess for GTRTree.HGJDGGABF.t is 0.001251968190823564
+Initial guess for GTRTree.BAFIAGAJJJ.t is 0.0006315224205638589
+Initial guess for GTRTree.Node125.t is 0.00876280771108299
+Initial guess for GTRTree.JAHEAGJFF.t is 0.01089140443854494
+Initial guess for GTRTree.JAHEAGJFE.t is 0.01597919373686024
+Initial guess for GTRTree.Node128.t is 0.001054102756122303
+Initial guess for GTRTree.Node129.t is 0.003645974469174872
+Initial guess for GTRTree.FBGCBFGFG.t is 0.009768546095743258
+Initial guess for GTRTree.FBGCBFGFH.t is 0.002109281218754337
+Initial guess for GTRTree.Node132.t is 1.606887394254306e-06
+Initial guess for GTRTree.Node133.t is 0.0008984883212813844
+Initial guess for GTRTree.Node134.t is -0.0002604830623047582
+Initial guess for GTRTree.Node135.t is 0.001757492459263122
+Initial guess for GTRTree.FBGCBFFJG.t is 0.01272334917759243
+Initial guess for GTRTree.FBGCBFGFC.t is 0.001564459102420889
+Initial guess for GTRTree.Node138.t is 0.0006079003036863653
+Initial guess for GTRTree.Node139.t is 0.0001753962162664464
+Initial guess for GTRTree.Node140.t is 0.001022891517596488
+Initial guess for GTRTree.FBGCBFGCA.t is 0.0007510959645474938
+Initial guess for GTRTree.Node142.t is -0.0005498781664144595
+Initial guess for GTRTree.FBGCBFFJB.t is 0.001490275061830022
+Initial guess for GTRTree.Node144.t is 0.0007009469901931052
+Initial guess for GTRTree.Node145.t is 0.0002710133531275079
+Initial guess for GTRTree.FBGCBFFIJ.t is 0.0001754572803026323
+Initial guess for GTRTree.Node147.t is 0.0001768788790172068
+Initial guess for GTRTree.Node148.t is 1.138719645429942e-05
+Initial guess for GTRTree.FBGCBFFJF.t is -2.107985955028894e-15
+Initial guess for GTRTree.FBGCBFGCC.t is -2.107949004766341e-15
+Initial guess for GTRTree.Node151.t is 0.0002234666008341983
+Initial guess for GTRTree.FBGCBFGCE.t is 0.0002229508695183358
+Initial guess for GTRTree.FBGCBFFJA.t is 1.184749054935576e-05
+Initial guess for GTRTree.Node154.t is 0.000110728248747101
+Initial guess for GTRTree.Node155.t is -0.0001813979564921648
+Initial guess for GTRTree.FBGCBFGBI.t is 0.0007776825436585837
+Initial guess for GTRTree.Node157.t is 0.001107892348687049
+Initial guess for GTRTree.FBGCBFFJC.t is 0.002600773390346559
+Initial guess for GTRTree.FBGCBFGFB.t is 0.001169364239278087
+Initial guess for GTRTree.FBGCBFGCF.t is 0.0003612429075876079
+Initial guess for GTRTree.Node161.t is 0.0002386802576756417
+Initial guess for GTRTree.FBGCBFFJD.t is 0.001144241179475293
+Initial guess for GTRTree.FBGCBFGCB.t is 0.001208744372783175
+Initial guess for GTRTree.FBGCBFGFF.t is 0.002203389849526621
+Initial guess for GTRTree.FBGCBFGEJ.t is 0.005487167119484847
+Initial guess for GTRTree.Node166.t is 0.0005037143812704467
+Initial guess for GTRTree.Node167.t is 0.002604409851924831
+Initial guess for GTRTree.Node168.t is 0.0001318564515584456
+Initial guess for GTRTree.Node169.t is -4.095415308479218e-05
+Initial guess for GTRTree.Node170.t is 0.000137512338710962
+Initial guess for GTRTree.FBGCBFGFA.t is 0.0003871368905513681
+Initial guess for GTRTree.Node172.t is 8.268163081312511e-05
+Initial guess for GTRTree.FBGCBFGCH.t is 0.0002409650639633149
+Initial guess for GTRTree.FBGCBFFJE.t is -6.166703893536928e-06
+Initial guess for GTRTree.FBGCBFGFI.t is 6.979941150080508e-05
+Initial guess for GTRTree.Node176.t is 0.000215098969735154
+Initial guess for GTRTree.FBGCBFGCD.t is 0.0001819378446679297
+Initial guess for GTRTree.Node178.t is 5.291595261787651e-05
+Initial guess for GTRTree.FBGCBFGFE.t is 0.0004915701786619521
+Initial guess for GTRTree.FBGCBFGFD.t is 0.0002131576295684849
+Initial guess for GTRTree.FBGCBFGBJ.t is 0.001088529308515109
+Initial guess for GTRTree.FBGCBFGCG.t is 0.004072507991802771
+Initial guess for GTRTree.Node183.t is -7.766039025255008e-05
+Initial guess for GTRTree.Node184.t is 3.594203642358609e-05
+Initial guess for GTRTree.Node185.t is 0.002162651118265654
+Initial guess for GTRTree.BCGBHIFEHE.t is 0.002400769967505659
+Initial guess for GTRTree.BCGBHIFEHJ.t is 0.002790568372092915
+Initial guess for GTRTree.Node188.t is 0.0003410504299257617
+Initial guess for GTRTree.BCGBHIFEIA.t is 0.003910174793914781
+Initial guess for GTRTree.Node190.t is 0.0002460392454811521
+Initial guess for GTRTree.Node191.t is 0.0001354332979127098
+Initial guess for GTRTree.Node192.t is -4.160728346010354e-05
+Initial guess for GTRTree.Node193.t is 6.384616768052197e-05
+Initial guess for GTRTree.Node194.t is 4.571720845662509e-05
+Initial guess for GTRTree.BDECDJCIJG.t is 0.001962545747959138
+Initial guess for GTRTree.BDECDJCIJF.t is 0.002519269944068597
+Initial guess for GTRTree.BDECDJCIJH.t is 0.001602668135019495
+Initial guess for GTRTree.BDECDJCIJE.t is 0.001491903358509065
+Initial guess for GTRTree.Node199.t is 0.0001995883837762235
+Initial guess for GTRTree.BDECDJCIJI.t is 0.00218484160950691
+Initial guess for GTRTree.BDECDJCIJC.t is 0.003249530728433786
+Initial guess for GTRTree.Node202.t is 0.0007244995246516245
+Initial guess for GTRTree.BJIHCBBJAF.t is 0.003274063936086701
+Initial guess for GTRTree.Node204.t is 0.001221694608795154
+Initial guess for GTRTree.CAEHDDBBAD.t is 0.003367066383926058
+Initial guess for GTRTree.BDECDJCIJD.t is 0.0004030712457018163
+Initial guess for GTRTree.Node207.t is 0.0003978176740040487
+Initial guess for GTRTree.BDECDJCJAA.t is 0.003316978531890878
+Initial guess for GTRTree.Node209.t is 0.0008730087031668676
+Initial guess for GTRTree.BDECDJCJAB.t is 0.005253154646835286
+Initial guess for GTRTree.Node211.t is 0.0001754696244564721
+Initial guess for GTRTree.Node212.t is 0.0002796101054966715
+Initial guess for GTRTree.BDECDJCJCE.t is 0.005607625243965507
+Initial guess for GTRTree.BDECDJCJCD.t is 0.004111156560205304
+Initial guess for GTRTree.Node215.t is 0.000247552002297155
+Initial guess for GTRTree.BDECDJCJCG.t is 0.00153985607736783
+Initial guess for GTRTree.BDECDJCJCF.t is 0.001995058127237089
+Initial guess for GTRTree.Node218.t is 0.0001046842811760185
+Initial guess for GTRTree.BDHAJIIDBG.t is 0.005307898463689125
+Initial guess for GTRTree.Node220.t is -0.0001185097682182391
+Initial guess for GTRTree.Node221.t is 0.00116755817941723
+Initial guess for GTRTree.BCGBHIFEHH.t is 0.003689433049784378
+Initial guess for GTRTree.BCGBHIFEHG.t is 0.002214031123992926
+Initial guess for GTRTree.Node224.t is 0.0003133163270746356
+Initial guess for GTRTree.BDECDJCIJJ.t is 0.004899107118152212
+Initial guess for GTRTree.Node226.t is 3.549708550955498e-05
+Initial guess for GTRTree.BCGBHIFEEJ.t is 0.003897495231242137
+Initial guess for GTRTree.Node228.t is 0.0004798518028126077
+Initial guess for GTRTree.BCGBHIFEHF.t is 0.002993316807782812
+Initial guess for GTRTree.BDHAJIIDBH.t is 0.001723836685798228
+Optimization settings:
+	OPTIMIZATION_METHOD = 4
+	OPTIMIZATION_PRECISION = 0.001
+	MAXIMUM_ITERATIONS_PER_VARIABLE = 5000
+
+Initial parameter values
+
+CT = 1
+GT = 1
+CG = 1
+AC = 1
+AT = 1
+GTRTree.BCGBHIFEHI.t = 0.004458142590256133
+GTRTree.BDECDJCIGF.t = 0.001358327148643832
+GTRTree.BDECDJCIGG.t = 0.001802104385320137
+GTRTree.BDECDJCIGH.t = 0.001022816768557589
+GTRTree.Node5.t = 0.0002903252991984614
+GTRTree.Node3.t = 0.003992145955355656
+GTRTree.CAJFHACHCF.t = 0.002238304123333906
+GTRTree.BCGBHIFEHD.t = 0.004457950616447188
+GTRTree.BCGBHIFEFB.t = 0.003677793537390517
+GTRTree.BCGBHIFEFA.t = 0.003561196926132502
+GTRTree.BDHAJIIDBF.t = 0.002104778683593903
+GTRTree.Node15.t = 0.0009444185668119274
+GTRTree.BDECDJCIGJ.t = 0.002013038401719207
+GTRTree.BDHAJIIDBI.t = 0.004003960834500054
+GTRTree.BDECDJCIHA.t = 0.0005733365983032006
+GTRTree.BCGBHIFEEI.t = 0.0006017649946144049
+GTRTree.Node23.t = 0.003454695846376208
+GTRTree.Node21.t = 2.152855105696324e-05
+GTRTree.Node19.t = 0.0002623470811509687
+GTRTree.BDECDJCIGI.t = 0.004364674950627739
+GTRTree.CAEHDDBBAC.t = 0.001843096412336507
+GTRTree.BEHIEAEHAA.t = 0.003986712536636117
+GTRTree.CAEHDDBAHJ.t = 0.002632244531724704
+GTRTree.Node33.t = 4.374445193345368e-05
+GTRTree.Node31.t = 0.0005616635126622464
+GTRTree.JAHEAGJFA.t = 0.005282016332189313
+GTRTree.HGIDBIGHI.t = 0.001036024500054634
+GTRTree.CAEHDDBAIA.t = 0.001788896653810493
+GTRTree.Node39.t = 0.0005201201646964535
+GTRTree.Node37.t = 0.0003657421067155337
+GTRTree.HGIDBIGIA.t = 0.002256974071122793
+GTRTree.Node36.t = 0
+GTRTree.Node30.t = 0.0003002374188331932
+GTRTree.HGFFHHJAG.t = 0.0826236154356946
+GTRTree.BFEDHFBBCJ.t = 0.0052288622072109
+GTRTree.BFEDHFBBAH.t = 0.005688232295900001
+GTRTree.Node48.t = 0.01598813391272075
+GTRTree.Node46.t = 0.0448968153628134
+GTRTree.BDECDJCIAA.t = 0.009234478360942034
+GTRTree.JAHEAGJFC.t = 0.009963736232548493
+GTRTree.Node53.t = 0.004259126726344917
+GTRTree.JAHEAGJFB.t = 0.01986591327467836
+GTRTree.CAJFHACHCG.t = 0.01452325686585899
+GTRTree.Node56.t = 0.007638544426521876
+GTRTree.Node52.t = 0
+GTRTree.BFEDHFBBDA.t = 0.008634666207844047
+GTRTree.BDECDJCIDD.t = 0.00556216317700532
+GTRTree.BDECDJCIDF.t = 0.0004334773414860304
+GTRTree.BDECDJCIDE.t = 3.623025308084219e-05
+GTRTree.Node66.t = 0.004884043378195586
+GTRTree.Node64.t = 0.002326982777414598
+GTRTree.Node62.t = 0.001887252426231153
+GTRTree.BDECDJCIDA.t = 0.002990393505265272
+GTRTree.BDECDJCIAI.t = 0.004817071796633723
+GTRTree.Node72.t = 0.004258350385994365
+GTRTree.BDECDJCIAH.t = 0.005241468792898248
+GTRTree.BDECDJCIAG.t = 0.006240726065342791
+GTRTree.JAHEAGJFD.t = 0.00733255138912805
+GTRTree.Node78.t = 0
+GTRTree.Node76.t = 0.002993367722981869
+GTRTree.BDECDJCIDC.t = 0.002066379607843911
+GTRTree.BDECDJCIDB.t = 0.002887809809640913
+GTRTree.Node82.t = 0.007343702775034428
+GTRTree.BDECDJCIAB.t = 0.00750914560125511
+GTRTree.Node81.t = 0.0004523647712051732
+GTRTree.Node75.t = 0
+GTRTree.Node71.t = 0.001632729067763302
+GTRTree.BDECDJCIAF.t = 0.007151846515301087
+GTRTree.BDECDJCIAE.t = 0.005938852967344053
+GTRTree.Node86.t = 0.002888156759111747
+GTRTree.Node70.t = 9.391211141492945e-05
+GTRTree.BDECDJCIAD.t = 0.01026748007126439
+GTRTree.BDECDJCIGE.t = 0.003350265696764632
+GTRTree.BDECDJCIDI.t = 0.002635524380449894
+GTRTree.BDECDJCIGB.t = 0.00376998376110172
+GTRTree.BDECDJCIDJ.t = 0.003560797632463938
+GTRTree.Node97.t = 0.002223350678219015
+GTRTree.Node95.t = 0.0004580796327389002
+GTRTree.BDECDJCIGD.t = 0.003302292175675688
+GTRTree.BDECDJCIGC.t = 0.004028489217898465
+GTRTree.Node100.t = 0.0001546928586827449
+GTRTree.Node94.t = 1.249746955066134e-05
+GTRTree.Node92.t = 0.002759950901009486
+GTRTree.BDECDJCIDH.t = 0.007766373550855724
+GTRTree.BDECDJCIDG.t = 0.006038503616952798
+GTRTree.Node103.t = 0
+GTRTree.Node91.t = 0.009509765571377874
+GTRTree.Node89.t = 0.002371994317608086
+GTRTree.Node69.t = 0.0006371146753693745
+GTRTree.Node61.t = 0.0006700798348320544
+GTRTree.BDECDJCIAC.t = 0.01253665726542572
+GTRTree.Node60.t = 0.002020335076608823
+GTRTree.HDGICJDBC.t = 0.006434741845989093
+GTRTree.FEFICEBGB.t = 0.01028375341536435
+GTRTree.BIBAHAGCFJ.t = 0.006655747696294232
+GTRTree.BDAJBEHAEA.t = 0.006106860752193982
+GTRTree.BIBAHAGCGB.t = 0.002897224830865554
+GTRTree.BIBAHAGCFG.t = 0.002531375536819376
+GTRTree.Node117.t = 0.002562487559642036
+GTRTree.BIBAHAGCIE.t = 0.00660456371898671
+GTRTree.HGJDGGABF.t = 0.001251968190823564
+GTRTree.BAFIAGAJJJ.t = 0.0006315224205638589
+GTRTree.Node122.t = 0.0009815850768503419
+GTRTree.Node120.t = 0.003565093195083715
+GTRTree.Node116.t = 0
+GTRTree.Node114.t = 0
+GTRTree.Node112.t = 0.004006421231051978
+GTRTree.Node110.t = 0.004513772646755096
+GTRTree.Node108.t = 0.01722487234054584
+GTRTree.JAHEAGJFF.t = 0.01089140443854494
+GTRTree.JAHEAGJFE.t = 0.01597919373686024
+GTRTree.Node125.t = 0.00876280771108299
+GTRTree.Node107.t = 0.04519220283320637
+GTRTree.Node59.t = 0.001685390210860217
+GTRTree.Node51.t = 0.00835356550812562
+GTRTree.Node45.t = 0.02370207438439435
+GTRTree.FBGCBFGFG.t = 0.009768546095743258
+GTRTree.FBGCBFGFH.t = 0.002109281218754337
+GTRTree.Node129.t = 0.003645974469174872
+GTRTree.FBGCBFFJG.t = 0.01272334917759243
+GTRTree.FBGCBFGFC.t = 0.001564459102420889
+GTRTree.Node135.t = 0.001757492459263122
+GTRTree.FBGCBFGCA.t = 0.0007510959645474938
+GTRTree.FBGCBFFJB.t = 0.001490275061830022
+GTRTree.FBGCBFFIJ.t = 0.0001754572803026323
+GTRTree.FBGCBFFJF.t = 0
+GTRTree.FBGCBFGCC.t = 0
+GTRTree.Node148.t = 1.138719645429942e-05
+GTRTree.FBGCBFGCE.t = 0.0002229508695183358
+GTRTree.FBGCBFFJA.t = 1.184749054935576e-05
+GTRTree.Node151.t = 0.0002234666008341983
+GTRTree.Node147.t = 0.0001768788790172068
+GTRTree.Node145.t = 0.0002710133531275079
+GTRTree.FBGCBFGBI.t = 0.0007776825436585837
+GTRTree.FBGCBFFJC.t = 0.002600773390346559
+GTRTree.FBGCBFGFB.t = 0.001169364239278087
+GTRTree.Node157.t = 0.001107892348687049
+GTRTree.Node155.t = 0
+GTRTree.FBGCBFGCF.t = 0.0003612429075876079
+GTRTree.Node154.t = 0.000110728248747101
+GTRTree.Node144.t = 0.0007009469901931052
+GTRTree.Node142.t = 0
+GTRTree.Node140.t = 0.001022891517596488
+GTRTree.FBGCBFFJD.t = 0.001144241179475293
+GTRTree.FBGCBFGCB.t = 0.001208744372783175
+GTRTree.Node161.t = 0.0002386802576756417
+GTRTree.Node139.t = 0.0001753962162664464
+GTRTree.FBGCBFGFF.t = 0.002203389849526621
+GTRTree.Node138.t = 0.0006079003036863653
+GTRTree.Node134.t = 0
+GTRTree.FBGCBFGEJ.t = 0.005487167119484847
+GTRTree.Node133.t = 0.0008984883212813844
+GTRTree.FBGCBFGFA.t = 0.0003871368905513681
+GTRTree.FBGCBFGCH.t = 0.0002409650639633149
+GTRTree.FBGCBFFJE.t = 0
+GTRTree.Node172.t = 8.268163081312511e-05
+GTRTree.Node170.t = 0.000137512338710962
+GTRTree.FBGCBFGFI.t = 6.979941150080508e-05
+GTRTree.Node169.t = 0
+GTRTree.FBGCBFGCD.t = 0.0001819378446679297
+GTRTree.FBGCBFGFE.t = 0.0004915701786619521
+GTRTree.FBGCBFGFD.t = 0.0002131576295684849
+GTRTree.Node178.t = 5.291595261787651e-05
+GTRTree.Node176.t = 0.000215098969735154
+GTRTree.Node168.t = 0.0001318564515584456
+GTRTree.FBGCBFGBJ.t = 0.001088529308515109
+GTRTree.Node167.t = 0.002604409851924831
+GTRTree.FBGCBFGCG.t = 0.004072507991802771
+GTRTree.Node166.t = 0.0005037143812704467
+GTRTree.Node132.t = 1.606887394254306e-06
+GTRTree.Node128.t = 0.001054102756122303
+GTRTree.Node44.t = 0.0004550377910321061
+GTRTree.BCGBHIFEHE.t = 0.002400769967505659
+GTRTree.BCGBHIFEHJ.t = 0.002790568372092915
+GTRTree.Node185.t = 0.002162651118265654
+GTRTree.BCGBHIFEIA.t = 0.003910174793914781
+GTRTree.BDECDJCIJG.t = 0.001962545747959138
+GTRTree.BDECDJCIJF.t = 0.002519269944068597
+GTRTree.Node194.t = 4.571720845662509e-05
+GTRTree.BDECDJCIJH.t = 0.001602668135019495
+GTRTree.Node193.t = 6.384616768052197e-05
+GTRTree.BDECDJCIJE.t = 0.001491903358509065
+GTRTree.Node192.t = 0
+GTRTree.BDECDJCIJI.t = 0.00218484160950691
+GTRTree.BDECDJCIJC.t = 0.003249530728433786
+GTRTree.Node199.t = 0.0001995883837762235
+GTRTree.Node191.t = 0.0001354332979127098
+GTRTree.BJIHCBBJAF.t = 0.003274063936086701
+GTRTree.CAEHDDBBAD.t = 0.003367066383926058
+GTRTree.BDECDJCIJD.t = 0.0004030712457018163
+GTRTree.Node204.t = 0.001221694608795154
+GTRTree.Node202.t = 0.0007244995246516245
+GTRTree.Node190.t = 0.0002460392454811521
+GTRTree.Node188.t = 0.0003410504299257617
+GTRTree.Node184.t = 3.594203642358609e-05
+GTRTree.BDECDJCJAA.t = 0.003316978531890878
+GTRTree.BDECDJCJAB.t = 0.005253154646835286
+GTRTree.BDECDJCJCE.t = 0.005607625243965507
+GTRTree.BDECDJCJCD.t = 0.004111156560205304
+GTRTree.Node212.t = 0.0002796101054966715
+GTRTree.BDECDJCJCG.t = 0.00153985607736783
+GTRTree.BDECDJCJCF.t = 0.001995058127237089
+GTRTree.Node215.t = 0.000247552002297155
+GTRTree.Node211.t = 0.0001754696244564721
+GTRTree.Node209.t = 0.0008730087031668676
+GTRTree.Node207.t = 0.0003978176740040487
+GTRTree.Node183.t = 0
+GTRTree.Node43.t = 7.60824654982789e-05
+GTRTree.Node29.t = 0.0001587379703418243
+GTRTree.BDHAJIIDBG.t = 0.005307898463689125
+GTRTree.BCGBHIFEHH.t = 0.003689433049784378
+GTRTree.BCGBHIFEHG.t = 0.002214031123992926
+GTRTree.Node221.t = 0.00116755817941723
+GTRTree.BDECDJCIJJ.t = 0.004899107118152212
+GTRTree.BCGBHIFEEJ.t = 0.003897495231242137
+GTRTree.BCGBHIFEHF.t = 0.002993316807782812
+GTRTree.BDHAJIIDBH.t = 0.001723836685798228
+GTRTree.Node228.t = 0.0004798518028126077
+GTRTree.Node226.t = 3.549708550955498e-05
+GTRTree.Node224.t = 0.0003133163270746356
+GTRTree.Node220.t = 0
+GTRTree.Node218.t = 0.0001046842811760185
+GTRTree.Node28.t = 0.0001499609490040049
+GTRTree.Node26.t = 0
+GTRTree.Node18.t = 0.0001388943270211851
+GTRTree.Node14.t = 0.002085292757872984
+GTRTree.Node12.t = 0
+GTRTree.Node10.t = 0.0003590900682726733
+GTRTree.Node8.t = 3.222613666171378e-05

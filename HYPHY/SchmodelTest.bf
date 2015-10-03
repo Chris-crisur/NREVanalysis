@@ -42,7 +42,7 @@ if ( !INTERACTIVE ) {
 	SEQFILE = "alignment";
 	TREEFILE = "tree";
 	GTR = 1;
-	stGTR = 1;
+	NREV6 = 1;
 }
 LIKELIHOOD_FUNCTION_OUTPUT = 3;
 
@@ -76,7 +76,7 @@ else {
 	DataSet 		ds = ReadDataFile(PROMPT_FOR_FILE);
 	fprintf			(stdout, "Read an alignment with ", ds.species, " sequences and ", ds.sites, " sites\n");
 	ExecuteAFile 	(HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR + "queryTree.bf");
-	fprintf ( stdout, "\nTest NREV against standard GTR:(Y/N)?");
+	fprintf ( stdout, "\nTest NREV12 against standard GTR:(Y/N)?");
 	fscanf (stdin, "String", response);
 	if ((response=="n")||(response=="N")) {
 		GTR = 0;
@@ -84,16 +84,16 @@ else {
 	else {
 		GTR = 1;
 	}
-	fprintf ( stdout, "\nTest NREV against strand GTR (ie: AC:=TG):(Y/N)?");
+	fprintf ( stdout, "\nTest NREV12 against strand GTR (NREV6) (ie: AC:=TG):(Y/N)?");
 	fscanf (stdin, "String", response);
 	if ((response=="n")||(response=="N")) {
-		stGTR = 0;
+		NREV6 = 0;
 	}
 	else {
-		stGTR = 1;
+		NREV6 = 1;
 	}
 }
-if ( ( GTR == 0 ) && ( stGTR == 0 ) ) {
+if ( ( GTR == 0 ) && ( NREV6 == 0 ) ) {
 	fprintf ( stdout, "\nWell then what would you propose I do? Ok I'll go to the beach...\n" );
 }
 else {
@@ -153,7 +153,7 @@ else {
 		/* END standard GTR */
 	}
 
-	if ( stGTR ) {
+	if ( NREV6 ) {
 		/* strand GTR */
 		CA := GT;
 		GA := CT;
@@ -162,13 +162,13 @@ else {
 		TC := 1;
 		TG := AC;
 	
-		PopulateNucleotideModelMatrix ( "stGTRMatrix" );
-		Model stGTRModel = ( stGTRMatrix, nucFreq, 1 );
-		Tree stGTRTree = treeString;
-		LikelihoodFunction lf_stgtr = ( nucFilter, stGTRTree );
-		Optimize ( res_stgtr, lf_stgtr );
+		PopulateNucleotideModelMatrix ( "NREV6Matrix" );
+		Model NREV6Model = ( NREV6Matrix, nucFreq, 1 );
+		Tree NREV6Tree = treeString;
+		LikelihoodFunction lf_NREV6 = ( nucFilter, NREV6Tree );
+		Optimize ( res_NREV6, lf_NREV6 );
 		
-		/* fprintf ( stdout, res_stgtr, "\n" ); */
+		/* fprintf ( stdout, res_NREV6, "\n" ); */
 
 		//fprintf ( stdout, "\nRate Matrix\n\n" );
 		hv = 0;
@@ -194,7 +194,7 @@ else {
 			//fprintf ( stdout, "\n" );
 		}
 		
-		Export ( modelstr, stGTRModel );
+		Export ( modelstr, NREV6Model );
 		//fprintf ( stdout, modelstr, "\n" );	
 	
 		/* forward loop in the spirit of Sergei's noMoreBush */
@@ -209,7 +209,7 @@ else {
 	}
 
 	/* 12 rate model */
-	PopulateNucleotideModelMatrix ( "NREVMatrix" );
+	PopulateNucleotideModelMatrix ( "NREV12Matrix" );
 	Model NREVModel = ( NREVMatrix, nucFreq, 1 );
 	Tree NREVTree = treeString;
 	LikelihoodFunction lf_nrev = ( nucFilter, NREVTree );
@@ -253,10 +253,10 @@ else {
 	fprintf ( stdout, "\nGTR\n" );
 	fprintf ( stdout,   "----\nLog Likelihood = " );
 	fprintf ( stdout, res_gtr[1][0], ";\n" );
-	fprintf ( stdout, "\nstGTR\n" );
+	fprintf ( stdout, "\nNREV6\n" );
 	fprintf ( stdout,   "----\nLog Likelihood = " );
-	fprintf ( stdout, res_stgtr[1][0], ";\n" );
-	fprintf ( stdout, "\nNREV\n" );
+	fprintf ( stdout, res_NREV6[1][0], ";\n" );
+	fprintf ( stdout, "\nNREV12\n" );
 	fprintf ( stdout,   "----\nLog Likelihood = " );
 	fprintf ( stdout, res_nrev[1][0], ";\n" );
 
@@ -265,21 +265,21 @@ else {
 	fprintf ( stdout, "\nLikelihood ratio tests\n" );
 	fprintf ( stdout, "----------------------\n" );
 	if ( GTR ) {
-		fprintf ( stdout, "GTR vs NREV: LRT = ", 2*(res_nrev[1][0]-res_gtr[1][0]), "\tP = ", 1-CChi2 ( 2*(res_nrev[1][0]-res_gtr[1][0]), res_nrev[1][2]-res_gtr[1][2] ), "\n" );
+		fprintf ( stdout, "GTR vs NREV12: LRT = ", 2*(res_nrev[1][0]-res_gtr[1][0]), "\tP = ", 1-CChi2 ( 2*(res_nrev[1][0]-res_gtr[1][0]), res_nrev[1][2]-res_gtr[1][2] ), "\n" );
 	}
-	if ( stGTR ) {
-		fprintf ( stdout, "stGTR vs NREV: LRT = ", 2*(res_nrev[1][0]-res_stgtr[1][0]), "\tP = ", 1-CChi2 ( 2*(res_nrev[1][0]-res_stgtr[1][0]), res_nrev[1][2]-res_stgtr[1][2] ), "\n" );
+	if ( NREV6 ) {
+		fprintf ( stdout, "NREV6 vs NREV12: LRT = ", 2*(res_nrev[1][0]-res_NREV6[1][0]), "\tP = ", 1-CChi2 ( 2*(res_nrev[1][0]-res_NREV6[1][0]), res_nrev[1][2]-res_NREV6[1][2] ), "\n" );
 	}
 	
 	fprintf ( stdout, "\nAIC\n" );
 	fprintf ( stdout, "---\n" );
-	if ( ( GTR ) && ( stGTR ) ) {
+	if ( ( GTR ) && ( NREV6 ) ) {
 		fprintf ( stdout, "GTR (all parameters): ", 2*(res_gtr[1][1]) - 2*res_gtr[1][0], ";\n" );
 		fprintf ( stdout, "GTR (rates only): ", 2*(res_gtr[1][2]) - 2*res_gtr[1][0], ";\n" );
-		fprintf ( stdout, "stGTR (all parameters): ", 2*(res_stgtr[1][1]) - 2*res_stgtr[1][0], ";\n" );
-		fprintf ( stdout, "stGTR (rates only): ", 2*(res_stgtr[1][2]) - 2*res_stgtr[1][0], ";\n" );
+		fprintf ( stdout, "NREV6 (all parameters): ", 2*(res_NREV6[1][1]) - 2*res_NREV6[1][0], ";\n" );
+		fprintf ( stdout, "NREV6 (rates only): ", 2*(res_NREV6[1][2]) - 2*res_NREV6[1][0], ";\n" );
 	}
-	fprintf ( stdout, "NREV (all parameters): ", 2*(res_nrev[1][1]) - 2*res_nrev[1][0], ";\n" );
-	fprintf ( stdout, "NREV (rates only): ", 2*(res_nrev[1][2]) - 2*res_nrev[1][0], ";\n" ); 
+	fprintf ( stdout, "NREV12 (all parameters): ", 2*(res_nrev[1][1]) - 2*res_nrev[1][0], ";\n" );
+	fprintf ( stdout, "NREV12 (rates only): ", 2*(res_nrev[1][2]) - 2*res_nrev[1][0], ";\n" ); 
 }
 
