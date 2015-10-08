@@ -790,7 +790,7 @@ try{
 	            io.Log("Rerooting done in " + r_time_total + " seconds");
 	            reroots.addAll(rerootset);
 	            io.outputTrees(reroots,currentAlignment+"_REROOTS"); //all reroots one file
-	            io.outputRerootedTress(reroots,name);
+	            io.outputRerootedTrees(reroots,name);
             }
             
             io.Log("rerootings: " + reroots.size()+" expected: " + (names.length*2-3));

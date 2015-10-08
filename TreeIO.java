@@ -281,20 +281,22 @@ public class TreeIO implements ActionListener{
     public String FastTree(String alignfilein, String treefileout){
             //alignfilein="Input"+File.separator+"alignment.phy";
             File ftf;
-            String [] cmds;
+            //String [] cmds;
             if(hpc){
                 ftf = new File("/opt/exp_soft/FastTree");
-                cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
+                String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     path+File.separator+"Input"+File.separator+treefileout,
                     path+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
+                return Shell(ftf,cmds);
             }
             else{
                 ftf = new File(path+"FastTree"+File.separator+"FastTree");
-                cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
+                String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     ".."+File.separator+"Input"+File.separator+treefileout,
                     ".."+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
+                return Shell(ftf,cmds);
             }
-            return Shell(ftf,cmds);
+            
     }
     
     /**
@@ -779,6 +781,24 @@ public class TreeIO implements ActionListener{
             }
     }//end outputIndividualTrees
 
+    /**
+     * Generated trees are output to indivudal single line files
+     * That is, each rerooted tree exists in a unique .nwk tree file
+     * within a folder named after the original filename
+     * 
+     * @param trees 	the collection of trees to output
+     * @param filename 	the folder to which the trees will be output to 
+     */
+    public void outputRerootedTrees(List<String> trees, String filename){
+            File file;
+            for (int i=1;i<=trees.size();i++) {
+                file = new File(path+"Output" + File.separator + filename
+                        + File.separator + "all" + File.separator +filename+"_"+i+".nwk");                //where to output to
+                file.getParentFile().mkdirs();			//make directories if they aren't there already
+                Write(file,trees.get(i-1) + ";",false);			//write tree
+            }
+    }//end outputRerootedTrees
+    
     /**
      * Displays a list of trees in a defined file name, with a header
      * The trees are those from the Input folder
