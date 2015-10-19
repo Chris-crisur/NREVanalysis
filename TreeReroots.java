@@ -645,7 +645,9 @@ try{
         long timebefore;
         boolean avail =true; //files available
         io.Log("Start");
+        List<String> alignments = new ArrayList<>();
         List<String> skipnames = new ArrayList<>();
+        List<String> excludeList = new ArrayList<>();
         if(build){
         	path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         	path=path.substring(0,path.lastIndexOf(File.separator)+1);
@@ -654,14 +656,14 @@ try{
         	path="";
         while(avail){ //allows alignments to be added without restarting program
         	io.Log("\n");
-        	List<String> alignments = new ArrayList<>();
+        	alignments = new ArrayList<>();
         	
         	try{
         		alignments = io.listFilesForFolder("phy,fasta,fas",new File(path+"Input"));
         	}catch(Exception e){
         		io.logError("listFilesforFolder(phy,fasta,fas): " + e.toString());
         	}
-	        if(alignments.size()<1){
+	        if(alignments.size()<1||alignments.size()==excludeList.size()){
 	        	avail=false;
 	        	break;
 	        }
@@ -671,6 +673,9 @@ try{
 	        String nameTemp;
 	        String returnShellVal="";
 	        for(String alignment: alignments){
+                if(excludeList.contains(alignment)){
+                    continue;
+                }
 	        	if(alignment.endsWith("phy")){
 	        	 tree = alignment.substring(0,alignment.length()-3)+"nwk";
 	        	}
@@ -702,6 +707,7 @@ try{
 	    			io.Log("FastTree FAILED for " + alignment);
 	    			io.Log("ERROR: \n" + returnShellVal);
 	    			io.Log("For more info, try FastTree -nt -gtr -nosupport -out " + tree + " " + alignment);
+	    			excludeList.add(alignment);
 	    		}
 	        }
 	        List<String> files = new ArrayList<>();
