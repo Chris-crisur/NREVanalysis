@@ -284,6 +284,7 @@ public class TreeIO implements ActionListener{
             //alignfilein="Input"+File.separator+"alignment.phy";
             File ftf;
             //String [] cmds;
+            Log("hpc:" + hpc);
             if(hpc){
                 ftf = new File("/opt/exp_soft/FastTree");
                 String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
@@ -292,7 +293,7 @@ public class TreeIO implements ActionListener{
                 return Shell(ftf,cmds);
             }
             else{
-                ftf = new File(path+"FastTree"+File.separator+"FastTree");
+                ftf = new File(path+"FastTree"+File.separator+"FastTreeMP");
                 String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     ".."+File.separator+"Input"+File.separator+treefileout,
                     ".."+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
