@@ -46,8 +46,8 @@ public class TreeIO implements ActionListener{
 	
 	private boolean gui;
 	private boolean hpc;
-	private JFrame frame = new JFrame("LOG");
-	private JPanel panel = new JPanel(new BorderLayout());
+	private JFrame frame;
+	private JPanel panel;
 	private JTextArea logArea;
 	private JComboBox<String> next;
 	private DefaultComboBoxModel<String> model;
@@ -75,6 +75,8 @@ public class TreeIO implements ActionListener{
         alignmentsList = new ArrayList<String>();
         
         if(gui){
+            frame = new JFrame("LOG");
+            panel = new JPanel(new BorderLayout());
             logArea = new JTextArea();
             logArea.setEditable(false);
             scrollingArea = new JScrollPane(logArea);
