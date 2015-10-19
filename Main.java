@@ -7,13 +7,15 @@ public class Main{
 	boolean hpc = false;
 	if(args.length==1)
             gui = Boolean.parseBoolean(args[0]);
-        else if(args.length==2){
+        else if(args.length>=2){
             gui = Boolean.parseBoolean(args[0]);
             hpc = Boolean.parseBoolean(args[1]);
         }
         if(hpc)
             gui = false;
             
+        System.out.println("gui:" + gui +"\nhpc:"+hpc);
+        
         new TreeReroots(gui,hpc,dist);
     }
 

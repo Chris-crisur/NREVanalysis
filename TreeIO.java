@@ -284,16 +284,15 @@ public class TreeIO implements ActionListener{
             //alignfilein="Input"+File.separator+"alignment.phy";
             File ftf;
             //String [] cmds;
-            Log("hpc:" + hpc);
             if(hpc){
-                ftf = new File("/opt/exp_soft/FastTree");
+                ftf = new File("/opt/exp_soft/FastTree/FastTreeMP");
                 String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     path+File.separator+"Input"+File.separator+treefileout,
                     path+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
                 return Shell(ftf,cmds);
             }
             else{
-                ftf = new File(path+"FastTree"+File.separator+"FastTreeMP");
+                ftf = new File(path+"FastTree"+File.separator+"FastTree");
                 String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     ".."+File.separator+"Input"+File.separator+treefileout,
                     ".."+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
@@ -546,7 +545,8 @@ public class TreeIO implements ActionListener{
 			    File treefile = new File(path+"HYPHY" + File.separator + "tree");//put tree in file under HYPHY;
 			    String [] cmds ={"./HYPHYMP","SchmodelTest.bf"};
 			    if(hpc)
-			    cmds[0] = "/opt/exp_soft/HYPHYMPI";
+                                cmds[0] = "/opt/exp_soft/hyphy-mpi-2.2.1/bin/HYPHYMPI"; 
+                                //else try /opt/exp_soft/hyphyMPI/bin/HYPHYMPI
 			    String location="";
 			    String replace="";
 			    
