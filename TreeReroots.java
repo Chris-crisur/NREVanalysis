@@ -825,24 +825,28 @@ try{
             
             if(OUT[0]==null){
             	io.Log("error?");
-            	skipnames.add(currentAlignment);
+            	excludeList.add(currentAlignment);
             	skip=true;
             	continue;
             }
             else if(OUT[0].contains("Error")){
-      			io.Log("Alignment " + currentAlignment + " has an error from HYPHY script: \n" + OUT[0]);
-      			for(String s:OUT){
-      				if(!s.contains("Error")){
-      					io.Log("Not all trees have an error");
-      				}
-      			}
-      			continue;
-      		}
+                io.Log("Alignment " + currentAlignment + " has an error from HYPHY script: \n" + OUT[0]);
+                for(String s:OUT){
+                        if(!s.contains("Error")){
+                           io.Log("not every OUT index has error");
+                           break;
+                        }
+                }
+                continue;
+            }
             else if(OUT[0].equals("")||OUT[OUT.length-1]==null){
             	io.Log("Alignment skipped");
-            	skipnames.add(currentAlignment);
+            	excludeList.add(currentAlignment);
             	skip=true;
             	continue;
+            }
+            else{
+                io.Log("no obvious errors in OUT. Length: " + OUT.length);
             }
             
             List<String> finalTree = optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
@@ -887,7 +891,7 @@ try{
         double time_total=(System.currentTimeMillis()-start_time_total)/1000;
         io.Log("Completed in " + time_total + " seconds");
 }catch(Exception e){
-	io.Display("Unforeseen error in run, program has been halted: " + e.toString());
+	io.Display("Unforeseen error in run, program has been halted: \n" + e);
 	System.exit(-1);
 }
     }//#####################################################################

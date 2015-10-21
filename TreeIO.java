@@ -545,7 +545,8 @@ public class TreeIO implements ActionListener{
 			    File treefile = new File(path+"HYPHY" + File.separator + "tree");//put tree in file under HYPHY;
 			    String [] cmds ={"./HYPHYMP","SchmodelTest.bf"};
 			    if(hpc)
-                                cmds[0] = "/opt/exp_soft/hyphy-mpi-2.2.1/bin/HYPHYMPI"; 
+                                cmds[0] = "/opt/exp_soft/hyphyMPI/bin/HYPHYMPI";
+                                //"/opt/exp_soft/hyphy-mpi-2.2.1/bin/HYPHYMPI"; 
                                 //else try /opt/exp_soft/hyphyMPI/bin/HYPHYMPI
 			    String location="";
 			    String replace="";
@@ -619,6 +620,10 @@ public class TreeIO implements ActionListener{
 			        	}
 			        	else if(cmdoutput.equals("timed")){
 			        		Log("Timed out");
+				    		return arr;
+			        	}
+			        	else if(cmdoutput.contains("Error")){
+			        		Log("Error in HYPHY: " + cmdoutput);
 				    		return arr;
 			        	}
 			        	
