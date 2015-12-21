@@ -178,8 +178,9 @@ public class TreeIO implements ActionListener{
         	System.out.println(shell.waitFor());//0 is success
            output = sb.toString();
            
-            } catch(IOException | InterruptedException ex) {
+            } catch(IOException | InterruptedException | NullPointerException ex) {
                 logError("Shell: " + ex.toString());
+                Display(output);
                 return "1";
             }
         return output;
