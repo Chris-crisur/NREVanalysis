@@ -277,6 +277,8 @@ public class TreeIO implements ActionListener{
         File dest = new File("/home/"+user+"/"+qsubName+".sh");
         
         Write(dest,top+commands,false);
+        Display("qsub written");
+        
         String [] cmds = new String[arguments.length+2];
         cmds[0] = "qsub";
         if(arguments.length>0){
@@ -285,6 +287,7 @@ public class TreeIO implements ActionListener{
             }
         }
         cmds[cmds.length-1] = qsubName+".sh";
+        Display("begin qsub shell");
         return Shell(dest,cmds);
      }
      
