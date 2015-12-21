@@ -44,24 +44,24 @@ import java.awt.event.ActionListener;
  */
 public class TreeIO implements ActionListener{
 	
-	private boolean gui;
-	private boolean hpc;
-	private JFrame frame;
-	private JPanel panel;
-	private JTextArea logArea;
-	private JComboBox<String> next;
-	private DefaultComboBoxModel<String> model;
-	private List<String> alignmentsList;
-	private String nextAlignment="";
-	private JLabel current;
-	private JScrollPane scrollingArea;
-	private JProgressBar progressBar; 
-	private boolean skip=false;
-	private Process shell;
-	private File LogFile;
-	private String path;
+    private boolean gui;
+    private boolean hpc;
+    private JFrame frame;
+    private JPanel panel;
+    private JTextArea logArea;
+    private JComboBox<String> next;
+    private DefaultComboBoxModel<String> model;
+    private List<String> alignmentsList;
+    private String nextAlignment="";
+    private JLabel current;
+    private JScrollPane scrollingArea;
+    private JProgressBar progressBar; 
+    private boolean skip=false;
+    private Process shell;
+    private File LogFile;
+    private String path;
 	
-	public TreeIO(boolean gui,boolean hpc,boolean b) {
+    public TreeIO(boolean gui,boolean hpc,boolean b) {
 	this.gui = gui;
 	this.hpc = hpc;
         if(b||hpc){
@@ -270,7 +270,36 @@ public class TreeIO implements ActionListener{
             logError("Write: " + ex.toString());
         } 
     }
+     
+     public String qsub(String qsubName, String commands, String [] arguments, String user, int nodes, int ppn){
+        String top = "#PBS –N NREVing-"+qsubName+"\n#PBS –q UCTlong\n#PBS –l nodes="+nodes+":ppn="+ppn+":series600\n";
         
+        File dest = new File("/home/"+user+"/"+qsubName+".sh");
+        
+        Write(dest,top+commands,false);
+        String [] cmds = new String[arguments.length+2];
+        cmds[0] = "qsub";
+        for(int i=1;i<arguments.length;i++){
+            cmds[i] = arguments[i-1];
+        }
+        cmds[cmds.length-1] = qsubName+".sh";
+        return Shell(dest,cmds);
+     }
+     
+     public String qsub(String qsubName, String commands, String [] arguments, int nodes, int ppn){
+        String user = "chris.currin";
+        return qsub(qsubName,commands,arguments,user,nodes,ppn);
+     }
+     
+     public String qsub(String qsubName, String commands, String [] arguments){
+        String user = "chris.currin";
+        int nodes = 1;
+        int ppn = 1;
+        return qsub(qsubName,commands,arguments,user,nodes,ppn);
+     }
+     
+     
+     
     /**
      * Allows FastTree support. 
      * The alignment file should be in the same folder as the FastTree application. 
@@ -281,18 +310,16 @@ public class TreeIO implements ActionListener{
      * @return					FastTree output is returned. Useful for error-checking.
      */
     public String FastTree(String alignfilein, String treefileout){
-            //alignfilein="Input"+File.separator+"alignment.phy";
-            File ftf;
-            //String [] cmds;
             if(hpc){
-                ftf = new File("/opt/exp_soft/FastTree/FastTreeMP");
-                String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
-                    path+File.separator+"Input"+File.separator+treefileout,
-                    path+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
-                return Shell(ftf,cmds);
+            String [] args = {""};
+                return qsub("FastTree",
+                    "/opt/exp_soft/FastTree/FastTreeMP -nt -gtr -nosupport -out " + 
+                        path+File.separator+"Input"+File.separator+treefileout + " " + 
+                        path+File.separator+"Input"+File.separator+alignfilein+"_CLEAN",
+                    args);
             }
             else{
-                ftf = new File(path+"FastTree"+File.separator+"FastTree");
+                File ftf = new File(path+"FastTree"+File.separator+"FastTree");
                 String [] cmds ={ftf.getAbsolutePath(),"-nt","-gtr","-nosupport","-out",
                     ".."+File.separator+"Input"+File.separator+treefileout,
                     ".."+File.separator+"Input"+File.separator+alignfilein+"_CLEAN"};
@@ -471,7 +498,8 @@ public class TreeIO implements ActionListener{
 		final int SIZE=trees.size(); //trees.size(); //testing purposes
 		int start=0;
 		boolean completeOUT = false;
-    	File outFile = new File(path+"HYPHY" + File.separator + "Backup Output" + File.separator + "HYPHY_"+alignfilename+".txt");
+		String outFileStr = path+"HYPHY" + File.separator + "Backup Output" + File.separator + "HYPHY_"+alignfilename+".txt";
+    	File outFile = new File(outFileStr);
 		String [] OUT = new String[SIZE]; //Output from HYPHY script
 		String [] arr = {""}; //empty array to return on skip
 		
@@ -482,7 +510,7 @@ public class TreeIO implements ActionListener{
 		 * If HYPHY has already run and produced output, it will be in a file under HYPHY/Backup Output starting with "HYPHY_". 
 		 * In which case the method needs to see how far the progress is for HYPHY and set accordingly.
 		 */
-		if(outFile.exists()){
+		if(outFile.exists()&&!hpc){
 			completeOUT=true;
 			Log("HYPHY already run. If you want to run the HYPHY script again, delete the appropriate file in HYPHY/Backup Output");
     		String line;
@@ -544,10 +572,6 @@ public class TreeIO implements ActionListener{
 																			    
 			    File treefile = new File(path+"HYPHY" + File.separator + "tree");//put tree in file under HYPHY;
 			    String [] cmds ={"./HYPHYMP","SchmodelTest.bf"};
-			    if(hpc)
-                                cmds[0] = "/opt/exp_soft/hyphyMPI/bin/HYPHYMPI";
-                                //"/opt/exp_soft/hyphy-mpi-2.2.1/bin/HYPHYMPI"; 
-                                //else try /opt/exp_soft/hyphyMPI/bin/HYPHYMPI
 			    String location="";
 			    String replace="";
 			    
@@ -569,34 +593,34 @@ public class TreeIO implements ActionListener{
 			    	tree_time=System.currentTimeMillis();
 			    	replace=trees.get(i).replaceAll("-","");
 		            replace=replace.replace(Character.toString((char) 124), ""); 
-			    	if(MULTITHREAD>0){	//MULTITHREAD
-				        try{
-				        	/**Write tree**/
-				        	treefile = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "tree");//put tree in file under HYPHY
-				            treefile.getParentFile().mkdirs(); //make folders if not there	                
-				            Write(treefile,replace + ";",false); //write tree to file
-				            
-				            
-				        	/**HYPHYMP copy**/
-				        	//from_HYPHYMP = new File(path+"HYPHY" + File.separator + "HYPHYMP");
-				        	//to_HYPHYMP = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "HYPHYMP");
-				        	//Files.copy(from_HYPHYMP.toPath(), to_HYPHYMP.toPath(), StandardCopyOption.REPLACE_EXISTING); 
-				        	/**SchmodelTest copy**/
-				        	from_SchmodelTest= new File(path+"HYPHY" + File.separator + "SchmodelTest.bf");
-				        	to_SchmodelTest = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "SchmodelTest.bf");
-				        	Files.copy(from_SchmodelTest.toPath(), to_SchmodelTest.toPath(), StandardCopyOption.REPLACE_EXISTING); 
-				        	location = "TEMP" + File.separator + alignfilename + i + File.separator + "SchmodelTest.bf";
-				        	/**Alignment copy**/
-				        	from_Alignment= new File(path+"HYPHY" + File.separator + "alignment");
-				        	to_Alignment = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "alignment");
-				        	Files.copy(from_Alignment.toPath(), to_Alignment.toPath(), StandardCopyOption.REPLACE_EXISTING); 
-				        }catch(IOException ex){
-				        	Display("HyphyResults (multithread file copying): " + ex.toString());
-				        	System.exit(-1);
-				        }
+			    	if(MULTITHREAD>0||hpc){	//MULTITHREAD
+                                    try{
+                                            /**Write tree**/
+                                            treefile = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "tree");//put tree in file under HYPHY
+                                        treefile.getParentFile().mkdirs(); //make folders if not there	                
+                                        Write(treefile,replace + ";",false); //write tree to file
+                                            /**HYPHYMP copy**/
+                                            //from_HYPHYMP = new File(path+"HYPHY" + File.separator + "HYPHYMP");
+                                            //to_HYPHYMP = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "HYPHYMP");
+                                            //Files.copy(from_HYPHYMP.toPath(), to_HYPHYMP.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+                                            /**SchmodelTest copy**/
+                                            from_SchmodelTest= new File(path+"HYPHY" + File.separator + "SchmodelTest.bf");
+                                            to_SchmodelTest = new File(path+"HYPHY" + File.separator + "TEMP" +                     File.separator + alignfilename + i + File.separator + "SchmodelTest.bf");
+                                            Files.copy(from_SchmodelTest.toPath(), to_SchmodelTest.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+                                            location = "TEMP" + File.separator + alignfilename + i + File.separator + "SchmodelTest.bf";
+                                            /**Alignment copy**/
+                                            from_Alignment= new File(path+"HYPHY" + File.separator + "alignment");
+                                            to_Alignment = new File(path+"HYPHY" + File.separator + "TEMP" + File.separator + alignfilename + i + File.separator + "alignment");
+                                            Files.copy(from_Alignment.toPath(), to_Alignment.toPath(), StandardCopyOption.REPLACE_EXISTING); 
+                                    }catch(IOException ex){
+                                            Display("HyphyResults (multithread file copying): " + ex.toString());
+                                            System.exit(-1);
+                                    }
 			        /**...HYPHY Task...**/
 			        	cmds[1]=location;
-			        	treethreads.add(new HYPHYTask(from_Alignment,cmds));
+			        	if(!hpc){
+                                            treethreads.add(new HYPHYTask(from_Alignment,cmds));
+                                        }
 			        }// end multi thread
 			        else{	//SINGLETHREAD
 			        	Write(treefile,replace + ";",false); //write tree to file
@@ -711,9 +735,79 @@ public class TreeIO implements ActionListener{
 				    	logFile(outFile,s);
 				    }
 			    }//end MULTITHREAD
-			    
-			    
-			    logFile(outFile,"Likelihoods"); //required as if file exists already, OUT is filled when it reaches a Likelihood. Therefore file needs to end with likelihood
+			    else if(hpc){
+                                cmds[0] = "/opt/exp_soft/hyphyMPI/bin/HYPHYMPI";
+                                //"/opt/exp_soft/hyphy-mpi-2.2.1/bin/HYPHYMPI"; 
+                                //else try /opt/exp_soft/hyphyMPI/bin/HYPHYMPI
+                                
+                                String [] args = {"-t","0-"+(SIZE-1),"-o",outFileStr};
+                                String qsubResult = qsub("HYPHYsub",
+                                    cmds[0] + " " + path+"HYPHY"+File.separator+"TEMP"+File.separator+alignfilename+"${PBS_ARRAYID}" + File.separator + "SchmodelTest.bf", 
+                                    args,
+                                    4, 4);
+                                Display("qsubResult: " + qsubResult);
+                                
+                                int nSleeps=0;
+                                while(!outFile.exists()){
+                                    //do nothing
+                                    try{
+                                        Thread.sleep(60000);
+                                    }catch(InterruptedException ie){
+                                        Display("while outFile does NOT exist thread sleep exception \n" + ie.getMessage());
+                                    }
+                                    nSleeps+=1;
+                                    Display(""+nSleeps);
+                                    if(nSleeps>(24*60)){//one day has passed
+                                        OUT[0] = "break";
+                                        break;
+                                    }
+                                }
+                                logFile(outFile,"Likelihoods");
+                                //read results from outFile once it exists (when job is done)
+                                completeOUT=true;
+                                String line;
+                                int ind=-1;
+                                StringBuilder lines = new StringBuilder();
+                                try{
+                                    BufferedReader reader = new BufferedReader(new FileReader(outFile));	
+                                    while ((line = reader.readLine())!= null) {
+                                            if(line.equals("Likelihoods")){
+                                                    if(ind==-1){ //first line
+                                                            ind++;
+                                                            lines.append(line+"\n");
+                                                            continue;
+                                                    }
+                                                    OUT[ind] = lines.toString();
+                                                    ind++;
+                                                    lines = new StringBuilder("Likelihoods\n");
+                                            }
+                                            else if(line.equals("null")){
+                                                    completeOUT=false;
+                                                    ind=SIZE;//prevent start from becoming ind
+                                            }
+                                            else{
+                                                    lines.append(line+"\n");
+                                            }
+                                    }
+                                    reader.close();
+                                }catch(IOException io){
+                                    logError("HyphyResults (outFile exists): " + io.toString());
+                                }
+                                if(ind==-1){
+                                    completeOUT=false;
+                                }
+                                else if(ind!=SIZE){   
+                                    OUT[ind] = lines.toString();
+                                    start=ind++;
+                                    completeOUT=false;
+                                }
+                                
+                                Display("completeOUT? " + completeOUT);
+                                
+			    }//end hpc
+    
+			    if(!hpc)
+                                logFile(outFile,"Likelihoods"); //required as if file exists already, OUT is filled when it reaches a Likelihood. Therefore file needs to end with likelihood
 			    
 	    	}//end exist 
 

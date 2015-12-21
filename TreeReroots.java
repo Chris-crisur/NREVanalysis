@@ -673,42 +673,42 @@ try{
 	        String nameTemp;
 	        String returnShellVal="";
 	        for(String alignment: alignments){
-                if(excludeList.contains(alignment)){
-                    continue;
-                }
-	        	if(alignment.endsWith("phy")){
-	        	 tree = alignment.substring(0,alignment.length()-3)+"nwk";
-	        	}
-	        	else if(alignment.endsWith("fasta")){
-	        		tree = alignment.substring(0,alignment.length()-5)+"nwk";
-	        	}
-	        	else if(alignment.endsWith("fas")){
-	        		tree = alignment.substring(0,alignment.length()-3)+"nwk";
-	        	}
-	        	else{
-	        		io.Log("check: " + alignment +". Attempting anyway");
-	        		tree = alignment.substring(0,alignment.lastIndexOf("."))+".nwk";
-	        	}
-	        	treeFile = new File(path+"Input"+File.separator+tree);
-	        	nameTemp = alignment.substring(0,alignment.indexOf('.'));
-	            io.setLogFile(new File(path+"Output"+File.separator+nameTemp+File.separator+"Details.txt"));
-	        	if(!treeFile.exists()||io.isEmpty(treeFile)){
-                            replacements.add(io.convertNames(alignment,"\n"));	//relatively quick (<1s) to convert to linux format
-		            timebefore = System.currentTimeMillis();
-		            io.Log("FastTree for " + alignment);
-                            returnShellVal = io.FastTree(alignment,tree); //FastTree implementation
-                            io.Log("done in "+ String.valueOf((System.currentTimeMillis()-timebefore)/1000) + " seconds" );
-	        	}
-	        	else{
-	        		Map<String,String> temp = io.getNameCodes(alignment); //need to have different method otherwise will convert already converted sequence names
-	        		replacements.add(temp);
-	        	}
-	        	if(io.isEmpty(treeFile)){
-	    			io.Log("FastTree FAILED for " + alignment);
-	    			io.Log("ERROR: \n" + returnShellVal);
-	    			io.Log("For more info, try FastTree -nt -gtr -nosupport -out " + tree + " " + alignment);
-	    			excludeList.add(alignment);
-	    		}
+                    if(excludeList.contains(alignment)){
+                        continue;
+                    }
+                    if(alignment.endsWith("phy")){
+                        tree = alignment.substring(0,alignment.length()-3)+"nwk";
+                    }
+                    else if(alignment.endsWith("fasta")){
+                            tree = alignment.substring(0,alignment.length()-5)+"nwk";
+                    }
+                    else if(alignment.endsWith("fas")){
+                            tree = alignment.substring(0,alignment.length()-3)+"nwk";
+                    }
+                    else{
+                            io.Log("check: " + alignment +". Attempting anyway");
+                            tree = alignment.substring(0,alignment.lastIndexOf("."))+".nwk";
+                    }
+                    treeFile = new File(path+"Input"+File.separator+tree);
+                    nameTemp = alignment.substring(0,alignment.indexOf('.'));
+                    io.setLogFile(new File(path+"Output"+File.separator+nameTemp+File.separator+"Details.txt"));
+                    if(!treeFile.exists()||io.isEmpty(treeFile)){
+                        replacements.add(io.convertNames(alignment,"\n"));	//relatively quick (<1s) to convert to linux format
+                        timebefore = System.currentTimeMillis();
+                        io.Log("FastTree for " + alignment);
+                        returnShellVal = io.FastTree(alignment,tree); //FastTree implementation
+                        io.Log("done in "+ String.valueOf((System.currentTimeMillis()-timebefore)/1000) + " seconds" );
+                    }
+                    else{
+                            Map<String,String> temp = io.getNameCodes(alignment); //need to have different method otherwise will convert already converted sequence names
+                            replacements.add(temp);
+                    }
+                    if(io.isEmpty(treeFile)){
+                            io.Log("FastTree FAILED for " + alignment);
+                            io.Log("ERROR: \n" + returnShellVal);
+                            io.Log("For more info, try FastTree -nt -gtr -nosupport -out " + tree + " " + alignment);
+                            excludeList.add(alignment);
+                    }
 	        }
 	        List<String> files = new ArrayList<>();
 	        try{
@@ -844,8 +844,9 @@ try{
             	excludeList.add(currentAlignment);
             	skip=true;
             	continue;
-            }
-            else{
+            }else if(OUT[0].equals("break")){
+                break;
+            }else{
                 io.Log("no obvious errors in OUT. Length: " + OUT.length);
             }
             
