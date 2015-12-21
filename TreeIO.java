@@ -279,8 +279,10 @@ public class TreeIO implements ActionListener{
         Write(dest,top+commands,false);
         String [] cmds = new String[arguments.length+2];
         cmds[0] = "qsub";
-        for(int i=1;i<arguments.length;i++){
-            cmds[i] = arguments[i-1];
+        if(arguments.length>0){
+            for(int i=1;i<arguments.length;i++){
+                cmds[i] = arguments[i-1];
+            }
         }
         cmds[cmds.length-1] = qsubName+".sh";
         return Shell(dest,cmds);
