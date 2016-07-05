@@ -1,7 +1,0 @@
-*wayne's script -> output for best
-directionality: p value of nrev vs gtr
-*AIC difference 5-2: moderate support <2: not enough evidence to strongly support rooting
-*nrev12 rename
-input pre-made tree
-output all trees
-*likelihood branch lengths
