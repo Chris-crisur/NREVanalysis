@@ -1,5 +1,0 @@
-run "bash installRequiredLibs" in terminal (bash sometimes optional) 
-run "bash HyPhyMake" in terminal
-run "bash installFastTree" in terminal (optional: see file in editor for details)
-
-TODO: recompile fasttree with -DUSE_DOUBLE

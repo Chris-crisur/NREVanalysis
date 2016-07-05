@@ -1,5 +1,5 @@
 #!/bin/bash
 bash installRequiredLibs
-bash HyPhyMake
-bash compileJavaFiles
+bash installHyPhy
 bash installFastTree
+javac *.java
