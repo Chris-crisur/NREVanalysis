@@ -210,7 +210,7 @@ else {
 
 	/* 12 rate model */
 	PopulateNucleotideModelMatrix ( "NREV12Matrix" );
-	Model NREVModel = ( NREVMatrix, nucFreq, 1 );
+	Model NREVModel = ( NREV12Matrix, nucFreq, 1 );
 	Tree NREVTree = treeString;
 	LikelihoodFunction lf_nrev = ( nucFilter, NREVTree );
 	Optimize ( res_nrev, lf_nrev );
