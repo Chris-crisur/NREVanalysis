@@ -640,260 +640,260 @@ public class TreeReroots {
      *  Files relating to alignment under Input are deleted. 
      */
     public final void run(){
-try{
-        long start_time_total=System.currentTimeMillis();
-        long timebefore;
-        boolean avail =true; //files available
-        io.Log("Start");
-        List<String> alignments = new ArrayList<>();
-        List<String> skipnames = new ArrayList<>();
-        List<String> excludeList = new ArrayList<>();
-        if(build){
-        	path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        	path=path.substring(0,path.lastIndexOf(File.separator)+1);
-        	}
-        else
-        	path="";
-        while(avail){ //allows alignments to be added without restarting program
-        	io.Log("\n");
-        	alignments = new ArrayList<>();
-        	
-        	try{
-        		alignments = io.listFilesForFolder("phy,fasta,fas",new File(path+"Input"));
-        	}catch(Exception e){
-        		io.logError("listFilesforFolder(phy,fasta,fas): " + e.toString());
-        	}
-	        if(alignments.size()<1||alignments.size()==excludeList.size()){
-	        	avail=false;
-	        	break;
-	        }
-	        String tree="";
-	        List<Map<String,String>> replacements = new ArrayList<>();
-	        File treeFile;
-	        String nameTemp;
-	        String returnShellVal="";
-	        for(String alignment: alignments){
-                    if(excludeList.contains(alignment)){
-                        continue;
-                    }
-                    if(alignment.endsWith("phy")){
-                        tree = alignment.substring(0,alignment.length()-3)+"nwk";
-                    }
-                    else if(alignment.endsWith("fasta")){
-                            tree = alignment.substring(0,alignment.length()-5)+"nwk";
-                    }
-                    else if(alignment.endsWith("fas")){
+        try{
+            long start_time_total=System.currentTimeMillis();
+            long timebefore;
+            boolean avail =true; //files available
+            io.Log("Start");
+            List<String> alignments = new ArrayList<>();
+            List<String> skipnames = new ArrayList<>();
+            List<String> excludeList = new ArrayList<>();
+            if(build){
+                path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+                path=path.substring(0,path.lastIndexOf(File.separator)+1);
+                }
+            else
+                path="";
+            while(avail){ //allows alignments to be added without restarting program
+                io.Log("\n");
+                alignments = new ArrayList<>();
+
+                try{
+                    alignments = io.listFilesForFolder("phy,fasta,fas",new File(path+"Input"));
+                }catch(Exception e){
+                    io.logError("listFilesforFolder(phy,fasta,fas): " + e.toString());
+                }
+                if(alignments.size()<1||alignments.size()==excludeList.size()){
+                    avail=false;
+                    break;
+                }
+                String tree="";
+                List<Map<String,String>> replacements = new ArrayList<>();
+                File treeFile;
+                String nameTemp;
+                String returnShellVal="";
+                for(String alignment: alignments){
+                        if(excludeList.contains(alignment)){
+                            continue;
+                        }
+                        if(alignment.endsWith("phy")){
                             tree = alignment.substring(0,alignment.length()-3)+"nwk";
-                    }
-                    else{
-                            io.Log("check: " + alignment +". Attempting anyway");
-                            tree = alignment.substring(0,alignment.lastIndexOf("."))+".nwk";
-                    }
-                    treeFile = new File(path+"Input"+File.separator+tree);
-                    nameTemp = alignment.substring(0,alignment.indexOf('.'));
-                    io.setLogFile(new File(path+"Output"+File.separator+nameTemp+File.separator+"Details.txt"));
-                    if(!treeFile.exists()||io.isEmpty(treeFile)){
-                        replacements.add(io.convertNames(alignment,"\n"));	//relatively quick (<1s) to convert to linux format
-                        timebefore = System.currentTimeMillis();
-                        io.Log("FastTree for " + alignment);
-                        returnShellVal = io.FastTree(alignment,tree); //FastTree implementation
-                        io.Log("done in "+ String.valueOf((System.currentTimeMillis()-timebefore)/1000) + " seconds" );
-                    }
-                    else{
-                            Map<String,String> temp = io.getNameCodes(alignment); //need to have different method otherwise will convert already converted sequence names
-                            replacements.add(temp);
-                    }
-                    if(io.isEmpty(treeFile)){
-                            io.Log("FastTree FAILED for " + alignment);
-                            io.Log("ERROR: \n" + returnShellVal);
-                            io.Log("For more info, try FastTree -nt -gtr -nosupport -out " + tree + " " + alignment);
-                            excludeList.add(alignment);
-                    }
-	        }
-	        List<String> files = new ArrayList<>();
-	        try{
-	        	// Start by inputting tree file from Input folder
-	        	files = io.listFilesForFolder("nwk",new File(path+"Input"));
-	        }catch(Exception e){
-	    		io.logError("listFilesforFolder (nwk): " + e.toString());
-	    	}
-	        
-	        String currentAlignment="";
-            
-            if(io.getNextAlignment().equals("")){
-        		io.populateAlignmentList(files);
-        		io.setNextAlignment();
-            	currentAlignment=io.getNextAlignment();
-            	files.remove(currentAlignment);
-            	io.populateAlignmentList(files);
-            }
-            else{
-            	io.setNextAlignment();
-            	currentAlignment=io.getNextAlignment();
-            	files.remove(currentAlignment);
-            	if(skip){
-	            	for(int i=0;i<skipnames.size();i++){ //put any names that were skipped on purpose to the end of the list (to be done last)
-	            		String skippedTree=skipnames.get(i);
-	            		if(files.contains(skippedTree)){
-	            			files.remove(skippedTree);
-	            			files.add(skippedTree);
-	            		}//end if
-	            	}//end for
-            	}//end if
-            	else{
-            		skipnames.clear();
-            	}
-            	io.populateAlignmentList(files);
-            }//end else
-            
-            
-            String name = currentAlignment.substring(0,currentAlignment.indexOf('.'));
-            io.setLogFile(new File(path+"Output"+File.separator+name+File.separator+"Details.txt"));
-            
-            io.Log(currentAlignment);
-            
-            
-            
-            String treeline = io.getTreeLine(currentAlignment);
-            
-            io.Log("retrieved from file");
-            
-            //int treelength = treeline.length();
-            
-            treeline = getNameTree(treeline.toCharArray());                
-            io.Log("numbers removed");
-            
-            treeline = convertToBinary(treeline,0);
-            io.Log("converted to binary");
-            
-            //array of items in the tree
-            String [] names = getEmptyTree(treeline.toCharArray()).split(","); //have all the sequences in an array
-            if(names.length<=1){
-                    io.Log("Not enough elements in tree");
-                    io.logError("Not enough elements in tree for " + name);
-                    continue;
-            }
-            io.Log("sequences extracted: " + String.valueOf(names.length));
-            
-            
-            
-            BinaryTree<String> btree = generateTree(treeline);
-            io.Log("tree generated");
-            checkGeneratedTree(btree,treeline);
-            io.Log("and checked");
-            
-            List<String> reroots = new ArrayList<>();
-            io.setProg(0);
-            File rootFile = new File(path+"Input" +File.separator+currentAlignment + "_REROOTS.txt");
-            if(rootFile.exists()){
-            	reroots = io.getRoots(rootFile); //for testing
-            }
-            else{
-	            io.Log("Start Rerooting");
-	            long r_time = System.currentTimeMillis();
-	            Set<String> rerootset = allReroots(btree, names);
-	            double r_time_total=(System.currentTimeMillis()-r_time)/1000;
-	            io.Log("Rerooting done in " + r_time_total + " seconds");
-	            reroots.addAll(rerootset);
-	            io.outputTrees(reroots,currentAlignment+"_REROOTS"); //all reroots one file
-	            io.outputRerootedTrees(reroots,name);
-            }
-            
-            io.Log("rerootings: " + reroots.size()+" expected: " + (names.length*2-3));
-                          
-            long h_time  = System.currentTimeMillis();
-            
-            String alignmentString = "";
-            int r=0; //replacement index (in line with alignment but not files)
-            for(String alignment: alignments){ //quick enough to check
-            	if(alignment.substring(0,alignment.lastIndexOf(".")).equals(name)){
-            		alignmentString=alignment;
-            		break;
-            	}
-            	r++;
-            }
-                           
-            if(alignmentString.equals("")){
-            	io.Log("error for " + currentAlignment);
-            	continue;
-            }
-            
-            io.Log("Start HYPHY");
-            String [] OUT = io.HyphyResults(reroots, alignmentString);	//single
-            long h_time_total=(System.currentTimeMillis()-h_time)/1000;
-            io.Log("HYPHY done in " + h_time_total + " seconds");
-            
-            if(OUT[0]==null){
-            	io.Log("error?");
-            	excludeList.add(currentAlignment);
-            	skip=true;
-            	continue;
-            }
-            else if(OUT[0].contains("Error")){
-                io.Log("Alignment " + currentAlignment + " has an error from HYPHY script: \n" + OUT[0]);
-                for(String s:OUT){
-                        if(!s.contains("Error")){
-                           io.Log("not every OUT index has error");
-                           break;
+                        }
+                        else if(alignment.endsWith("fasta")){
+                                tree = alignment.substring(0,alignment.length()-5)+"nwk";
+                        }
+                        else if(alignment.endsWith("fas")){
+                                tree = alignment.substring(0,alignment.length()-3)+"nwk";
+                        }
+                        else{
+                                io.Log("check: " + alignment +". Attempting anyway");
+                                tree = alignment.substring(0,alignment.lastIndexOf("."))+".nwk";
+                        }
+                        treeFile = new File(path+"Input"+File.separator+tree);
+                        nameTemp = alignment.substring(0,alignment.indexOf('.'));
+                        io.setLogFile(new File(path+"Output"+File.separator+nameTemp+File.separator+"Details.txt"));
+                        if(!treeFile.exists()||io.isEmpty(treeFile)){
+                            replacements.add(io.convertNames(alignment,"\n"));	//relatively quick (<1s) to convert to linux format
+                            timebefore = System.currentTimeMillis();
+                            io.Log("FastTree for " + alignment);
+                            returnShellVal = io.FastTree(alignment,tree); //FastTree implementation
+                            io.Log("done in "+ String.valueOf((System.currentTimeMillis()-timebefore)/1000) + " seconds" );
+                        }
+                        else{
+                                Map<String,String> temp = io.getNameCodes(alignment); //need to have different method otherwise will convert already converted sequence names
+                                replacements.add(temp);
+                        }
+                        if(io.isEmpty(treeFile)){
+                                io.Log("FastTree FAILED for " + alignment);
+                                io.Log("ERROR: \n" + returnShellVal);
+                                io.Log("For more info, try FastTree -nt -gtr -nosupport -out " + tree + " " + alignment);
+                                excludeList.add(alignment);
                         }
                 }
-                continue;
-            }
-            else if(OUT[0].equals("")||OUT[OUT.length-1]==null){
-            	io.Log("Alignment skipped");
-            	excludeList.add(currentAlignment);
-            	skip=true;
-            	continue;
-            }else if(OUT[0].equals("break")){
-                break;
-            }else{
-                io.Log("no obvious errors in OUT. Length: " + OUT.length);
-            }
-            
-            List<String> finalTree = optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
-            
-            List<String> keyList = new ArrayList<>();
-            keyList.addAll(replacements.get(r).keySet());
-            String treeReplace="";
-            for(int f=0;f<finalTree.size();f++){
-            	treeReplace=finalTree.get(f);
-            	for(int k=0;k<keyList.size();k++){
-            		treeReplace=treeReplace.replace(keyList.get(k), replacements.get(r).get(keyList.get(k)));
-            	}
-            	//finalTree.remove(f);
-            	//finalTree.add(treeReplace); //aletrnate instead of set
-            	finalTree.set(f,treeReplace);
-            }
-            
-            io.outputIndividualTrees(finalTree, name);
-            io.Log("DONE! See Output folder for tree(s)");
-            
-            try { //restore original file only when done with it
-            	File bakFile = new File(path+"Input"+File.separator+alignments.get(r)+".bak");
-            	File codeFile = new File(path+"Input"+File.separator+alignments.get(r)+"_CODES.txt");
-            	File alignmentFileClean = new File(path+"Input"+File.separator+alignments.get(r)+"_CLEAN");
-            	File alignmentFile = new File(path+"Input"+File.separator+alignments.get(r));
-            	File treeFileDel = new File(path+"Input"+File.separator+currentAlignment);
-            	
-                Files.copy(bakFile.toPath(),new File(path+"Output"+File.separator+alignments.get(r)).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                rootFile.delete();
-                bakFile.delete();
-                codeFile.delete();
-                alignmentFileClean.delete();
-                alignmentFile.delete();
-                treeFileDel.delete();
-            } catch (IOException e) {
-                    io.logError("File deletion: " + e.toString());
-            } //make backup
-            io.setLogFile(null);
-        }//end while
-        
-        
-        double time_total=(System.currentTimeMillis()-start_time_total)/1000;
-        io.Log("Completed in " + time_total + " seconds");
-}catch(Exception e){
-	io.Display("Unforeseen error in run, program has been halted: \n" + e);
-	System.exit(-1);
-}
+                List<String> files = new ArrayList<>();
+                try{
+                    // Start by inputting tree file from Input folder
+                    files = io.listFilesForFolder("nwk",new File(path+"Input"));
+                }catch(Exception e){
+                    io.logError("listFilesforFolder (nwk): " + e.toString());
+                }
+
+                String currentAlignment="";
+
+                if(io.getNextAlignment().equals("")){
+                    io.populateAlignmentList(files);
+                    io.setNextAlignment();
+                    currentAlignment=io.getNextAlignment();
+                    files.remove(currentAlignment);
+                    io.populateAlignmentList(files);
+                }
+                else{
+                    io.setNextAlignment();
+                    currentAlignment=io.getNextAlignment();
+                    files.remove(currentAlignment);
+                    if(skip){
+                        for(int i=0;i<skipnames.size();i++){ //put any names that were skipped on purpose to the end of the list (to be done last)
+                            String skippedTree=skipnames.get(i);
+                            if(files.contains(skippedTree)){
+                                files.remove(skippedTree);
+                                files.add(skippedTree);
+                            }//end if
+                        }//end for
+                    }//end if
+                    else{
+                        skipnames.clear();
+                    }
+                    io.populateAlignmentList(files);
+                }//end else
+
+
+                String name = currentAlignment.substring(0,currentAlignment.indexOf('.'));
+                io.setLogFile(new File(path+"Output"+File.separator+name+File.separator+"Details.txt"));
+
+                io.Log(currentAlignment);
+
+
+
+                String treeline = io.getTreeLine(currentAlignment);
+
+                io.Log("retrieved from file");
+
+                //int treelength = treeline.length();
+
+                treeline = getNameTree(treeline.toCharArray());
+                io.Log("numbers removed");
+
+                treeline = convertToBinary(treeline,0);
+                io.Log("converted to binary");
+
+                //array of items in the tree
+                String [] names = getEmptyTree(treeline.toCharArray()).split(","); //have all the sequences in an array
+                if(names.length<=1){
+                        io.Log("Not enough elements in tree");
+                        io.logError("Not enough elements in tree for " + name);
+                        continue;
+                }
+                io.Log("sequences extracted: " + String.valueOf(names.length));
+
+
+
+                BinaryTree<String> btree = generateTree(treeline);
+                io.Log("tree generated");
+                checkGeneratedTree(btree,treeline);
+                io.Log("and checked");
+
+                List<String> reroots = new ArrayList<>();
+                io.setProg(0);
+                File rootFile = new File(path+"Input" +File.separator+currentAlignment + "_REROOTS.txt");
+                if(rootFile.exists()){
+                    reroots = io.getRoots(rootFile); //for testing
+                }
+                else{
+                    io.Log("Start Rerooting");
+                    long r_time = System.currentTimeMillis();
+                    Set<String> rerootset = allReroots(btree, names);
+                    double r_time_total=(System.currentTimeMillis()-r_time)/1000;
+                    io.Log("Rerooting done in " + r_time_total + " seconds");
+                    reroots.addAll(rerootset);
+                    io.outputTrees(reroots,currentAlignment+"_REROOTS"); //all reroots one file
+                    io.outputRerootedTrees(reroots,name);
+                }
+
+                io.Log("rerootings: " + reroots.size()+" expected: " + (names.length*2-3));
+
+                long h_time  = System.currentTimeMillis();
+
+                String alignmentString = "";
+                int r=0; //replacement index (in line with alignment but not files)
+                for(String alignment: alignments){ //quick enough to check
+                    if(alignment.substring(0,alignment.lastIndexOf(".")).equals(name)){
+                        alignmentString=alignment;
+                        break;
+                    }
+                    r++;
+                }
+
+                if(alignmentString.equals("")){
+                    io.Log("error for " + currentAlignment);
+                    continue;
+                }
+
+                io.Log("Start HYPHY");
+                String [] OUT = io.HyphyResults(reroots, alignmentString);	//single
+                long h_time_total=(System.currentTimeMillis()-h_time)/1000;
+                io.Log("HYPHY done in " + h_time_total + " seconds");
+
+                if(OUT[0]==null){
+                    io.Log("error?");
+                    excludeList.add(currentAlignment);
+                    skip=true;
+                    continue;
+                }
+                else if(OUT[0].contains("Error")){
+                    io.Log("Alignment " + currentAlignment + " has an error from HYPHY script: \n" + OUT[0]);
+                    for(String s:OUT){
+                            if(!s.contains("Error")){
+                               io.Log("not every OUT index has error");
+                               break;
+                            }
+                    }
+                    continue;
+                }
+                else if(OUT[0].equals("")||OUT[OUT.length-1]==null){
+                    io.Log("Alignment skipped");
+                    excludeList.add(currentAlignment);
+                    skip=true;
+                    continue;
+                }else if(OUT[0].equals("break")){
+                    break;
+                }else{
+                    io.Log("no obvious errors in OUT. Length: " + OUT.length);
+                }
+
+                List<String> finalTree = optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
+
+                List<String> keyList = new ArrayList<>();
+                keyList.addAll(replacements.get(r).keySet());
+                String treeReplace="";
+                for(int f=0;f<finalTree.size();f++){
+                    treeReplace=finalTree.get(f);
+                    for(int k=0;k<keyList.size();k++){
+                        treeReplace=treeReplace.replace(keyList.get(k), replacements.get(r).get(keyList.get(k)));
+                    }
+                    //finalTree.remove(f);
+                    //finalTree.add(treeReplace); //aletrnate instead of set
+                    finalTree.set(f,treeReplace);
+                }
+
+                io.outputIndividualTrees(finalTree, name);
+                io.Log("DONE! See Output folder for tree(s)");
+
+                try { //restore original file only when done with it
+                    File bakFile = new File(path+"Input"+File.separator+alignments.get(r)+".bak");
+                    File codeFile = new File(path+"Input"+File.separator+alignments.get(r)+"_CODES.txt");
+                    File alignmentFileClean = new File(path+"Input"+File.separator+alignments.get(r)+"_CLEAN");
+                    File alignmentFile = new File(path+"Input"+File.separator+alignments.get(r));
+                    File treeFileDel = new File(path+"Input"+File.separator+currentAlignment);
+
+                    Files.copy(bakFile.toPath(),new File(path+"Output"+File.separator+alignments.get(r)).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    rootFile.delete();
+                    bakFile.delete();
+                    codeFile.delete();
+                    alignmentFileClean.delete();
+                    alignmentFile.delete();
+                    treeFileDel.delete();
+                } catch (IOException e) {
+                        io.logError("File deletion: " + e.toString());
+                } //make backup
+                io.setLogFile(null);
+            }//end while
+
+
+            double time_total=(System.currentTimeMillis()-start_time_total)/1000;
+            io.Log("Completed in " + time_total + " seconds");
+        }catch(Exception e){
+            io.Display("Unforeseen error in run, program has been halted: \n" + e);
+            System.exit(-1);
+        }
     }//#####################################################################
 }//end class

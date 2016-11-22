@@ -1,4 +1,8 @@
-
+.idea/
+*.iml
+Logs/
+Output/
+Input/
 HYPHY/hyphy-master/
 
 # =========================
