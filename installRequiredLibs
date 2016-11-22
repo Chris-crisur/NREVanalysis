@@ -1,8 +1,9 @@
 #!/bin/bash
 sudo apt-get update
-sudo apt-get install g++ gcc #required for fasttree compile
-sudo apt-get install cmake libssl-dev libcrypto++-dev libcurl4-openssl-dev
+sudo apt-get install -y g++ gcc #required for fasttree compile
+sudo apt-get install -y unzip # required for unzipping hyphy-master.zip
+sudo apt-get install -y cmake libssl-dev libcryptopp-dev libcurl4-openssl-dev # required for building HYPHY
 #can replace "libcurl4-openssl-dev" with "libcurl4-nss-dev" or "libcurl4-gnutls-dev"
-
-sudo apt-get install default-jdk #required for java compiling
+# Java
 #sudo apt-get install openjdk-7-jdk
+#sudo apt-get install default-jdk

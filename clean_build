@@ -1,0 +1,14 @@
+#!/bin/bash
+rm FastTree/FastTree
+rm FastTree/FastTreeMP
+rm -r FastTree/FastTree_2.1.8_64-bit
+rm -r Logs/
+rm -r Output/
+rm -r Input/
+rm -r HYPHY/hyphy-master/
+rm -r HYPHY/alignment
+rm -r HYPHY/tree
+rm -r HYPHY/messages.log
+rm -r HYPHY/errors.log
+rm -r HYPHY/Backup Output
+rm -r HYPHY/HYPHYMP

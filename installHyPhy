@@ -1,6 +1,7 @@
 #!/bin/bash
-cd HYPHY/hyphy-master 
-rm CMakeCache.txt
+cd  HYPHY/
+unzip hyphy-master.zip
+cd hyphy-master/
 cmake ./
 make MP2
 sudo make install

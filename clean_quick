@@ -1,0 +1,6 @@
+#!/bin/bash
+rm -r Logs/
+rm -r HYPHY/alignment
+rm -r HYPHY/tree
+rm -r HYPHY/messages.log
+rm -r HYPHY/errors.log

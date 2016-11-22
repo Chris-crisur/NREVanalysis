@@ -2,4 +2,4 @@
 bash installRequiredLibs
 bash installHyPhy
 bash installFastTree
-javac *.java
+javac src/*.java
