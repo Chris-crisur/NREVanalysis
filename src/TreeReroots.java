@@ -5,11 +5,7 @@
  * @date 28/09/2014
  *	@startdate 27/04/2014
  */
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -232,8 +228,8 @@ public class TreeReroots {
      * @return			the sequence is return as a BinaryTree object with full hierarchy structure (parent)
      */
     public BinaryTree<String> findNameInTree(BinaryTree<String> root, String name){
-            BinaryTree<String> tree = new BinaryTree<>("");
-            
+            BinaryTree<String> tree = null;
+
             if(root!=null){
             	//System.out.println(root.toString() + " | " + name + " - " + root.toString().equals(name));
                     if(root.toString().equals(name)){
@@ -242,7 +238,7 @@ public class TreeReroots {
                     }
                     else{
                             tree=findNameInTree(root.left(), name);
-                            if(tree.toString().equals(name)){
+                            if(tree!=null&&tree.toString().equals(name)){
                                 return tree;
                             }
                             else{
@@ -255,9 +251,9 @@ public class TreeReroots {
     }
 
     /**
-     * Reroot a tree around a node of the tree, keeping topology. 
+     * Reroot a tree around a node of the tree, keeping topology.
      * Static method present in BinaryTree class
-     * 
+     *
      * @param root 	tree which is to be rerooted
      * @param node 	node of tree with which the rerooting will revolve
      * @return 		tree rooted on node
@@ -277,7 +273,7 @@ public class TreeReroots {
 
             BinaryTree<String> newtree = new BinaryTree<>("");		//new tree root for construction
             BinaryTree<String> s = node; 						//search tree
-            BinaryTree<String> prevs = node; 					//previous search tree	
+            BinaryTree<String> prevs = node; 					//previous search tree
 
             newtree.addLeft(s);
             newtree.addRight(new BinaryTree<>(""));
@@ -287,11 +283,11 @@ public class TreeReroots {
                     s=s.parent();	//go up a branch
                     t=t.right();
 
-                    if(s.left()==prevs){	
+                    if(s.left()==prevs){
                         t.addLeft(s.right());	//swap left and right branches (if left needs changing)
                     }
                     else{
-                        t.addLeft(s.left());	
+                        t.addLeft(s.left());
                     }
                     t.left().replaceParent(t);
 
@@ -316,13 +312,29 @@ public class TreeReroots {
             newtree.right().replaceParent(newtree);
             newtree.left().replaceParent(newtree);
 
+            /* attempt to reduce side-effects, but not completely effective if reroot run multiple times
+            // check if empty leafs were added
+            List<BinaryTree<String>> iterator = newtree.getFullNodeIterator();
+            for (int i = 0, iteratorSize = iterator.size(); i < iteratorSize; i++) {
+                BinaryTree<String> binaryTree = iterator.get(i);
+                if(binaryTree.getData().equals("")&&binaryTree.left()==null&&binaryTree.right()==null){
+                    if(binaryTree.parent().right() == binaryTree){
+                        binaryTree.parent().replaceRight(binaryTree.parent().left().right());
+                        binaryTree.parent().replaceLeft(binaryTree.parent().left().left());
+                    }else{
+                        binaryTree.parent().replaceRight(binaryTree.parent().right().right());
+                        binaryTree.parent().replaceLeft(binaryTree.parent().right().left());
+                    }
+                }
+            }
+            */
             return newtree;
     }
 
     /**
-     * Check if node is contained within root tree. 
+     * Check if node is contained within root tree.
      * Static method present in BinaryTree class
-     * 
+     *
      * @param root		tree which is rooted
      * @param node		node to be found in root
      * @return			true if root contains node, false otherwise
@@ -340,10 +352,10 @@ public class TreeReroots {
                     return c;
             }
     }//end contains
-    
+
     /**
      * Generates all possible reroots of a tree while keeping the same topology
-     * 
+     *
      * @param btree		initial BinaryTree containing the tree
      * @param names		array of all sequences in the tree
      * @return			a Set is returned that contains all possible reroots
@@ -364,44 +376,44 @@ public class TreeReroots {
                     root=reroot(btree,node);					//reroot tree
                     reroots.add(root.toString().intern());		//add to collection
                     btree=generateTree(bts);               		//reset rerooting hierarchies
-                    
+
                     while(node.parent()!=null){
-                            node=findNameInTree(btree,no);			//restore hierarchies of stored node (generateTree wouldn't have parent values) 
+                            node=findNameInTree(btree,no);			//restore hierarchies of stored node (generateTree wouldn't have parent values)
                             nodem=findNameInTree(mark,no);
-                            
+
                             if(nodem.getData().equals("")){			//set node as visited (X)
                             	nodem.setData("X");
                             }
-                            
+
                             node=node.parent();						//change to parent of this
                             nodem=nodem.parent();
-                            
+
                             no=node.toString();						//update string to parent
                             root=reroot(btree,node);				//reroot tree
                             reroots.add(root.toString().intern());	//add to collection
-                            
+
                             btree=generateTree(bts);				//go to previous tree
-                            
+
                             if(nodem.getData().equals("X")){ 		//ignores parents if already visited
                             	break;
                             }
-                            
+
                     }
-                    
+
                     io.setProg((int)(p*100)/names.length);
                     p++;
             }
             reroots.remove("NOT FOUND");
-            
+
             return reroots;
     }
-    
+
     /**
-     * Generates the best tree(s) from all the trees and their HYPHY script results. 
-     * The tree with the lowest AIC value is considered the best root. 
-     * The consequent nodes have likelihood values generated from their tree's HYPHY SchmodelTest.bf script results. 
-     * (i.e. the tree with the node sequence as the root has it's value result assigned to the node). 
-     * 
+     * Generates the best tree(s) from all the trees and their HYPHY script results.
+     * The tree with the lowest AIC value is considered the best root.
+     * The consequent nodes have likelihood values generated from their tree's HYPHY SchmodelTest.bf script results.
+     * (i.e. the tree with the node sequence as the root has it's value result assigned to the node).
+     *
      * @param alignmentName		the name of the alignment (used to output results under correct name)
      * @param trees				all the trees in String format
      * @param originalTree		the orginal BinaryTree that the roots were based off of
@@ -417,7 +429,7 @@ public class TreeReroots {
       	//[i] for tree number
       	//[i][0] for tree's likelihood score
       	//[i][1] for tree's AIC score
-      	
+
       	String findLike = "----\nLog Likelihood = ";
       	int lenLike=findLike.length();
       	String findAIC = "(all parameters): ";
@@ -428,27 +440,27 @@ public class TreeReroots {
       		ndx = OUT[i].indexOf(findLike,ndx2)+lenLike;
           	ndx2=OUT[i].indexOf(";",ndx);
           	GTR[i][0]=Double.parseDouble(OUT[i].substring(ndx, ndx2));
-          	
+
           	ndx = OUT[i].indexOf(findLike,ndx2)+lenLike;
           	ndx2=OUT[i].indexOf(";",ndx);
           	stGTR[i][0]=Double.parseDouble(OUT[i].substring(ndx, ndx2));
-          	
+
           	ndx = OUT[i].indexOf(findLike,ndx2)+lenLike;
           	ndx2=OUT[i].indexOf(";",ndx);
           	NREV[i][0]=Double.parseDouble(OUT[i].substring(ndx, ndx2));
-          	
+
           	ndx=OUT[i].indexOf(findAIC,ndx2)+lenAIC;
           	ndx2 = OUT[i].indexOf(";",ndx);
           	GTR[i][1]=Double.parseDouble(OUT[i].substring(ndx,ndx2));
-          	
+
           	ndx=OUT[i].indexOf(findAIC,ndx2)+lenAIC;
           	ndx2 = OUT[i].indexOf(";",ndx);
           	stGTR[i][1]=Double.parseDouble(OUT[i].substring(ndx,ndx2));
-          	
+
           	ndx=OUT[i].indexOf(findAIC,ndx2)+lenAIC;
           	ndx2 = OUT[i].indexOf(";",ndx);
           	NREV[i][1]=Double.parseDouble(OUT[i].substring(ndx,ndx2));
-          	
+
           	ndx2=0;
       	}
 
@@ -471,7 +483,7 @@ public class TreeReroots {
     		  else{
     			  meth='N';
     		  }
-    	  } 
+    	  }
       }
       like=highest;
 
@@ -490,10 +502,10 @@ public class TreeReroots {
     		  else{
     			  methA='N';
     		  }
-    	  } 
+    	  }
       }
       aic=lowest;
-      
+
       List<String> valueArray = new ArrayList<>();
       List<Integer> indexArray = new ArrayList<>();
       valueArray.add("Likelihood multiple highest value: ");
@@ -532,15 +544,15 @@ public class TreeReroots {
       io.Log(AICStr);
       io.Log(valueArray);
       String name = alignmentName.substring(0,alignmentName.indexOf('.'));
-      
+
       File oldLog = io.getLogFile();
       io.setLogFile(new File(path+"Output"+File.separator+name+File.separator+"Summary.txt"));
       io.Log(likeStr+"\n"+AICStr);
       for(String svalue: valueArray){//output which method was used and duplicate values
     	  io.Log(svalue);
       }
-      
-      
+
+
       //use difference to like for branch lengths
       double [] finalLike = new double[OUT.length];
       if(methA=='G'){
@@ -559,11 +571,15 @@ public class TreeReroots {
         		  finalLike[i]=like-NREV[i][0];
         	  }
       }
-      
-      BinaryTree<String> tree = new BinaryTree<>();
+
+      String tree;
       BinaryTree<String> node;
       io.Log("Start assigning likelihood values to tree");
       int prog=1;
+      List<BinaryTree<String>> binaryTreeList = new ArrayList<>(trees.size());
+        for (String tree1 : trees) {
+            binaryTreeList.add(generateTree(tree1));
+        }
       for(int index: indexArray){
             io.Log("script output for: " + index + "\n" + OUT[index]);
             if(NREV[index][1]-GTR[index][1]>5)
@@ -572,48 +588,148 @@ public class TreeReroots {
                 io.Log("moderate support for rooting");
             else
                 io.Log("not enough evidence to strongly support rooting");
-                
-            tree = generateTree(trees.get(index));
-            node = tree;
+
+            tree = trees.get(index);
+            node = generateTree(tree);
+            checkGeneratedTree(node,tree);
             /*
             * because node is pointer, no return value required
             * originalTree used because rerooted tree may be mirrored instead and not seen as the same
-            * 
+            *
             */
-            assignLike(originalTree, node, trees, finalLike); 
-            finalTrees.add(tree.toString());
+
+
+            assignLike(node, originalTree, binaryTreeList, finalLike);
+            finalTrees.add(tree);
             io.setProg((prog++*100)/indexArray.size());
       }
       io.setLogFile(oldLog);
-      									
+
       return finalTrees;
+
     }
 
+
+    int assigned = 0;
+    int local_assign=0;
     /**
-     * Likelihood values are assigned to the tree. 
-     *  The original tree is used and then a copy rerooted on the node to compare to the list of trees already rerooted. 
-     *  Original tree used as rerooting will be same as before. 
-     *  Rerooting a different tree may produce same topology, but different absolute orientation, so harder to find equal.
-     *  The value for the tree is then set as the node's value. 
+     * Likelihood values are assigned to the originalTree.
+     *  The original originalTree is used and then a copy rerooted on the node to compare to the list of trees already rerooted.
+     *  Original originalTree used as rerooting will be same as before.
+     *  Rerooting a different originalTree may produce same topology, but different absolute orientation, so harder to find equal.
+     *  The value for the originalTree is then set as the node's value.
      *  Because node is pointer, no return value required.
-     * @param tree		the original tree that was used to produce reroot
      * @param node		the node to be assigned a value
-     * @param trees		all the trees that have already been rerooted
      * @param values	array of values corresponding to trees index
      */
-    public void assignLike(BinaryTree<String> tree, BinaryTree<String> node, List<String> trees, double[] values){
-    	if(node!=null){
-    		BinaryTree<String> treeCopy = generateTree(tree.toString()); //tree musn't be changed in reroot, hence copy used
+    public void assignLike(BinaryTree<String> node, BinaryTree<String> originalTree, List<BinaryTree<String>> binaryTreeList, double[] values){
+        List<BinaryTree<String>> nullFinds = new ArrayList<>();
+        Map<String,Double> nullFindsStr = new HashMap<>();
+        BinaryTree<String> nodeClean = generateTree(node.toString());
+        BinaryTree<String> nodeCleanDeep = node.deepCopy();
+        for(int i=0;i<binaryTreeList.size();i++){	//run through the list of trees
+            BinaryTree<String> tree = binaryTreeList.get(i);
+            // check
+            BinaryTree<String> temp = node.find(tree.left().toString());
+            if(temp.getData()==null){
+                temp = node.find(tree.right().toString());
+            }
+            if(temp.getData()==null){
+                nullFinds.add(tree);
+                nullFindsStr.put(tree.toString(),values[i]);
+            }
+            if(temp.getData()!=null){
+                temp.setData(temp.getData() + ":" + values[i]);
+                assigned++;
+            }
+        }
+        // have a smaller collection of roots that couldn't be found easily from `node`
+        List<String> nodesData = node.getLRNIterator();             // get node values
+        List<BinaryTree<String>> nodesFullData = node.getFullNodeIterator();             // get node values
+        List<BinaryTree<String>> nodesFullClean = nodeClean.getFullNodeIterator();   // get full nodes (empty versions)
+        List<BinaryTree<String>> nodesFullOriginal = originalTree.getFullNodeIterator();   // get full nodes (original versions)
+        for (int i = 0, nodesDataSize = nodesData.size(); i < nodesDataSize; i++) {
+            String nodeData = nodesData.get(i);
+            if(nodeData.equals("")){
+                // node does not have an assigned value
+                BinaryTree<String> nodeCleanCopy = nodeClean.deepCopy();
+                // get corresponding full (clean) node
+                BinaryTree<String> fullNode = nodesFullClean.get(i);
+                String fullNodeStr = fullNode.toString();
+                BinaryTree<String> origTreeNode=null;
+                int index=-1;
+                // create copy of original tree (for rerooting with no side-effects)
+                BinaryTree<String> origTreeCopy = generateTree(originalTree.toString());
+                // and get full nodes
+                nodesFullOriginal = origTreeCopy.getFullNodeIterator();
+                for (int i1 = 0, nodesFullSize = nodesFullOriginal.size(); i1 < nodesFullSize; i1++) {
+                    // find corresponding full node from orignal tree
+                    origTreeNode = nodesFullOriginal.get(i1);
+                    if (origTreeNode.toString().equals(fullNodeStr)) {
+                        index=i1;
+                        break;
+                    }
+                }
+                if(index==-1) {
+                    io.logError("ISSUE! index==-1)");
+                }else {
+                    // reroot using (copy of) original tree for same rerooting result as would have been done originally
+                    BinaryTree<String> temptree = reroot(origTreeCopy, origTreeNode);
+                    if (temptree == null) {
+                        io.logError("ISSUE! temptree==null");
+                    } else {
+                        boolean contain = nullFindsStr.keySet().contains(temptree.toString());
+                        if (!contain) {
+                            io.logError("ISSUE! !contain");
+                        } else {
+                            double value = nullFindsStr.get(temptree.toString());
+                            nodesFullData.get(i).setData(":" + value);
+                            nodesData.set(i, ":" + value);
+                            assigned++;
+                        }
+                    }
+                }
+            }
+        }
+
+            /*
+    		BinaryTree<String> treeCopy = generateTree(originalTree); //originalTree musn't be changed in reroot, hence copy used
+            checkGeneratedTree(treeCopy,originalTree);
 	    	BinaryTree<String> temptree = reroot(treeCopy,findNameInTree(treeCopy,node.toString()));//findNameInTree has node hierarchies required for reroot
-			  for(int i=0;i<trees.size();i++){	//run through the list of trees
-				 if(temptree.toString().equals(trees.get(i))){	//until the temporary tree (rerooted) is the same as an already rooted tree
-					node.setData(node.getData()+":"+values[i]);	//this gives us the index of the value to assign
-					break;//no need to go further
-				 }
-			  }
-			  assignLike(tree,node.left(),trees,values);	//assign values to left branch
-			  assignLike(tree,node.right(),trees,values);	//assign values to right branch
-    	}
+            BinaryTree<String> nodePt = null;
+			if(temptree.getData().equals("NOT FOUND")) {
+			    nodePt = node;
+			    checkGeneratedTree(nodePt,node.toString());
+			    while(nodePt.parent()!=null){
+			        nodePt = nodePt.parent();
+                }
+                // remove numbers
+                //nodePt= generateTree(getNameTree((nodePt.toString()+';').toCharArray()));
+                //temptree = reroot(nodePt,findNameInTree(nodePt,getNameTree((node.toString()+';').toCharArray())));
+                /*
+                try {
+                    int index = trees.indexOf(node.toString());
+                    node.setData(node.getData() + ":" + values[index]);
+                    assigned++;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    io.logError(e.getMessage());
+                }
+                *//*
+            }
+            boolean contained = trees.contains(temptree.toString());
+            for(int i=0;i<trees.size();i++){	//run through the list of trees
+                if(temptree.toString().equals(trees.get(i))){	//until the temporary originalTree (rerooted) is the same as an already rooted originalTree
+                    node.setData(node.getData()+":"+values[i]);	//this gives us the index of the value to assign
+                    assigned++;
+                    break;//no need to go further
+                }
+            }
+            */
+            local_assign++;
+			  //assignLike(originalTree,node.left(),trees,binaryTreeList,values);	//assign values to left branch
+			 // assignLike(originalTree,node.right(),trees,binaryTreeList,values);	//assign values to right branch
+
+
     }
     
     public static void UPDATE(String next){
@@ -804,7 +920,7 @@ public class TreeReroots {
                 long h_time  = System.currentTimeMillis();
 
                 String alignmentString = "";
-                int r=0; //replacement index (in line with alignment but not files)
+                int r=0; //replacement index (in sync with alignment but not files)
                 for(String alignment: alignments){ //quick enough to check
                     if(alignment.substring(0,alignment.lastIndexOf(".")).equals(name)){
                         alignmentString=alignment;
@@ -851,7 +967,8 @@ public class TreeReroots {
                 }
 
                 List<String> finalTree = optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
-
+                if(true)
+                    break;
                 List<String> keyList = new ArrayList<>();
                 keyList.addAll(replacements.get(r).keySet());
                 String treeReplace="";
@@ -893,6 +1010,7 @@ public class TreeReroots {
             io.Log("Completed in " + time_total + " seconds");
         }catch(Exception e){
             io.Display("Unforeseen error in run, program has been halted: \n" + e);
+            e.printStackTrace();
             System.exit(-1);
         }
     }//#####################################################################
