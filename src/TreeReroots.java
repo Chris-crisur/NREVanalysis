@@ -101,7 +101,19 @@ public class TreeReroots {
             }
             return bcnt;
     }//end countBrackets
-
+    public int countUnderscores(String tl){
+        int under=0;
+        while(tl.contains("_")){
+            under++;
+            tl=tl.substring(tl.indexOf('_')+1);
+        }
+        return under;
+    }
+    public List<String> getAllData(BinaryTree<String> tree){
+        List<String> list = tree.getLRNIterator();
+        Collections.sort(list);
+        return list;
+    }
     /**
      * FastTree produces trifurcated trees, so this alters it to a binary (bifurcated) tree.
      * 
@@ -155,13 +167,29 @@ public class TreeReroots {
     /**
      * Converts a tree in String format to BinaryTree format. 
      * Static method present in BinaryTree class
+     * TODO: generate tree that has numbers
      * 
      * @param treeline	tree in string format
      * @return 			tree in BinaryTree format
      * @see				BinaryTree
      */
-    public BinaryTree<String> generateTree(String treeline){
-            BinaryTree<String> tree = new BinaryTree<>("");
+    public BinaryTree<String> generateTree(String treeline) {
+        return generateTree(treeline,false);
+    }
+    public BinaryTree<String> generateTree(String treeline,boolean withID){
+        BinaryTree<String> tree;
+        // assign a unique value to each node
+        if(withID) {
+            try {
+                // sleep for 1 millisecond to ensure unique reference from time
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            tree = new BinaryTree<>(String.valueOf(System.currentTimeMillis()));
+        }else {
+            tree = new BinaryTree<>("");
+        }
             int i=0; //index
             int bcnt=0; //bracket count
 
@@ -169,31 +197,72 @@ public class TreeReroots {
                     treeline=treeline.substring(0,treeline.length()-1);
             }
 
-            while(i<treeline.length()){ 
+            while(i<treeline.length()){
+                char ch = treeline.charAt(i);
                     if(treeline.charAt(i)=='('){ //open bracket
                             bcnt++;
                     }
                     else if(treeline.charAt(i)==')'){ //close bracket
                             bcnt--;
-                            if(bcnt==1&&treeline.charAt(i+1)==','){ //if close bracket is end of left subtree
-                                    tree.addLeft(generateTree(treeline.substring(1,i+1)));	//split on comma - up 1 char from ')'
-                                    tree.addRight(generateTree(treeline.substring(i+2,treeline.length()-1)));
+                            if(bcnt==1&&treeline.charAt(i+1)==','){     //if close bracket is end of left subtree
+                                    tree.addLeft(generateTree(treeline.substring(1,i+1),withID));	//split on comma - up 1 char from ')'
+                                    tree.addRight(generateTree(treeline.substring(i+2,treeline.length()-1),withID));
                                     tree.left().addParent(tree);
                                     tree.right().addParent(tree);
                                     return tree;
                             }//end if
-                    }
-                    else if (treeline.charAt(i)==','){ //comma
-                            if(bcnt==1){		//if this comma separates outer subtrees
-                                    tree.addLeft(generateTree(treeline.substring(1,i)));			//split on comma
-                                    tree.addRight(generateTree(treeline.substring(i+1,treeline.length()-1)));
-                                    tree.left().addParent(tree);		//assign parent to left and right tree
+                            if(bcnt==1&&treeline.charAt(i+1)=='_'){     //if close bracket is end of left subtree
+                                int c = i+2;
+                                while(c<treeline.length()&&isNumber(treeline.charAt(c))){
+                                    c++;
+                                }
+                                if(treeline.charAt(c)==',') {
+                                    tree.addLeft(generateTree(treeline.substring(1, c), withID));
+                                    //tree.left().setData(treeline.substring(i+2,c));//split on comma - up 1 char from ')'
+                                    if(treeline.contains("_")&&isNumber(treeline.charAt(treeline.length()-2))) {
+                                        int underIndex = treeline.lastIndexOf('_');
+                                        tree.addRight(generateTree(treeline.substring(c + 1, underIndex - 1), withID));
+                                        tree.setData(treeline.substring(underIndex+1,treeline.length()));
+                                    }else {
+                                        tree.addRight(generateTree(treeline.substring(c + 1, treeline.length() - 1), withID));
+                                    }
+                                    tree.left().addParent(tree);
                                     tree.right().addParent(tree);
                                     return tree;
+                                }
+                                i=c-1; //compensate for i++ later by decrementing
                             }//end if
                     }
+                    else if (treeline.charAt(i)==',') { //comma
+                        if (bcnt == 1) {        //if this comma separates outer subtrees
+                            tree.addLeft(generateTree(treeline.substring(1, i), withID));            //split on comma
+                            if(treeline.contains("_")){
+                                int underIndex = treeline.lastIndexOf('_');
+                                tree.addRight(generateTree(treeline.substring(i + 1, underIndex-1), withID));
+                                int c = underIndex+1;
+                                while(c<treeline.length()&&isNumber(treeline.charAt(c))){
+                                    c++;
+                                }
+                                tree.setData(treeline.substring(underIndex+1,c));
+                            }else{
+                                tree.addRight(generateTree(treeline.substring(i + 1, treeline.length() - 1), withID));
+                            }
+                            tree.left().addParent(tree);        //assign parent to left and right tree
+                            tree.right().addParent(tree);
+                            return tree;
+                        }//end if
+                    }
                     else if(bcnt==0){ //if there are no other elements (only sequence)
-                            tree.setData(treeline); 
+                        if(treeline.contains("_")){
+                            int underIndex = treeline.indexOf('_');
+                            int c = underIndex+1;
+                            while(c<treeline.length()&&isNumber(treeline.charAt(c))){
+                                c++;
+                            }
+                            tree.setData(treeline.substring(0,underIndex-1));
+                        }else {
+                            tree.setData(treeline);
+                        }
                             return tree;
                     }
                     i++;
@@ -210,14 +279,31 @@ public class TreeReroots {
      */
     public void checkGeneratedTree(BinaryTree<String> bt, String tl){
             String tree = bt.toString();
-            if(!tree.equals(tl)){
+            String treeWithIDs = bt.toStringWithID();
+            if(!tree.equals(tl)&&!treeWithIDs.equals(tl)){
                 io.Display("generated tree is not same as input\n");
                 throw new UnsupportedOperationException("generated tree is not same as input");
 
             }
 
     }
-    
+
+    public boolean isNumber(String strValue){
+        try{
+            Long.parseLong(strValue);
+        }catch(NumberFormatException e1){
+            try{
+                Integer.parseInt(strValue);
+            }catch(NumberFormatException e2){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean isNumber(char c){
+        return isNumber(String.valueOf(c));
+    }
+
     /**
      * Returns BinaryTree object of sequence from a root tree. 
      * Similar to generateTree, but bases off an existing tree for hierarchy structure. 
@@ -262,15 +348,16 @@ public class TreeReroots {
     		if(root==null){
     			return new BinaryTree<>("NOT FOUND");
     		}
-            boolean con = contains(root, node);
-            if(!con){
-                io.logError("NOT FOUND: " + node.toString() +" in " + root.toString());
-            	return new BinaryTree<>("NOT FOUND");
-            }
             if(node==root.right()||node==root.left()||node==root){
                 return root;
             }
-
+            boolean con = contains(root, node);
+            if(!con){
+                io.logError("NOT FOUND: " + node.toString() +" in " + root.toString());
+                return new BinaryTree<>("NOT FOUND");
+            }
+            int initialNUnderscores = countUnderscores(root.toStringWithID());
+            List<String> initialAllData = getAllData(root);
             BinaryTree<String> newtree = new BinaryTree<>("");		//new tree root for construction
             BinaryTree<String> s = node; 						//search tree
             BinaryTree<String> prevs = node; 					//previous search tree
@@ -281,9 +368,11 @@ public class TreeReroots {
 
             while(s.parent()!=null){
                     s=s.parent();	//go up a branch
+                    t.setData(s.getData());
                     t=t.right();
 
-                    if(s.left()==prevs){
+
+                if(s.left()==prevs){
                         t.addLeft(s.right());	//swap left and right branches (if left needs changing)
                     }
                     else{
@@ -300,6 +389,7 @@ public class TreeReroots {
                                 t.addRight(s.parent().left());
                                 t.right().replaceParent(t);
                         }
+                        t.setData(s.parent().getData());
                         break; //break if parent reached
                     }
                     else{
@@ -311,8 +401,8 @@ public class TreeReroots {
 
             newtree.right().replaceParent(newtree);
             newtree.left().replaceParent(newtree);
-
-            /* attempt to reduce side-effects, but not completely effective if reroot run multiple times
+            String newString = newtree.toStringWithID();
+            // attempt to reduce side-effects, but not completely effective if reroot run multiple times
             // check if empty leafs were added
             List<BinaryTree<String>> iterator = newtree.getFullNodeIterator();
             for (int i = 0, iteratorSize = iterator.size(); i < iteratorSize; i++) {
@@ -327,13 +417,19 @@ public class TreeReroots {
                     }
                 }
             }
-            */
+
+            String newString2 = newtree.toStringWithID();
+            int newNUnderscores = countUnderscores(newtree.toStringWithID());
+            List<String> newAllData = getAllData(newtree);
+
+            if(initialNUnderscores!=newNUnderscores||!initialAllData.equals(newAllData)){
+                throw new IndexOutOfBoundsException("rerooting error, loss of data");
+            }
             return newtree;
     }
 
     /**
      * Check if node is contained within root tree.
-     * Static method present in BinaryTree class
      *
      * @param root		tree which is rooted
      * @param node		node to be found in root
@@ -361,39 +457,54 @@ public class TreeReroots {
      * @return			a Set is returned that contains all possible reroots
      */
     public Set<String> allReroots(BinaryTree<String> btree, String [] names){
-            Set<String> reroots = new HashSet<>();//only unique trees
+            Set<String> reroots = new LinkedHashSet<>();    //only unique trees, maintain order
             BinaryTree<String> node;
             BinaryTree<String> nodem=new BinaryTree<>("");
             BinaryTree<String> root;
             String bts = btree.toString();					//store binarytree as string
             String no;										//store node as string
-            BinaryTree<String> mark = generateTree(bts);	//having a separate tree that keeps track of what has been traversed already makes this super efficient
-            int p=1; 										//progress index
+            BinaryTree<String> mark = btree.deepClone();	//having a separate tree that keeps track of what has been traversed already makes this super efficient
+            BinaryTree<String> original = btree.deepClone();//having a separate tree that keeps track of what has been traversed already makes this super efficient
+            int p=1;                                        //progress index
+            int underBtree = countUnderscores(btree.toStringWithID());
+            int under=0;
             for(String s: names){
                     node = findNameInTree(btree, s); 			//find node
                     no=node.toString();							//keep node as string in memory
                     bts=btree.toString();						//keep tree as string in memory
                     root=reroot(btree,node);					//reroot tree
-                    reroots.add(root.toString().intern());		//add to collection
-                    btree=generateTree(bts);               		//reset rerooting hierarchies
+                    under = countUnderscores(root.toStringWithID());
+
+                    reroots.add(root.toStringWithID().intern());//add to collection
+                    btree=original.deepClone();               	//reset rerooting hierarchies
 
                     while(node.parent()!=null){
                             node=findNameInTree(btree,no);			//restore hierarchies of stored node (generateTree wouldn't have parent values)
                             nodem=findNameInTree(mark,no);
 
+                            try{
+                                // is a number and not a leaf node
+                                Long.parseLong(nodem.getData());
+                                nodem.setData("X");
+                            }catch(NumberFormatException e){
+
+                            }
                             if(nodem.getData().equals("")){			//set node as visited (X)
                             	nodem.setData("X");
                             }
 
                             node=node.parent();						//change to parent of this
                             nodem=nodem.parent();
+                            if(nodem==null||nodem.getData().equals("X")){
+                                break;
+                            }
 
-                            no=node.toString();						//update string to parent
                             root=reroot(btree,node);				//reroot tree
-                            reroots.add(root.toString().intern());	//add to collection
+                            under = countUnderscores(root.toStringWithID());
+                            reroots.add(root.toStringWithID().intern());	//add to collection
 
-                            btree=generateTree(bts);				//go to previous tree
-
+                            btree=original.deepClone();				//go to previous tree
+                            no=node.toString();                     //update string to parent
                             if(nodem.getData().equals("X")){ 		//ignores parents if already visited
                             	break;
                             }
@@ -625,21 +736,51 @@ public class TreeReroots {
     public void assignLike(BinaryTree<String> node, BinaryTree<String> originalTree, List<BinaryTree<String>> binaryTreeList, double[] values){
         List<BinaryTree<String>> nullFinds = new ArrayList<>();
         Map<String,Double> nullFindsStr = new HashMap<>();
-        BinaryTree<String> nodeClean = generateTree(node.toString());
-        BinaryTree<String> nodeCleanDeep = node.deepCopy();
+        BinaryTree<String> nodeClean = generateTree(node.toString()); // shouldn't be any difference between nodeClean and nodeCleanDeep
+        BinaryTree<String> nodeCleanDeep = node.deepClone();
+
+        Map<String,Integer> mapNode = nodeCleanDeep.assignDepth().getLRNDepthIterator();
+        Map<String,Integer> mapOrigTree = originalTree.assignDepth().getLRNDepthIterator();
+
+        // assign all values
         for(int i=0;i<binaryTreeList.size();i++){	//run through the list of trees
             BinaryTree<String> tree = binaryTreeList.get(i);
             // check
-            BinaryTree<String> temp = node.find(tree.left().toString());
-            if(temp.getData()==null){
-                temp = node.find(tree.right().toString());
-            }
-            if(temp.getData()==null){
+            BinaryTree<String> temp = node.find(tree.getData());
+            if(temp==null||tree.getData()==null){
                 nullFinds.add(tree);
-                nullFindsStr.put(tree.toString(),values[i]);
+                nullFindsStr.put(tree.toStringWithID(),values[i]);
             }
-            if(temp.getData()!=null){
-                temp.setData(temp.getData() + ":" + values[i]);
+            if(temp!=null&&temp.getData()!=null){
+                if(isNumber(temp.getData()))
+                    // current data is unique identifier
+                    temp.setData(":" + values[i]);
+                else
+                    // data is just sequence
+                    temp.setData(temp.getData() + ":" + values[i]);
+                assigned++;
+            }
+        }
+
+        // assign all values for leaf nodes
+        for(int i=0;i<binaryTreeList.size();i++){	//run through the list of trees
+            BinaryTree<String> tree = binaryTreeList.get(i);
+            // check
+            BinaryTree<String> temp = node.find(tree.left().toStringWithID());
+            if(temp==null||temp.getData()==null){
+                temp = node.find(tree.right().toStringWithID());
+            }
+            if(temp==null||tree.getData()==null){
+                nullFinds.add(tree);
+                nullFindsStr.put(tree.toStringWithID(),values[i]);
+            }
+            if(temp!=null&&temp.getData()!=null){
+                if(isNumber(temp.getData()))
+                    // current data is unique identifier
+                    temp.setData(":" + values[i]);
+                else
+                    // data is just sequence
+                    temp.setData(temp.getData() + ":" + values[i]);
                 assigned++;
             }
         }
@@ -648,37 +789,42 @@ public class TreeReroots {
         List<BinaryTree<String>> nodesFullData = node.getFullNodeIterator();             // get node values
         List<BinaryTree<String>> nodesFullClean = nodeClean.getFullNodeIterator();   // get full nodes (empty versions)
         List<BinaryTree<String>> nodesFullOriginal = originalTree.getFullNodeIterator();   // get full nodes (original versions)
+        // assign most parent branch nodes
         for (int i = 0, nodesDataSize = nodesData.size(); i < nodesDataSize; i++) {
             String nodeData = nodesData.get(i);
-            if(nodeData.equals("")){
+            if(nodeData.equals("")||isNumber(nodeData)){
                 // node does not have an assigned value
-                BinaryTree<String> nodeCleanCopy = nodeClean.deepCopy();
+                BinaryTree<String> nodeCleanCopy = nodeClean.deepClone();
                 // get corresponding full (clean) node
                 BinaryTree<String> fullNode = nodesFullClean.get(i);
                 String fullNodeStr = fullNode.toString();
                 BinaryTree<String> origTreeNode=null;
                 int index=-1;
                 // create copy of original tree (for rerooting with no side-effects)
-                BinaryTree<String> origTreeCopy = generateTree(originalTree.toString());
+                BinaryTree<String> origTreeCopy = originalTree.deepClone();
                 // and get full nodes
                 nodesFullOriginal = origTreeCopy.getFullNodeIterator();
+
+                mapNode = fullNode.assignDepth().getLRNDepthIterator();
+
                 for (int i1 = 0, nodesFullSize = nodesFullOriginal.size(); i1 < nodesFullSize; i1++) {
-                    // find corresponding full node from orignal tree
+                    // find corresponding full node from original tree
                     origTreeNode = nodesFullOriginal.get(i1);
+                    mapOrigTree = origTreeNode.assignDepth().getLRNDepthIterator();
                     if (origTreeNode.toString().equals(fullNodeStr)) {
                         index=i1;
                         break;
                     }
                 }
                 if(index==-1) {
-                    io.logError("ISSUE! index==-1)");
+                    io.logError("ISSUE! index==-1\n"+fullNodeStr);
                 }else {
                     // reroot using (copy of) original tree for same rerooting result as would have been done originally
                     BinaryTree<String> temptree = reroot(origTreeCopy, origTreeNode);
                     if (temptree == null) {
                         io.logError("ISSUE! temptree==null");
                     } else {
-                        boolean contain = nullFindsStr.keySet().contains(temptree.toString());
+                        boolean contain = nullFindsStr.keySet().contains(temptree.toStringWithID());
                         if (!contain) {
                             io.logError("ISSUE! !contain");
                         } else {
@@ -691,7 +837,7 @@ public class TreeReroots {
                 }
             }
         }
-
+        // remaining
             /*
     		BinaryTree<String> treeCopy = generateTree(originalTree); //originalTree musn't be changed in reroot, hence copy used
             checkGeneratedTree(treeCopy,originalTree);
@@ -757,6 +903,20 @@ public class TreeReroots {
      */
     public final void run(){
         try{
+            //BinaryTree<String> a = generateTree("((Alkjf,Bnbmv),(Calkj,(Daksj,Eafkj)));",true);
+            BinaryTree<String> g = generateTree("((Alkjf,Bnbmv)_1483086422671,(Calkj,(Daksj,Eafkj)_2483086466672)_3483086456203)_4483086422674");
+            BinaryTree<String> node = findNameInTree(g,"Alkjf");
+
+            Set<String> roots = allReroots(g,getEmptyTree(g.toString().toCharArray()).split(","));
+            double [] values = {1,2,3,4,5,6,7};
+            List<BinaryTree<String>> binaryRoots = new LinkedList<>();
+            for(String root:roots){
+                binaryRoots.add(generateTree(root));
+            }
+            assignLike(binaryRoots.get(0),g,binaryRoots,values);
+            //BinaryTree<String> g = generateTree("((BAJDDAGIGA,(BAJDDAGIGD,(BAJDDAGIGC,BAJDDAGIGB)_1483089943517)_1483089943513)_1483089943511,((BAJDDAGIJB,BAJDDAGIJA)_1483089943520,((BAJDDAGIGE,(BAJDDAGIIJ,(BAJDDAGIII,(BAJDDAGIIH,BAJDDAGIIG)_1483089943530)_1483089943528)_1483089943525)_1483089943523,(((BAJDDAGJBI,BAJDDAGJBH)_1483089943535,((BAJDDAGJCF,BAJDDAGJCE)_1483089943539,(BAJDDAGJCD,BAJDDAGIJC)_1483089943543)_1483089943538)_1483089943534,((BAJDDAGJBJ,(BAJDDAGJCA,(BAJDDAGJCC,BAJDDAGJCB)_1483089943551)_1483089943549)_1483089943547,(BAJDDAGIJD,(BAJDDAGIJF,BAJDDAGIJE)_1483089943557)_1483089943554)_1483089943546)_1483089943533)))");
+//((Alkjf,Bnbmv)_1483086422678,(Calkj,(Daksj,Eafkj)_1483086466671)_1483086456206)_1483086422677
+
             long start_time_total=System.currentTimeMillis();
             long timebefore;
             boolean avail =true; //files available
@@ -893,7 +1053,7 @@ public class TreeReroots {
 
 
 
-                BinaryTree<String> btree = generateTree(treeline);
+                BinaryTree<String> btree = generateTree(treeline,true);
                 io.Log("tree generated");
                 checkGeneratedTree(btree,treeline);
                 io.Log("and checked");
@@ -901,10 +1061,10 @@ public class TreeReroots {
                 List<String> reroots = new ArrayList<>();
                 io.setProg(0);
                 File rootFile = new File(path+"Input" +File.separator+currentAlignment + "_REROOTS.txt");
-                if(rootFile.exists()){
-                    reroots = io.getRoots(rootFile); //for testing
-                }
-                else{
+                //if(rootFile.exists()){
+                //    reroots = io.getRoots(rootFile); //for testing
+                //}
+                //else{
                     io.Log("Start Rerooting");
                     long r_time = System.currentTimeMillis();
                     Set<String> rerootset = allReroots(btree, names);
@@ -913,7 +1073,7 @@ public class TreeReroots {
                     reroots.addAll(rerootset);
                     io.outputTrees(reroots,currentAlignment+"_REROOTS"); //all reroots one file
                     io.outputRerootedTrees(reroots,name);
-                }
+               // }
 
                 io.Log("rerootings: " + reroots.size()+" expected: " + (names.length*2-3));
 

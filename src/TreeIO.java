@@ -1109,10 +1109,12 @@ public class TreeIO implements ActionListener{
      * @param str	String to be error-logged
      */
     public void logError(String str){
-        if(gui)
+        if(gui) {
             logArea.append("\tERROR: " + str + "\n");
-        else
             System.out.println(str);
+        }else {
+            System.out.println(str);
+        }
     	File file = new File(path+"Logs" + File.separator+"Errors.txt");
         file.getParentFile().mkdirs();
     	Write(file,str +"\n",true);

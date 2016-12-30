@@ -1,8 +1,13 @@
 
+import java.io.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-public class BinaryTree<T> implements Cloneable {
+import java.util.Map;
+
+public class BinaryTree<T> implements Cloneable,Serializable {
     private T data;
+    private int depth;
     private List<T> iterator;
     private BinaryTree<T> pt, //pointer to parent
                           lt, // Pointer to left subtree
@@ -10,17 +15,19 @@ public class BinaryTree<T> implements Cloneable {
     // ------------------------------------------------------------------
     // Constructors
     // ------------------------------------------------------------------
-    // Constructor: creates new node with parent and left and right subtrees 
-            public BinaryTree (T value, BinaryTree<T> parent, BinaryTree<T> left, BinaryTree<T> right){
+    // Constructor: creates new node with parent and left and right subtrees
+            public BinaryTree (T value, int depth, BinaryTree<T> parent, BinaryTree<T> left, BinaryTree<T> right){
                             pt=parent;
                             lt = left;
                             rt = right;
                             data = value;
+                            this.depth=depth;
                             } // Constructor
 
             // Constructor: creates new node with left and right subtrees
             public BinaryTree (T value, BinaryTree<T> left, BinaryTree<T> right){
-                    this(value, null, left, right);
+                    this(value, 0, null, left, right);
+                    assignDepth(this,0);
                     } // Constructor
 
             // Constructor: creates new node
@@ -28,63 +35,108 @@ public class BinaryTree<T> implements Cloneable {
             //        this(value, null, null, null);
             //} // Constructor
             public BinaryTree (){
-                    this(null,null,null,null);
+                    this(null,0,null,null,null);
             }
-   // ------------------------------------------------------------------
-   // static methods
-   // ------------------------------------------------------------------
-
             //Converts a tree in String format to BinaryTree format
-            public BinaryTree(T tree){
-                    this(tree,null,null,null);
-                    String treeline = (String)tree;
-                    if(!treeline.equals("")) {
-                        int i = 0; //index
-                        int bcnt = 0; //bracket count
 
-                        if (treeline.charAt(treeline.length() - 1) == ';') { //remove ; of initial tree
-                            treeline = treeline.substring(0, treeline.length() - 1);
-                        }
+    /**
+     * TODO: fix (does not create tree correctly)
+     * @param tree
+     */
+    public BinaryTree(T tree){
+            this(tree,0,null,null,null);
+            String treeline = (String)tree;
+            if(!treeline.equals("")) {
+                int i = 0; //index
+                int bcnt = 0; //bracket count
 
-                        while (i < treeline.length()) {
-                            if (treeline.charAt(i) == '(') { //open bracket
-                                bcnt++;
-                            } else if (treeline.charAt(i) == ')') { //close bracket
-                                bcnt--;
-                                if (bcnt == 1 && treeline.charAt(i + 1) == ',') { //if close bracket is end of left subtree
-                                    this.addLeft(new BinaryTree<T>((T) treeline.substring(1, i + 1)));    //split on comma - up 1 char from ')'
-                                    this.addRight(new BinaryTree<T>((T) treeline.substring(i + 2, treeline.length() - 1)));
-                                    this.left().addParent(this);
-                                    this.right().addParent(this);
-                                }//end if
-                            } else if (treeline.charAt(i) == ',') { //comma
-                                if (bcnt == 1) {        //if this comma separates outer subtrees
-                                    this.addLeft(new BinaryTree<T>((T) treeline.substring(1, i)));            //split on comma
-                                    this.addRight(new BinaryTree<T>((T) treeline.substring(i + 1, treeline.length() - 1)));
-                                    this.left().addParent(this);        //assign parent to left and right tree
-                                    this.right().addParent(this);
-                                }//end if
-                            } else if (bcnt == 0) { //if there are no other elements (only sequence)
-                                this.data = (T) treeline;
-                            }
-                            i++;
-                        }//end while
+                if (treeline.charAt(treeline.length() - 1) == ';') { //remove ; of initial tree
+                    treeline = treeline.substring(0, treeline.length() - 1);
+                }
+
+                while (i < treeline.length()) {
+                    if (treeline.charAt(i) == '(') { //open bracket
+                        bcnt++;
+                    } else if (treeline.charAt(i) == ')') { //close bracket
+                        bcnt--;
+                        if (bcnt == 1 && treeline.charAt(i + 1) == ',') { //if close bracket is end of left subtree
+                            this.addLeft(new BinaryTree<T>((T) treeline.substring(1, i + 1)));    //split on comma - up 1 char from ')'
+                            this.addRight(new BinaryTree<T>((T) treeline.substring(i + 2, treeline.length() - 1)));
+                            this.left().addParent(this);
+                            this.right().addParent(this);
+                        }//end if
+                    } else if (treeline.charAt(i) == ',') { //comma
+                        if (bcnt == 1) {        //if this comma separates outer subtrees
+                            this.addLeft(new BinaryTree<T>((T) treeline.substring(1, i)));            //split on comma
+                            this.addRight(new BinaryTree<T>((T) treeline.substring(i + 1, treeline.length() - 1)));
+                            this.left().addParent(this);        //assign parent to left and right tree
+                            this.right().addParent(this);
+                        }//end if
+                    } else if (bcnt == 0) { //if there are no other elements (only sequence)
+                        this.data = (T) treeline;
                     }
+                    i++;
+                }//end while
             }
+        assignDepth(this,0);
+    }
 
-            public BinaryTree<String> find(String name){
-                return find((BinaryTree<String>)this,name);
+    private BinaryTree<T> generateTree(String treeline){
+        BinaryTree<T> tree = new BinaryTree<>();
+        int i=0; //index
+        int bcnt=0; //bracket count
+
+        if(treeline.charAt(treeline.length()-1)==';'){ //remove ; of initial tree
+            treeline=treeline.substring(0,treeline.length()-1);
+        }
+
+        while(i<treeline.length()){
+            if(treeline.charAt(i)=='('){ //open bracket
+                bcnt++;
             }
-            private BinaryTree<String> find(BinaryTree<String> root, String name){
-                BinaryTree<String> tree = new BinaryTree<>();
+            else if(treeline.charAt(i)==')'){ //close bracket
+                bcnt--;
+                if(bcnt==1&&treeline.charAt(i+1)==','){ //if close bracket is end of left subtree
+                    tree.addLeft(generateTree(treeline.substring(1,i+1)));	//split on comma - up 1 char from ')'
+                    tree.addRight(generateTree(treeline.substring(i+2,treeline.length()-1)));
+                    tree.left().addParent(tree);
+                    tree.right().addParent(tree);
+                    return tree;
+                }//end if
+            }
+            else if (treeline.charAt(i)==','){ //comma
+                if(bcnt==1){		//if this comma separates outer subtrees
+                    tree.addLeft(generateTree(treeline.substring(1,i)));			//split on comma
+                    tree.addRight(generateTree(treeline.substring(i+1,treeline.length()-1)));
+                    tree.left().addParent(tree);		//assign parent to left and right tree
+                    tree.right().addParent(tree);
+                    return tree;
+                }//end if
+            }
+            else if(bcnt==0){ //if there are no other elements (only sequence)
+                tree.setData((T)treeline);
+                return tree;
+            }
+            i++;
+        }//end while
+        return tree;
+    }
+
+            public BinaryTree<T> find(String name){
+                return find(this,name);
+            }
+            private BinaryTree<T> find(BinaryTree<T> root, String name){
+                BinaryTree<T> tree = new BinaryTree<>();
                 
                 if(root!=null){
-                        if(root.toString().equals(name)){
+                        if(root.toString().equals(name)
+                                ||root.toStringWithID().equals(name)
+                                ||root.getData().equals(name)){
                                 return root;
                         }
                         else{
                                 tree=find(root.left(), name);
-                                if(tree.toString().equals(name)){
+                                if(tree!=null){
                                     return tree;
                                 }
                                 else{
@@ -93,21 +145,23 @@ public class BinaryTree<T> implements Cloneable {
                                 }
                         }
                 }
-                return tree;
+                return root;
         }
             
             //Reroot a tree around a node of the tree, keeping topology
             public BinaryTree<T> reroot(BinaryTree<T> node){
-                return reroot(this,node);
+                BinaryTree<T> rerootedTree = reroot(this,node);
+                assignDepth(rerootedTree,0);
+                return rerootedTree;
             }
             private BinaryTree<T> reroot(BinaryTree<T> root, BinaryTree<T> node){
 
-                    boolean con = contains(root, node);
-                    if(!con){
-                    	throw new IndexOutOfBoundsException("NOT FOUND");
-                    }
                     if(node==root.right()||node==root.left()||node==root){
                         return root;
+                    }
+                    boolean con = contains(root, node);
+                    if(!con){
+                        throw new IndexOutOfBoundsException("NOT FOUND");
                     }
 
                     BinaryTree<T> newtree = new BinaryTree<T>();		//new tree root for construction
@@ -166,10 +220,27 @@ public class BinaryTree<T> implements Cloneable {
                     return c;
                 }
             }//end contains
-            
+
+    /**
+     *
+     * @return root, for chaining of commands
+     */
+    public BinaryTree<T> assignDepth(){
+        assignDepth(this,0);
+        return this;
+    }
+
     // ------------------------------------------------------------------
     // private methods
     // ------------------------------------------------------------------
+
+    private void assignDepth(BinaryTree<T> root, int depth) {
+        if (root != null) {
+            root.depth = depth;
+            assignDepth(root.left(), depth + 1);
+            assignDepth(root.right(), depth + 1);
+        }
+    }//end contains
 
     // post-order traversal of tree taking in the nodes' data and accompanying symbols
         private void LRNIterator(BinaryTree<T> root, T opensym, T closesym, T sepsym){
@@ -206,23 +277,41 @@ public class BinaryTree<T> implements Cloneable {
                 iterator.add(root);
             }
         }
+        private void LRNDepthIterator(BinaryTree<T> root, Map<T,Integer> iterator){
+            if (root != null){
+                LRNDepthIterator(root.left(),iterator);
+                LRNDepthIterator(root.right(),iterator);
+                iterator.put(root.getData(),root.depth);
+            }
+        }
+        public boolean isNumber(T value){
+            String strValue = (String) value;
+            try{
+                Long.parseLong(strValue);
+                return true;
+            }catch(NumberFormatException e){
+                return false;
+            }
+        }
         //string iterator with defined symbols and used for toString()
-        private String stringLRNIterator(BinaryTree<T> root){
+        private String stringLRNIterator(BinaryTree<T> root, boolean withID){
                 String strit="";
                 if(root!=null){
-                        if(root.getData()==""||root.getData()=="X"){
+                        if(root.getData()==""||root.getData()=="X"||isNumber(root.getData())){
                                 strit+="(";
-                                strit+=stringLRNIterator(root.left());
+                                strit+=stringLRNIterator(root.left(),withID);
                                 strit+=",";
-                                strit+=stringLRNIterator(root.right());
+                                strit+=stringLRNIterator(root.right(),withID);
                                 strit+=")";
+                                if(withID&&isNumber(root.getData()))
+                                    strit+="_"+(String)root.getData();
                                 return strit;
                         }
                         else if(root.getData()!=null&&root.getData().toString().charAt(0)==':'){
                             strit+="(";
-                            strit+=stringLRNIterator(root.left());
+                            strit+=stringLRNIterator(root.left(),withID);
                             strit+=",";
-                            strit+=stringLRNIterator(root.right());
+                            strit+=stringLRNIterator(root.right(),withID);
                             strit+=")";
                             strit+=(String)root.getData();
                             return strit;
@@ -241,33 +330,6 @@ public class BinaryTree<T> implements Cloneable {
     // ------------------------------------------------------------------
     // public methods
     // ------------------------------------------------------------------
-            
-    //superficial copy
-    public BinaryTree<T> copy(){
-            return new BinaryTree<T>(data, pt, lt, rt);
-    }
-
-    //untested
-    public BinaryTree<T> deepCopy(){
-        // only deep copy for nodes below this one
-        BinaryTree<T> p = null;
-        if (pt!=null)
-            p = pt.copy();
-        BinaryTree<T> l = new BinaryTree<>();
-        BinaryTree<T> r = new BinaryTree<>();
-        BinaryTree<T> bt = new BinaryTree<T>(data);
-        if(lt!=null){
-                l = lt.copy();
-                bt.addLeft(l.deepCopy());
-        }
-        if(rt!=null){
-                r = rt.copy();
-                bt.addRight(r.deepCopy());
-        }
-        bt.addParent(p);
-
-        return bt;
-    }
 
     // Return the parent of a tree
     public BinaryTree<T> parent() {
@@ -292,7 +354,7 @@ public class BinaryTree<T> implements Cloneable {
     } // addLeft
 
     // Add a left subtree to a node
-    public void addLeft (BinaryTree<T> left){	
+    public void addLeft (BinaryTree<T> left){
             if (lt != null)
                     throw new UnsupportedOperationException("subtree already present");
             lt = left;
@@ -331,22 +393,28 @@ public class BinaryTree<T> implements Cloneable {
             data=value;
     }
 
-    //generate an iterator of left-right-node traversal (with designated symbols)
+    //generate an iterator of nodes using left-right-node traversal (with designated symbols)
     public List<T> getLRNIterator(T opensym, T closesym, T sepsym){
             iterator = new LinkedList<>();
             LRNIterator(this, opensym, closesym, sepsym);
             return iterator;
     }
-    //generate an iterator of left-right-node traversal (without designated symbols)
+    //generate an iterator of nodes using left-right-node traversal (without designated symbols)
     public List<T> getLRNIterator(){
             iterator = new LinkedList<>();
             LRNIterator(this);
             return iterator;
     }
-    //generate an iterator of left-right-node traversal (without designated symbols)
+    //generate an iterator of sub-trees using left-right-node traversal (without designated symbols)
     public List<BinaryTree<T>> getFullNodeIterator(){
         List<BinaryTree<T>> iterator = new LinkedList<>();
         LRNFullNodeIterator(this,iterator);
+        return iterator;
+    }
+    //generate an iterator of depths using left-right-node traversal (without designated symbols)
+    public Map<T,Integer> getLRNDepthIterator(){
+        Map<T,Integer> iterator = new HashMap<>();
+        LRNDepthIterator(this,iterator);
         return iterator;
     }
 
@@ -373,13 +441,32 @@ public class BinaryTree<T> implements Cloneable {
     //uses string iterator
     public String toString() {
             StringBuilder builder = new StringBuilder();
-            builder.append(stringLRNIterator(this));
+            builder.append(stringLRNIterator(this,false));
             return builder.toString();
     }
+    public String toStringWithID() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(stringLRNIterator(this,true));
+        return builder.toString();
+    }
 
-    //attempt to clone tree (should be typecasted when used)
-    protected Object clone() throws CloneNotSupportedException {
-    return super.clone();
+    protected BinaryTree<T> clone() throws CloneNotSupportedException {
+        return (BinaryTree<T>) super.clone();
+    }
+
+    protected BinaryTree<T> deepClone(){
+        try{
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(this);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            return (BinaryTree<T>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 	
 } // class BinaryTree
