@@ -131,7 +131,9 @@ public class BinaryTree<T> implements Cloneable,Serializable {
                 if(root!=null){
                         if(root.toString().equals(name)
                                 ||root.toStringWithID().equals(name)
-                                ||root.getData().equals(name)){
+                                ||root.getData().equals(name)
+                                ||(root.getData() instanceof String && ((String)root.getData()).contains(name)))//multiple equal-length leaf sequences
+                        {
                                 return root;
                         }
                         else{

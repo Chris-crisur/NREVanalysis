@@ -468,7 +468,8 @@ public class TreeReroots {
             int underBtree = countUnderscores(btree.toStringWithID());
             int under=0;
             for(String s: names){
-                    node = findNameInTree(btree, s); 			//find node
+                    //node = findNameInTree(btree, s); 			//find node
+                    node=btree.find(s);
                     no=node.toString();							//keep node as string in memory
                     bts=btree.toString();						//keep tree as string in memory
                     root=reroot(btree,node);					//reroot tree
@@ -710,7 +711,7 @@ public class TreeReroots {
 
 
             assignLike(node, originalTree, binaryTreeList, finalLike);
-            finalTrees.add(tree);
+            finalTrees.add(node.toString());
             io.setProg((prog++*100)/indexArray.size());
       }
       io.setLogFile(oldLog);
@@ -720,8 +721,6 @@ public class TreeReroots {
     }
 
 
-    int assigned = 0;
-    int local_assign=0;
     /**
      * Likelihood values are assigned to the originalTree.
      *  The original originalTree is used and then a copy rerooted on the node to compare to the list of trees already rerooted.
@@ -741,6 +740,9 @@ public class TreeReroots {
         Map<String,Integer> mapNode = nodeCleanDeep.assignDepth().getLRNDepthIterator();
         Map<String,Integer> mapOrigTree = originalTree.assignDepth().getLRNDepthIterator();
 
+
+        int nSequences = (getEmptyTree(node.toString().toCharArray()).split(",")).length;
+
         // assign all values
         for(int i=0;i<binaryTreeList.size();i++){	//run through the list of trees
             boolean extraDepth=true;
@@ -758,130 +760,27 @@ public class TreeReroots {
             if(temp!=null&&temp.getData()!=null){
                 if(isNumber(temp.getData()))
                     // current data is unique identifier
-                    if(extraDepth)
-                        if(temp.right().right()!=null)
-                            temp.right().right().setData(":" + values[i]);
-                        else
+                    if(extraDepth) {
+                        if (temp.right().right() != null) {
+                            if (!isNumber(temp.right().right().getData()))
+                                // terminal/leaf
+                                temp.right().right().setData(temp.right().right().getData() + ":" + values[i]);
+                            else
+                                temp.right().right().setData(":" + values[i]);
+                        }else {
                             temp.setData(":" + values[i]);
-                    else
+                        }
+                    }else {
                         temp.right().setData(":" + values[i]);
+                    }
                 else
                     // data is just sequence
                     temp.setData(temp.getData() + ":" + values[i]);
-                assigned++;
             }
+            int nNames = (getEmptyTree(node.toString().toCharArray()).split(",")).length;
+            if(nSequences!=nNames)
+                System.exit(-1);
         }
-
-//        // assign all values
-//        for(int i=0;i<binaryTreeList.size();i++){	//run through the list of trees
-//            BinaryTree<String> tree = binaryTreeList.get(i);
-//            // check
-//            BinaryTree<String> temp = node.find(tree.getData());
-//            if(temp==null||tree.getData()==null){
-//                nullFinds.add(tree);
-//                nullFindsStr.put(tree.toStringWithID(),values[i]);
-//            }
-//            if(temp!=null&&temp.getData()!=null){
-//                if(isNumber(temp.getData()))
-//                    // current data is unique identifier
-//                    temp.setData(":" + values[i]);
-//                else
-//                    // data is just sequence
-//                    temp.setData(temp.getData() + ":" + values[i]);
-//                assigned++;
-//            }
-//        }
-//        // have a smaller collection of roots that couldn't be found easily from `node`
-//        List<String> nodesData = node.getLRNIterator();             // get node values
-//        List<BinaryTree<String>> nodesFullData = node.getFullNodeIterator();             // get node values
-//        List<BinaryTree<String>> nodesFullClean = nodeClean.getFullNodeIterator();   // get full nodes (empty versions)
-//        List<BinaryTree<String>> nodesFullOriginal = originalTree.getFullNodeIterator();   // get full nodes (original versions)
-//        // assign most parent branch nodes
-//        for (int i = 0, nodesDataSize = nodesData.size(); i < nodesDataSize; i++) {
-//            String nodeData = nodesData.get(i);
-//            //if(nodeData.equals("")||isNumber(nodeData)){
-//                // node does not have an assigned value
-//                BinaryTree<String> nodeCleanCopy = nodeClean.deepClone();
-//                // get corresponding full (clean) node
-//                BinaryTree<String> fullNode = nodesFullClean.get(i);
-//                String fullNodeStr = fullNode.toString();
-//                BinaryTree<String> origTreeNode=null;
-//                int index=-1;
-//                // create copy of original tree (for rerooting with no side-effects)
-//                BinaryTree<String> origTreeCopy = originalTree.deepClone();
-//                // and get full nodes
-//                nodesFullOriginal = origTreeCopy.getFullNodeIterator();
-//
-//                mapNode = fullNode.assignDepth().getLRNDepthIterator();
-//
-//                for (int i1 = 0, nodesFullSize = nodesFullOriginal.size(); i1 < nodesFullSize; i1++) {
-//                    // find corresponding full node from original tree
-//                    origTreeNode = nodesFullOriginal.get(i1);
-//                    mapOrigTree = origTreeNode.assignDepth().getLRNDepthIterator();
-//                    if (origTreeNode.toString().equals(fullNodeStr)) {
-//                        index=i1;
-//                        break;
-//                    }
-//                }
-//                if(index==-1) {
-//                    io.logError("ISSUE! index==-1\n"+fullNodeStr);
-//                }else {
-//                    // reroot using (copy of) original tree for same rerooting result as would have been done originally
-//                    BinaryTree<String> temptree = reroot(origTreeCopy, origTreeNode);
-//                    if (temptree == null) {
-//                        io.logError("ISSUE! temptree==null");
-//                    } else {
-//                        boolean contain = nullFindsStr.keySet().contains(temptree.toStringWithID());
-//                        if (!contain) {
-//                            io.logError("ISSUE! !contain");
-//                        } else {
-//                            double value = nullFindsStr.get(temptree.toString());
-//                            nodesFullData.get(i).setData(":" + value);
-//                            nodesData.set(i, ":" + value);
-//                            assigned++;
-//                        }
-//                    }
-//                }
-//            //}
-//        }
-        // remaining
-            /*
-    		BinaryTree<String> treeCopy = generateTree(originalTree); //originalTree musn't be changed in reroot, hence copy used
-            checkGeneratedTree(treeCopy,originalTree);
-	    	BinaryTree<String> temptree = reroot(treeCopy,findNameInTree(treeCopy,node.toString()));//findNameInTree has node hierarchies required for reroot
-            BinaryTree<String> nodePt = null;
-			if(temptree.getData().equals("NOT FOUND")) {
-			    nodePt = node;
-			    checkGeneratedTree(nodePt,node.toString());
-			    while(nodePt.parent()!=null){
-			        nodePt = nodePt.parent();
-                }
-                // remove numbers
-                //nodePt= generateTree(getNameTree((nodePt.toString()+';').toCharArray()));
-                //temptree = reroot(nodePt,findNameInTree(nodePt,getNameTree((node.toString()+';').toCharArray())));
-                /*
-                try {
-                    int index = trees.indexOf(node.toString());
-                    node.setData(node.getData() + ":" + values[index]);
-                    assigned++;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    io.logError(e.getMessage());
-                }
-                *//*
-            }
-            boolean contained = trees.contains(temptree.toString());
-            for(int i=0;i<trees.size();i++){	//run through the list of trees
-                if(temptree.toString().equals(trees.get(i))){	//until the temporary originalTree (rerooted) is the same as an already rooted originalTree
-                    node.setData(node.getData()+":"+values[i]);	//this gives us the index of the value to assign
-                    assigned++;
-                    break;//no need to go further
-                }
-            }
-            */
-            local_assign++;
-			  //assignLike(originalTree,node.left(),trees,binaryTreeList,values);	//assign values to left branch
-			 // assignLike(originalTree,node.right(),trees,binaryTreeList,values);	//assign values to right branch
-
 
     }
     
@@ -910,21 +809,6 @@ public class TreeReroots {
      */
     public final void run(){
         try{
-            //BinaryTree<String> a = generateTree("((Alkjf,Bnbmv),(Calkj,(Daksj,Eafkj)));",true);
-            BinaryTree<String> g = generateTree("((A,B)_1483086422671,(C,(D,E)_2483086466672)_3483086456203)_4483086422674");
-            BinaryTree<String> node = findNameInTree(g,"Alkjf");
-
-            Set<String> roots = allReroots(g,getEmptyTree(g.toString().toCharArray()).split(","));
-            double [] values = {1,2,3,4,5,6,7};
-            List<BinaryTree<String>> binaryRoots = new LinkedList<>();
-            for(String root:roots){
-                binaryRoots.add(generateTree(root));
-            }
-            assignLike(binaryRoots.get(0),g,binaryRoots,values);
-            //BinaryTree<String> g = generateTree("((BAJDDAGIGA,(BAJDDAGIGD,(BAJDDAGIGC,BAJDDAGIGB)_1483089943517)_1483089943513)_1483089943511,((BAJDDAGIJB,BAJDDAGIJA)_1483089943520,((BAJDDAGIGE,(BAJDDAGIIJ,(BAJDDAGIII,(BAJDDAGIIH,BAJDDAGIIG)_1483089943530)_1483089943528)_1483089943525)_1483089943523,(((BAJDDAGJBI,BAJDDAGJBH)_1483089943535,((BAJDDAGJCF,BAJDDAGJCE)_1483089943539,(BAJDDAGJCD,BAJDDAGIJC)_1483089943543)_1483089943538)_1483089943534,((BAJDDAGJBJ,(BAJDDAGJCA,(BAJDDAGJCC,BAJDDAGJCB)_1483089943551)_1483089943549)_1483089943547,(BAJDDAGIJD,(BAJDDAGIJF,BAJDDAGIJE)_1483089943557)_1483089943554)_1483089943546)_1483089943533)))");
-//((Alkjf,Bnbmv)_1483086422678,(Calkj,(Daksj,Eafkj)_1483086466671)_1483086456206)_1483086422677
-            if(true)
-                throw new Exception();
             long start_time_total=System.currentTimeMillis();
             long timebefore;
             boolean avail =true; //files available
@@ -1135,8 +1019,6 @@ public class TreeReroots {
                 }
 
                 List<String> finalTree = optimalTreeGenerator(currentAlignment,reroots, btree, OUT);
-                if(true)
-                    break;
                 List<String> keyList = new ArrayList<>();
                 keyList.addAll(replacements.get(r).keySet());
                 String treeReplace="";
@@ -1146,7 +1028,7 @@ public class TreeReroots {
                         treeReplace=treeReplace.replace(keyList.get(k), replacements.get(r).get(keyList.get(k)));
                     }
                     //finalTree.remove(f);
-                    //finalTree.add(treeReplace); //aletrnate instead of set
+                    //finalTree.add(treeReplace); //alternative instead of set
                     finalTree.set(f,treeReplace);
                 }
 
@@ -1160,7 +1042,7 @@ public class TreeReroots {
                     File alignmentFile = new File(path+"Input"+File.separator+alignments.get(r));
                     File treeFileDel = new File(path+"Input"+File.separator+currentAlignment);
 
-                    Files.copy(bakFile.toPath(),new File(path+"Output"+File.separator+alignments.get(r)).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(bakFile.toPath(),new File(path+"Output"+File.separator+name+File.separator+alignments.get(r)).toPath(), StandardCopyOption.REPLACE_EXISTING);
                     rootFile.delete();
                     bakFile.delete();
                     codeFile.delete();
@@ -1177,7 +1059,7 @@ public class TreeReroots {
             double time_total=(System.currentTimeMillis()-start_time_total)/1000;
             io.Log("Completed in " + time_total + " seconds");
         }catch(Exception e){
-            io.Display("Unforeseen error in run, program has been halted: \n" + e);
+            io.Display("Unforeseen error in run, program has been halted: \n" + e.getStackTrace().toString());
             e.printStackTrace();
             System.exit(-1);
         }
